@@ -1,14 +1,33 @@
-import { Browser } from "@/components/Browser";
 import { Column } from "@/components/Column";
-import { MainContainer } from "@/components/MainContainer";
 import { css } from "@emotion/react";
+import { GetServerSideProps } from "next";
 import { Noto_Sans_JP } from "next/font/google";
+import { client } from "../libs/apolloClient";
+import { graphql } from "../libs/gql";
 
 const notoSansJP = Noto_Sans_JP({
   // Japanese font needs this settings, as index.d.ts doesn't allow subsets = japanese, which is probably due to the large size of japanese font
   preload: false, // removing this will cause error for missing subsets
   display: "swap", // removing this will unapplied japanese font, BUT THIS CAUSES LAYOUT SHIFT...!!!
 });
+
+const queryDefinition = graphql(/* GraphQL */ `
+  query IndexPage {
+    markdown {
+      ...MarkdownFragment
+    }
+  }
+`);
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data } = await client.query({
+    query: queryDefinition,
+  });
+
+  return {
+    props: data,
+  };
+};
 
 export default function Home() {
   return (
