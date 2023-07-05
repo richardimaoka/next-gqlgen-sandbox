@@ -7,6 +7,7 @@ import { graphql } from "../libs/gql";
 import { IndexPageQuery } from "@/libs/gql/graphql";
 import { MarkdownView } from "@/components/MarkdownView";
 import { VerticalFrame } from "@/components/VerticalFrame";
+import { ImageCentered } from "@/components/ImageCentered";
 
 const notoSansJP = Noto_Sans_JP({
   // Japanese font needs this settings, as index.d.ts doesn't allow subsets = japanese, which is probably due to the large size of japanese font
@@ -43,15 +44,11 @@ export default function Home({ markdown }: IndexPageQuery) {
       >
         <Column position="middle">
           {markdown && <MarkdownView fragment={markdown} />}
-          {markdown && <MarkdownView fragment={markdown} />}
-          {markdown && <MarkdownView fragment={markdown} />}
-          {markdown && <MarkdownView fragment={markdown} />}
-          {markdown && <MarkdownView fragment={markdown} />}
-          {markdown && <MarkdownView fragment={markdown} />}
-          {markdown && <MarkdownView fragment={markdown} />}
-          {markdown && <MarkdownView fragment={markdown} />}
-          {markdown && <MarkdownView fragment={markdown} />}
-          {markdown && <MarkdownView fragment={markdown} />}
+          <ImageCentered
+            src="/images/sign-in-button.png"
+            width={171}
+            height={38}
+          />
         </Column>
         <Column position="top">
           <div
