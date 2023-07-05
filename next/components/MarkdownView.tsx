@@ -4,9 +4,23 @@ import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
 import { css } from "@emotion/react";
-import { Fragment, createElement, useEffect, useState } from "react";
 import { dark1MainBg, dark5, gray, themeBlue, white } from "../libs/colorTheme";
 import { FragmentType, graphql, useFragment } from "../libs/gql";
+import React, { ComponentType, ReactNode, useEffect, useState } from "react";
+
+interface PProps {
+  children?: ReactNode; //children needs to be optional, otherwise, type error in rehype-react's components argument
+}
+
+const P = (props: PProps) => (
+  <p
+    css={css`
+      text-align: center;
+    `}
+  >
+    {props.children}
+  </p>
+);
 
 const MarkdownFragment = graphql(`
   fragment MarkdownFragment on Markdown {
@@ -27,7 +41,13 @@ export const MarkdownView = (props: MarkdownViewProps): JSX.Element => {
       unified()
         .use(remarkParse)
         .use(remarkRehype)
-        .use(rehypeReact, { createElement, Fragment })
+        .use(rehypeReact, {
+          createElement: React.createElement,
+          Fragment: React.Fragment,
+          components: {
+            p: P,
+          },
+        })
         .process(fragment.contents)
         .then((file) => {
           setMdElem(file.result as JSX.Element);

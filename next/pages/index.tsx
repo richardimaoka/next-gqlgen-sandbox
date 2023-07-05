@@ -1,13 +1,12 @@
 import { Column } from "@/components/Column";
+import { ImageCentered } from "@/components/ImageCentered";
+import { MarkdownView } from "@/components/MarkdownView";
+import { IndexPageQuery } from "@/libs/gql/graphql";
 import { css } from "@emotion/react";
 import { GetServerSideProps } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import { client } from "../libs/apolloClient";
 import { graphql } from "../libs/gql";
-import { IndexPageQuery } from "@/libs/gql/graphql";
-import { MarkdownView } from "@/components/MarkdownView";
-import { VerticalFrame } from "@/components/VerticalFrame";
-import { ImageCentered } from "@/components/ImageCentered";
 
 const notoSansJP = Noto_Sans_JP({
   // Japanese font needs this settings, as index.d.ts doesn't allow subsets = japanese, which is probably due to the large size of japanese font
