@@ -21,6 +21,12 @@ func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
 	panic(fmt.Errorf("not implemented: Todos - todos"))
 }
 
+// Markdown is the resolver for the markdown field.
+func (r *queryResolver) Markdown(ctx context.Context) (*model.Markdown, error) {
+	contents := ""
+	return &model.Markdown{Contents: &contents}, nil
+}
+
 // Mutation returns MutationResolver implementation.
 func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
 

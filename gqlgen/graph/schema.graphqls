@@ -20,6 +20,7 @@ type User {
 
 type Query {
   todos: [Todo!]!
+  markdown: Markdown
 }
 
 input NewTodo {

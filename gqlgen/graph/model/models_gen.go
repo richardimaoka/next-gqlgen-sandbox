@@ -2,6 +2,10 @@
 
 package model
 
+type Markdown struct {
+	Contents *string `json:"contents,omitempty"`
+}
+
 type NewTodo struct {
 	Text   string `json:"text"`
 	UserID string `json:"userId"`
