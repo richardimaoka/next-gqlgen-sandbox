@@ -41,24 +41,19 @@ export default function Home({ markdown }: IndexPageQuery) {
           gap: 16px;
         `}
       >
-        <Column>
-          <VerticalFrame position="middle">
-            {markdown && <MarkdownView fragment={markdown} />}
-            {markdown && <MarkdownView fragment={markdown} />}
-            {markdown && <MarkdownView fragment={markdown} />}
-            {markdown && <MarkdownView fragment={markdown} />}
-            {markdown && <MarkdownView fragment={markdown} />}
-            {markdown && <MarkdownView fragment={markdown} />}
-            {markdown && <MarkdownView fragment={markdown} />}
-            {markdown && <MarkdownView fragment={markdown} />}
-            {markdown && <MarkdownView fragment={markdown} />}
-            {markdown && <MarkdownView fragment={markdown} />}
-            {markdown && <MarkdownView fragment={markdown} />}
-            {markdown && <MarkdownView fragment={markdown} />}
-            {markdown && <MarkdownView fragment={markdown} />}
-          </VerticalFrame>
+        <Column position="middle">
+          {markdown && <MarkdownView fragment={markdown} />}
+          {markdown && <MarkdownView fragment={markdown} />}
+          {markdown && <MarkdownView fragment={markdown} />}
+          {markdown && <MarkdownView fragment={markdown} />}
+          {markdown && <MarkdownView fragment={markdown} />}
+          {markdown && <MarkdownView fragment={markdown} />}
+          {markdown && <MarkdownView fragment={markdown} />}
+          {markdown && <MarkdownView fragment={markdown} />}
+          {markdown && <MarkdownView fragment={markdown} />}
+          {markdown && <MarkdownView fragment={markdown} />}
         </Column>
-        <Column>
+        <Column position="top">
           <div
             css={css`
               flex-shrink: 0;
