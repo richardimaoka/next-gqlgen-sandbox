@@ -2,6 +2,10 @@
 #
 # https://gqlgen.com/getting-started/
 
+type Markdown {
+  contents: String
+}
+
 type Todo {
   id: ID!
   text: String!

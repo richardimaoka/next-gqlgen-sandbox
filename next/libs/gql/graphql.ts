@@ -29,6 +29,11 @@ export type Scalars = {
   Float: { input: number; output: number };
 };
 
+export type Markdown = {
+  __typename: "Markdown";
+  contents?: Maybe<Scalars["String"]["output"]>;
+};
+
 export type Mutation = {
   __typename: "Mutation";
   createTodo: Todo;
@@ -62,24 +67,27 @@ export type User = {
   name: Scalars["String"]["output"];
 };
 
-export type SampleViewFragment = { __typename: "Todo"; id: string } & {
-  " $fragmentName"?: "SampleViewFragment";
-};
+export type MarkdownFragmentFragment = {
+  __typename: "Markdown";
+  contents?: string | null;
+} & { " $fragmentName"?: "MarkdownFragmentFragment" };
 
-export const SampleViewFragmentDoc = {
+export const MarkdownFragmentFragmentDoc = {
   kind: "Document",
   definitions: [
     {
       kind: "FragmentDefinition",
-      name: { kind: "Name", value: "SampleView" },
+      name: { kind: "Name", value: "MarkdownFragment" },
       typeCondition: {
         kind: "NamedType",
-        name: { kind: "Name", value: "Todo" },
+        name: { kind: "Name", value: "Markdown" },
       },
       selectionSet: {
         kind: "SelectionSet",
-        selections: [{ kind: "Field", name: { kind: "Name", value: "id" } }],
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "contents" } },
+        ],
       },
     },
   ],
-} as unknown as DocumentNode<SampleViewFragment, unknown>;
+} as unknown as DocumentNode<MarkdownFragmentFragment, unknown>;

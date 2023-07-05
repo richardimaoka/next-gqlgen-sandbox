@@ -13,8 +13,8 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  "\n  fragment SampleView on Todo {\n    id\n  }\n":
-    types.SampleViewFragmentDoc,
+  "\n  fragment MarkdownFragment on Markdown {\n    contents\n  }\n":
+    types.MarkdownFragmentFragmentDoc,
 };
 
 /**
@@ -35,8 +35,8 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  fragment SampleView on Todo {\n    id\n  }\n"
-): (typeof documents)["\n  fragment SampleView on Todo {\n    id\n  }\n"];
+  source: "\n  fragment MarkdownFragment on Markdown {\n    contents\n  }\n"
+): (typeof documents)["\n  fragment MarkdownFragment on Markdown {\n    contents\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
