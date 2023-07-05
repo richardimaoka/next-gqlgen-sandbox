@@ -4,6 +4,8 @@ import { GetServerSideProps } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import { client } from "../libs/apolloClient";
 import { graphql } from "../libs/gql";
+import { IndexPageQuery } from "@/libs/gql/graphql";
+import { MarkdownView } from "@/components/MarkdownView";
 
 const notoSansJP = Noto_Sans_JP({
   // Japanese font needs this settings, as index.d.ts doesn't allow subsets = japanese, which is probably due to the large size of japanese font
@@ -29,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-export default function Home() {
+export default function Home({ markdown }: IndexPageQuery) {
   return (
     <div className={notoSansJP.className}>
       <div
@@ -38,42 +40,13 @@ export default function Home() {
           gap: 16px;
         `}
       >
+        <Column>{markdown && <MarkdownView fragment={markdown} />}</Column>
         <Column>
           <div
             css={css`
               flex-shrink: 0;
               width: 800px;
               height: 1000px;
-              background-color: #f0f0f0;
-            `}
-          />
-        </Column>
-        <Column>
-          <div
-            css={css`
-              flex-shrink: 0;
-              width: 1000px;
-              height: 1800px;
-              background-color: #f0f0f0;
-            `}
-          />
-        </Column>
-        <Column>
-          <div
-            css={css`
-              flex-shrink: 0;
-              width: 800px;
-              height: 1000px;
-              background-color: #f0f0f0;
-            `}
-          />
-        </Column>
-        <Column>
-          <div
-            css={css`
-              flex-shrink: 0;
-              width: 900px;
-              height: 1200px;
               background-color: #f0f0f0;
             `}
           />

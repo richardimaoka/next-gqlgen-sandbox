@@ -5,7 +5,7 @@ import { unified } from "unified";
 
 import { css } from "@emotion/react";
 import { Fragment, createElement, useEffect, useState } from "react";
-import { dark1MainBg, dark5, gray, themeBlue } from "../libs/colorTheme";
+import { dark1MainBg, dark5, gray, themeBlue, white } from "../libs/colorTheme";
 import { FragmentType, graphql, useFragment } from "../libs/gql";
 
 const MarkdownFragment = graphql(`
@@ -42,32 +42,38 @@ export const MarkdownView = (props: MarkdownViewProps): JSX.Element => {
       font-size: 32px;
       font-weight: 700;
       margin: 21px 0px;
+      color: ${white};
     }
 
     h2 {
       font-size: 24px;
       font-weight: 700;
       margin: 19px 0px;
+      color: ${white};
     }
 
     h3 {
       font-size: 18px;
       font-weight: 700;
       margin: 18px 0px;
+      color: ${white};
     }
 
     p {
       font-size: 14px;
       margin: 16px 0px;
+      color: ${white};
     }
 
     ul {
       margin: 16px 0px;
+      color: ${white};
     }
 
     ul > li {
       font-size: 14px;
       margin: 4px 0px;
+      color: ${white};
     }
 
     code {

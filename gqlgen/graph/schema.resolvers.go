@@ -23,7 +23,9 @@ func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
 
 // Markdown is the resolver for the markdown field.
 func (r *queryResolver) Markdown(ctx context.Context) (*model.Markdown, error) {
-	contents := ""
+	contents := `Googleのサービスで、
+
+**「素早く」「簡単に」** 認証を導入！`
 	return &model.Markdown{Contents: &contents}, nil
 }
 
