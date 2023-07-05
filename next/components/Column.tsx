@@ -16,6 +16,7 @@ export const Column = ({ children }: ColumnProps) => (
       css={css`
         @media (max-width: 768px) {
           width: 100vw;
+          height: 100vh;
         }
         width: 768px;
         overflow-x: scroll;
