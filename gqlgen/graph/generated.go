@@ -72,6 +72,11 @@ type ComplexityRoot struct {
 		Contents  func(childComplexity int) int
 	}
 
+	MarkdownColumn struct {
+		Markdown    func(childComplexity int) int
+		Placeholder func(childComplexity int) int
+	}
+
 	Modal struct {
 		Position func(childComplexity int) int
 		Text     func(childComplexity int) int
@@ -212,6 +217,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Markdown.Contents(childComplexity), true
+
+	case "MarkdownColumn.markdown":
+		if e.complexity.MarkdownColumn.Markdown == nil {
+			break
+		}
+
+		return e.complexity.MarkdownColumn.Markdown(childComplexity), true
+
+	case "MarkdownColumn._placeholder":
+		if e.complexity.MarkdownColumn.Placeholder == nil {
+			break
+		}
+
+		return e.complexity.MarkdownColumn.Placeholder(childComplexity), true
 
 	case "Modal.position":
 		if e.complexity.Modal.Position == nil {
@@ -1068,6 +1087,94 @@ func (ec *executionContext) fieldContext_Markdown_alignment(ctx context.Context,
 		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type MarkdownAlignment does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _MarkdownColumn__placeholder(ctx context.Context, field graphql.CollectedField, obj *model.MarkdownColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_MarkdownColumn__placeholder(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Placeholder, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_MarkdownColumn__placeholder(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "MarkdownColumn",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _MarkdownColumn_markdown(ctx context.Context, field graphql.CollectedField, obj *model.MarkdownColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_MarkdownColumn_markdown(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Markdown, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.Markdown)
+	fc.Result = res
+	return ec.marshalOMarkdown2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐMarkdown(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_MarkdownColumn_markdown(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "MarkdownColumn",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "contents":
+				return ec.fieldContext_Markdown_contents(ctx, field)
+			case "alignment":
+				return ec.fieldContext_Markdown_alignment(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Markdown", field.Name)
 		},
 	}
 	return fc, nil
@@ -3120,6 +3227,13 @@ func (ec *executionContext) _Column(ctx context.Context, sel ast.SelectionSet, o
 			return graphql.Null
 		}
 		return ec._ImageDecriptionColumn(ctx, sel, obj)
+	case model.MarkdownColumn:
+		return ec._MarkdownColumn(ctx, sel, &obj)
+	case *model.MarkdownColumn:
+		if obj == nil {
+			return graphql.Null
+		}
+		return ec._MarkdownColumn(ctx, sel, obj)
 	default:
 		panic(fmt.Errorf("unexpected type %T", obj))
 	}
@@ -3274,6 +3388,44 @@ func (ec *executionContext) _Markdown(ctx context.Context, sel ast.SelectionSet,
 			out.Values[i] = ec._Markdown_contents(ctx, field, obj)
 		case "alignment":
 			out.Values[i] = ec._Markdown_alignment(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch(ctx)
+	if out.Invalids > 0 {
+		return graphql.Null
+	}
+
+	atomic.AddInt32(&ec.deferred, int32(len(deferred)))
+
+	for label, dfs := range deferred {
+		ec.processDeferredGroup(graphql.DeferredGroup{
+			Label:    label,
+			Path:     graphql.GetPath(ctx),
+			FieldSet: dfs,
+			Context:  ctx,
+		})
+	}
+
+	return out
+}
+
+var markdownColumnImplementors = []string{"MarkdownColumn", "Column"}
+
+func (ec *executionContext) _MarkdownColumn(ctx context.Context, sel ast.SelectionSet, obj *model.MarkdownColumn) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, markdownColumnImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	deferred := make(map[string]*graphql.FieldSet)
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("MarkdownColumn")
+		case "_placeholder":
+			out.Values[i] = ec._MarkdownColumn__placeholder(ctx, field, obj)
+		case "markdown":
+			out.Values[i] = ec._MarkdownColumn_markdown(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}

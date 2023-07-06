@@ -47,6 +47,14 @@ type Markdown struct {
 	Alignment *MarkdownAlignment `json:"alignment,omitempty"`
 }
 
+type MarkdownColumn struct {
+	Placeholder *string   `json:"_placeholder,omitempty"`
+	Markdown    *Markdown `json:"markdown,omitempty"`
+}
+
+func (MarkdownColumn) IsColumn()                    {}
+func (this MarkdownColumn) GetPlaceholder() *string { return this.Placeholder }
+
 type Modal struct {
 	Text     *string        `json:"text,omitempty"`
 	Position *ModalPosition `json:"position,omitempty"`

@@ -71,6 +71,12 @@ export type Markdown = {
 
 export type MarkdownAlignment = "CENTER" | "LEFT";
 
+export type MarkdownColumn = Column & {
+  __typename: "MarkdownColumn";
+  _placeholder?: Maybe<Scalars["String"]["output"]>;
+  markdown?: Maybe<Markdown>;
+};
+
 export type Modal = {
   __typename: "Modal";
   position?: Maybe<ModalPosition>;
@@ -96,6 +102,7 @@ export type IndexPageQuery = {
   columns?: Array<
     | { __typename: "BackgroundImageColumn"; _placeholder?: string | null }
     | { __typename: "ImageDecriptionColumn"; _placeholder?: string | null }
+    | { __typename: "MarkdownColumn"; _placeholder?: string | null }
     | null
   > | null;
 };

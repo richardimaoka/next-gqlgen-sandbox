@@ -65,6 +65,11 @@ type ImageDecriptionColumn implements Column {
   order: ImageDescriptionOrder
 }
 
+type MarkdownColumn implements Column {
+  _placeholder: String
+  markdown: Markdown
+}
+
 type Query {
   columns: [Column]
 }
