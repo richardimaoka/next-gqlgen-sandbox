@@ -16,8 +16,14 @@ const notoSansJP = Noto_Sans_JP({
 
 const queryDefinition = graphql(/* GraphQL */ `
   query IndexPage {
-    columns {
-      _placeholder
+    imageDescriptionColumn {
+      description {
+        ...MarkdownFragment
+      }
+      image {
+        ...ImageCenteredFragment
+      }
+      order
     }
   }
 `);
@@ -32,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-export default function Home({ columns }: IndexPageQuery) {
+export default function Home({ imageDescriptionColumn }: IndexPageQuery) {
   return (
     <div className={notoSansJP.className}>
       <div
@@ -42,22 +48,12 @@ export default function Home({ columns }: IndexPageQuery) {
         `}
       >
         <Column position="middle">
-          {/* {markdown && <MarkdownView fragment={markdown} />} */}
-          <ImageCentered
-            src="/images/sign-in-button.png"
-            width={171}
-            height={38}
-          />
-        </Column>
-        <Column position="top">
-          <div
-            css={css`
-              flex-shrink: 0;
-              width: 800px;
-              height: 1000px;
-              background-color: #f0f0f0;
-            `}
-          />
+          {imageDescriptionColumn?.description && (
+            <MarkdownView fragment={imageDescriptionColumn?.description} />
+          )}
+          {imageDescriptionColumn?.image && (
+            <ImageCentered fragment={imageDescriptionColumn?.image} />
+          )}
         </Column>
       </div>
     </div>

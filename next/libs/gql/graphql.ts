@@ -93,6 +93,13 @@ export type Query = {
   markdownColumn?: Maybe<MarkdownColumn>;
 };
 
+export type ImageCenteredFragmentFragment = {
+  __typename: "ImageCentered";
+  width?: number | null;
+  height?: number | null;
+  path?: string | null;
+} & { " $fragmentName"?: "ImageCenteredFragmentFragment" };
+
 export type MarkdownFragmentFragment = {
   __typename: "Markdown";
   contents?: string | null;
@@ -102,14 +109,47 @@ export type IndexPageQueryVariables = Exact<{ [key: string]: never }>;
 
 export type IndexPageQuery = {
   __typename: "Query";
-  columns?: Array<
-    | { __typename: "BackgroundImageColumn"; _placeholder?: string | null }
-    | { __typename: "ImageDecriptionColumn"; _placeholder?: string | null }
-    | { __typename: "MarkdownColumn"; _placeholder?: string | null }
-    | null
-  > | null;
+  imageDescriptionColumn?: {
+    __typename: "ImageDecriptionColumn";
+    order?: ImageDescriptionOrder | null;
+    description?:
+      | ({ __typename: "Markdown" } & {
+          " $fragmentRefs"?: {
+            MarkdownFragmentFragment: MarkdownFragmentFragment;
+          };
+        })
+      | null;
+    image?:
+      | ({ __typename: "ImageCentered" } & {
+          " $fragmentRefs"?: {
+            ImageCenteredFragmentFragment: ImageCenteredFragmentFragment;
+          };
+        })
+      | null;
+  } | null;
 };
 
+export const ImageCenteredFragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ImageCenteredFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "ImageCentered" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "width" } },
+          { kind: "Field", name: { kind: "Name", value: "height" } },
+          { kind: "Field", name: { kind: "Name", value: "path" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ImageCenteredFragmentFragment, unknown>;
 export const MarkdownFragmentFragmentDoc = {
   kind: "Document",
   definitions: [
@@ -141,17 +181,70 @@ export const IndexPageDocument = {
         selections: [
           {
             kind: "Field",
-            name: { kind: "Name", value: "columns" },
+            name: { kind: "Name", value: "imageDescriptionColumn" },
             selectionSet: {
               kind: "SelectionSet",
               selections: [
                 {
                   kind: "Field",
-                  name: { kind: "Name", value: "_placeholder" },
+                  name: { kind: "Name", value: "description" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "FragmentSpread",
+                        name: { kind: "Name", value: "MarkdownFragment" },
+                      },
+                    ],
+                  },
                 },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "image" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "FragmentSpread",
+                        name: { kind: "Name", value: "ImageCenteredFragment" },
+                      },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "order" } },
               ],
             },
           },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "MarkdownFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Markdown" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "contents" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ImageCenteredFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "ImageCentered" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "width" } },
+          { kind: "Field", name: { kind: "Name", value: "height" } },
+          { kind: "Field", name: { kind: "Name", value: "path" } },
         ],
       },
     },
