@@ -83,12 +83,18 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
-		Columns func(childComplexity int) int
+		BackgroundImageColumn  func(childComplexity int) int
+		Columns                func(childComplexity int) int
+		ImageDescriptionColumn func(childComplexity int) int
+		MarkdownColumn         func(childComplexity int) int
 	}
 }
 
 type QueryResolver interface {
 	Columns(ctx context.Context) ([]model.Column, error)
+	ImageDescriptionColumn(ctx context.Context) (*model.ImageDecriptionColumn, error)
+	MarkdownColumn(ctx context.Context) (*model.MarkdownColumn, error)
+	BackgroundImageColumn(ctx context.Context) (*model.BackgroundImageColumn, error)
 }
 
 type executableSchema struct {
@@ -246,12 +252,33 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Modal.Text(childComplexity), true
 
+	case "Query.backgroundImageColumn":
+		if e.complexity.Query.BackgroundImageColumn == nil {
+			break
+		}
+
+		return e.complexity.Query.BackgroundImageColumn(childComplexity), true
+
 	case "Query.columns":
 		if e.complexity.Query.Columns == nil {
 			break
 		}
 
 		return e.complexity.Query.Columns(childComplexity), true
+
+	case "Query.imageDescriptionColumn":
+		if e.complexity.Query.ImageDescriptionColumn == nil {
+			break
+		}
+
+		return e.complexity.Query.ImageDescriptionColumn(childComplexity), true
+
+	case "Query.markdownColumn":
+		if e.complexity.Query.MarkdownColumn == nil {
+			break
+		}
+
+		return e.complexity.Query.MarkdownColumn(childComplexity), true
 
 	}
 	return 0, false
@@ -1298,6 +1325,159 @@ func (ec *executionContext) fieldContext_Query_columns(ctx context.Context, fiel
 		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("FieldContext.Child cannot be called on type INTERFACE")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_imageDescriptionColumn(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_imageDescriptionColumn(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().ImageDescriptionColumn(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.ImageDecriptionColumn)
+	fc.Result = res
+	return ec.marshalOImageDecriptionColumn2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageDecriptionColumn(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_imageDescriptionColumn(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "_placeholder":
+				return ec.fieldContext_ImageDecriptionColumn__placeholder(ctx, field)
+			case "description":
+				return ec.fieldContext_ImageDecriptionColumn_description(ctx, field)
+			case "image":
+				return ec.fieldContext_ImageDecriptionColumn_image(ctx, field)
+			case "order":
+				return ec.fieldContext_ImageDecriptionColumn_order(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type ImageDecriptionColumn", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_markdownColumn(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_markdownColumn(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().MarkdownColumn(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.MarkdownColumn)
+	fc.Result = res
+	return ec.marshalOMarkdownColumn2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐMarkdownColumn(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_markdownColumn(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "_placeholder":
+				return ec.fieldContext_MarkdownColumn__placeholder(ctx, field)
+			case "markdown":
+				return ec.fieldContext_MarkdownColumn_markdown(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type MarkdownColumn", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_backgroundImageColumn(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_backgroundImageColumn(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().BackgroundImageColumn(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.BackgroundImageColumn)
+	fc.Result = res
+	return ec.marshalOBackgroundImageColumn2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐBackgroundImageColumn(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_backgroundImageColumn(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "_placeholder":
+				return ec.fieldContext_BackgroundImageColumn__placeholder(ctx, field)
+			case "width":
+				return ec.fieldContext_BackgroundImageColumn_width(ctx, field)
+			case "height":
+				return ec.fieldContext_BackgroundImageColumn_height(ctx, field)
+			case "path":
+				return ec.fieldContext_BackgroundImageColumn_path(ctx, field)
+			case "url":
+				return ec.fieldContext_BackgroundImageColumn_url(ctx, field)
+			case "modal":
+				return ec.fieldContext_BackgroundImageColumn_modal(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type BackgroundImageColumn", field.Name)
 		},
 	}
 	return fc, nil
@@ -3525,6 +3705,63 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			}
 
 			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return rrm(innerCtx) })
+		case "imageDescriptionColumn":
+			field := field
+
+			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_imageDescriptionColumn(ctx, field)
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx,
+					func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return rrm(innerCtx) })
+		case "markdownColumn":
+			field := field
+
+			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_markdownColumn(ctx, field)
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx,
+					func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return rrm(innerCtx) })
+		case "backgroundImageColumn":
+			field := field
+
+			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_backgroundImageColumn(ctx, field)
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx,
+					func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return rrm(innerCtx) })
 		case "__type":
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Query___type(ctx, field)
@@ -4165,6 +4402,13 @@ func (ec *executionContext) marshalN__TypeKind2string(ctx context.Context, sel a
 	return res
 }
 
+func (ec *executionContext) marshalOBackgroundImageColumn2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐBackgroundImageColumn(ctx context.Context, sel ast.SelectionSet, v *model.BackgroundImageColumn) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._BackgroundImageColumn(ctx, sel, v)
+}
+
 func (ec *executionContext) unmarshalOBoolean2bool(ctx context.Context, v interface{}) (bool, error) {
 	res, err := graphql.UnmarshalBoolean(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -4246,6 +4490,13 @@ func (ec *executionContext) marshalOImageCentered2ᚖgithubᚗcomᚋrichardimaok
 	return ec._ImageCentered(ctx, sel, v)
 }
 
+func (ec *executionContext) marshalOImageDecriptionColumn2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageDecriptionColumn(ctx context.Context, sel ast.SelectionSet, v *model.ImageDecriptionColumn) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._ImageDecriptionColumn(ctx, sel, v)
+}
+
 func (ec *executionContext) unmarshalOImageDescriptionOrder2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageDescriptionOrder(ctx context.Context, v interface{}) (*model.ImageDescriptionOrder, error) {
 	if v == nil {
 		return nil, nil
@@ -4299,6 +4550,13 @@ func (ec *executionContext) marshalOMarkdownAlignment2ᚖgithubᚗcomᚋrichardi
 		return graphql.Null
 	}
 	return v
+}
+
+func (ec *executionContext) marshalOMarkdownColumn2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐMarkdownColumn(ctx context.Context, sel ast.SelectionSet, v *model.MarkdownColumn) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._MarkdownColumn(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOModal2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐModal(ctx context.Context, sel ast.SelectionSet, v *model.Modal) graphql.Marshaler {

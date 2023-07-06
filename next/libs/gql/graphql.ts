@@ -87,7 +87,10 @@ export type ModalPosition = "BOTTOM" | "CENTER" | "TOP";
 
 export type Query = {
   __typename: "Query";
+  backgroundImageColumn?: Maybe<BackgroundImageColumn>;
   columns?: Maybe<Array<Maybe<Column>>>;
+  imageDescriptionColumn?: Maybe<ImageDecriptionColumn>;
+  markdownColumn?: Maybe<MarkdownColumn>;
 };
 
 export type MarkdownFragmentFragment = {

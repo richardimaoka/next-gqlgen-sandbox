@@ -6,6 +6,10 @@ package graph
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
 
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/graph/model"
 )
@@ -15,14 +19,37 @@ func (r *queryResolver) Columns(ctx context.Context) ([]model.Column, error) {
 	return nil, nil
 }
 
+// ImageDescriptionColumn is the resolver for the imageDescriptionColumn field.
+func (r *queryResolver) ImageDescriptionColumn(ctx context.Context) (*model.ImageDecriptionColumn, error) {
+	file := "data/ImageDescriptionColumn.json"
+	bytes, err := os.ReadFile(file)
+	if err != nil {
+		log.Printf("error reading file %s in Columns(), %+v", file, err)
+		return nil, err
+	}
+
+	var column model.ImageDecriptionColumn
+	json.Unmarshal(bytes, &column)
+	if err != nil {
+		log.Printf("error unmarshaling file %s in Columns(), %+v", file, err)
+		return nil, err
+	}
+
+	log.Printf("ImageDescriptionColumn from %s successfully unmarshaled", file)
+	return &column, nil
+}
+
+// MarkdownColumn is the resolver for the markdownColumn field.
+func (r *queryResolver) MarkdownColumn(ctx context.Context) (*model.MarkdownColumn, error) {
+	panic(fmt.Errorf("not implemented: MarkdownColumn - markdownColumn"))
+}
+
+// BackgroundImageColumn is the resolver for the backgroundImageColumn field.
+func (r *queryResolver) BackgroundImageColumn(ctx context.Context) (*model.BackgroundImageColumn, error) {
+	panic(fmt.Errorf("not implemented: BackgroundImageColumn - backgroundImageColumn"))
+}
+
 // Query returns QueryResolver implementation.
 func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
 type queryResolver struct{ *Resolver }
-
-// !!! WARNING !!!
-// The code below was going to be deleted when updating resolvers. It has been copied here so you have
-// one last chance to move it out of harms way if you want. There are two reasons this happens:
-//  - When renaming or deleting a resolver the old code will be put in here. You can safely delete
-//    it when you're done.
-//  - You have helper methods in this file. Move them out to keep these resolver files clean.

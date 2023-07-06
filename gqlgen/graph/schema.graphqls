@@ -72,4 +72,7 @@ type MarkdownColumn implements Column {
 
 type Query {
   columns: [Column]
+  imageDescriptionColumn: ImageDecriptionColumn
+  markdownColumn: MarkdownColumn
+  backgroundImageColumn: BackgroundImageColumn
 }
