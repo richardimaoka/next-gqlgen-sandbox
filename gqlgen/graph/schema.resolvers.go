@@ -6,14 +6,13 @@ package graph
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/graph/model"
 )
 
 // Columns is the resolver for the columns field.
 func (r *queryResolver) Columns(ctx context.Context) ([]model.Column, error) {
-	panic(fmt.Errorf("not implemented: Columns - columns"))
+	return nil, nil
 }
 
 // Query returns QueryResolver implementation.
