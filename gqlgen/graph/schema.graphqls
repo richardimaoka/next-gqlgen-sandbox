@@ -6,6 +6,13 @@ type Markdown {
   contents: String
 }
 
+type BackgroundImage {
+  width: Int
+  height: Int
+  path: String
+  url: String
+}
+
 type Query {
   markdown: Markdown
 }

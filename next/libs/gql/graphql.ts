@@ -29,6 +29,14 @@ export type Scalars = {
   Float: { input: number; output: number };
 };
 
+export type BackgroundImage = {
+  __typename: "BackgroundImage";
+  height?: Maybe<Scalars["Int"]["output"]>;
+  path?: Maybe<Scalars["String"]["output"]>;
+  url?: Maybe<Scalars["String"]["output"]>;
+  width?: Maybe<Scalars["Int"]["output"]>;
+};
+
 export type Markdown = {
   __typename: "Markdown";
   contents?: Maybe<Scalars["String"]["output"]>;
