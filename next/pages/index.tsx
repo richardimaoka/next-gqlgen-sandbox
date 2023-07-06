@@ -16,8 +16,8 @@ const notoSansJP = Noto_Sans_JP({
 
 const queryDefinition = graphql(/* GraphQL */ `
   query IndexPage {
-    markdown {
-      ...MarkdownFragment
+    columns {
+      _placeholder
     }
   }
 `);
@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-export default function Home({ markdown }: IndexPageQuery) {
+export default function Home({ columns }: IndexPageQuery) {
   return (
     <div className={notoSansJP.className}>
       <div
@@ -42,7 +42,7 @@ export default function Home({ markdown }: IndexPageQuery) {
         `}
       >
         <Column position="middle">
-          {markdown && <MarkdownView fragment={markdown} />}
+          {/* {markdown && <MarkdownView fragment={markdown} />} */}
           <ImageCentered
             src="/images/sign-in-button.png"
             width={171}

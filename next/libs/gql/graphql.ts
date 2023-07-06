@@ -81,7 +81,7 @@ export type ModalPosition = "BOTTOM" | "CENTER" | "TOP";
 
 export type Query = {
   __typename: "Query";
-  markdown?: Maybe<Markdown>;
+  columns?: Maybe<Array<Maybe<Column>>>;
 };
 
 export type MarkdownFragmentFragment = {
@@ -93,13 +93,11 @@ export type IndexPageQueryVariables = Exact<{ [key: string]: never }>;
 
 export type IndexPageQuery = {
   __typename: "Query";
-  markdown?:
-    | ({ __typename: "Markdown" } & {
-        " $fragmentRefs"?: {
-          MarkdownFragmentFragment: MarkdownFragmentFragment;
-        };
-      })
-    | null;
+  columns?: Array<
+    | { __typename: "BackgroundImageColumn"; _placeholder?: string | null }
+    | { __typename: "ImageDecriptionColumn"; _placeholder?: string | null }
+    | null
+  > | null;
 };
 
 export const MarkdownFragmentFragmentDoc = {
@@ -133,31 +131,17 @@ export const IndexPageDocument = {
         selections: [
           {
             kind: "Field",
-            name: { kind: "Name", value: "markdown" },
+            name: { kind: "Name", value: "columns" },
             selectionSet: {
               kind: "SelectionSet",
               selections: [
                 {
-                  kind: "FragmentSpread",
-                  name: { kind: "Name", value: "MarkdownFragment" },
+                  kind: "Field",
+                  name: { kind: "Name", value: "_placeholder" },
                 },
               ],
             },
           },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "MarkdownFragment" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "Markdown" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "contents" } },
         ],
       },
     },

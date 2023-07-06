@@ -6,19 +6,24 @@ package graph
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/graph/model"
 )
 
-// Markdown is the resolver for the markdown field.
-func (r *queryResolver) Markdown(ctx context.Context) (*model.Markdown, error) {
-	contents := `Googleのサービスで、
-
-**「素早く」「簡単に」** 認証を導入！`
-	return &model.Markdown{Contents: &contents}, nil
+// Columns is the resolver for the columns field.
+func (r *queryResolver) Columns(ctx context.Context) ([]model.Column, error) {
+	panic(fmt.Errorf("not implemented: Columns - columns"))
 }
 
 // Query returns QueryResolver implementation.
 func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
 type queryResolver struct{ *Resolver }
+
+// !!! WARNING !!!
+// The code below was going to be deleted when updating resolvers. It has been copied here so you have
+// one last chance to move it out of harms way if you want. There are two reasons this happens:
+//  - When renaming or deleting a resolver the old code will be put in here. You can safely delete
+//    it when you're done.
+//  - You have helper methods in this file. Move them out to keep these resolver files clean.

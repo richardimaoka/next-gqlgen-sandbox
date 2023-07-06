@@ -15,7 +15,7 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
 const documents = {
   "\n  fragment MarkdownFragment on Markdown {\n    contents\n  }\n":
     types.MarkdownFragmentFragmentDoc,
-  "\n  query IndexPage {\n    markdown {\n      ...MarkdownFragment\n    }\n  }\n":
+  "\n  query IndexPage {\n    columns {\n      _placeholder\n    }\n  }\n":
     types.IndexPageDocument,
 };
 
@@ -43,8 +43,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  query IndexPage {\n    markdown {\n      ...MarkdownFragment\n    }\n  }\n",
-): (typeof documents)["\n  query IndexPage {\n    markdown {\n      ...MarkdownFragment\n    }\n  }\n"];
+  source: "\n  query IndexPage {\n    columns {\n      _placeholder\n    }\n  }\n",
+): (typeof documents)["\n  query IndexPage {\n    columns {\n      _placeholder\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

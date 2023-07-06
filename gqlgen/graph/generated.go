@@ -78,12 +78,12 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
-		Markdown func(childComplexity int) int
+		Columns func(childComplexity int) int
 	}
 }
 
 type QueryResolver interface {
-	Markdown(ctx context.Context) (*model.Markdown, error)
+	Columns(ctx context.Context) ([]model.Column, error)
 }
 
 type executableSchema struct {
@@ -227,12 +227,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Modal.Text(childComplexity), true
 
-	case "Query.markdown":
-		if e.complexity.Query.Markdown == nil {
+	case "Query.columns":
+		if e.complexity.Query.Columns == nil {
 			break
 		}
 
-		return e.complexity.Query.Markdown(childComplexity), true
+		return e.complexity.Query.Columns(childComplexity), true
 
 	}
 	return 0, false
@@ -1155,8 +1155,8 @@ func (ec *executionContext) fieldContext_Modal_position(ctx context.Context, fie
 	return fc, nil
 }
 
-func (ec *executionContext) _Query_markdown(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Query_markdown(ctx, field)
+func (ec *executionContext) _Query_columns(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_columns(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -1169,7 +1169,7 @@ func (ec *executionContext) _Query_markdown(ctx context.Context, field graphql.C
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Markdown(rctx)
+		return ec.resolvers.Query().Columns(rctx)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1178,25 +1178,19 @@ func (ec *executionContext) _Query_markdown(ctx context.Context, field graphql.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Markdown)
+	res := resTmp.([]model.Column)
 	fc.Result = res
-	return ec.marshalOMarkdown2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐMarkdown(ctx, field.Selections, res)
+	return ec.marshalOColumn2ᚕgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐColumn(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_Query_markdown(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_Query_columns(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Query",
 		Field:      field,
 		IsMethod:   true,
 		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			switch field.Name {
-			case "contents":
-				return ec.fieldContext_Markdown_contents(ctx, field)
-			case "alignment":
-				return ec.fieldContext_Markdown_alignment(ctx, field)
-			}
-			return nil, fmt.Errorf("no field named %q was found under type Markdown", field.Name)
+			return nil, errors.New("FieldContext.Child cannot be called on type INTERFACE")
 		},
 	}
 	return fc, nil
@@ -3360,7 +3354,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Query")
-		case "markdown":
+		case "columns":
 			field := field
 
 			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
@@ -3369,7 +3363,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_markdown(ctx, field)
+				res = ec._Query_columns(ctx, field)
 				return res
 			}
 
@@ -4043,6 +4037,54 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	}
 	res := graphql.MarshalBoolean(*v)
 	return res
+}
+
+func (ec *executionContext) marshalOColumn2githubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐColumn(ctx context.Context, sel ast.SelectionSet, v model.Column) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._Column(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOColumn2ᚕgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐColumn(ctx context.Context, sel ast.SelectionSet, v []model.Column) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalOColumn2githubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐColumn(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+
+	return ret
 }
 
 func (ec *executionContext) marshalOImageCentered2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageCentered(ctx context.Context, sel ast.SelectionSet, v *model.ImageCentered) graphql.Marshaler {

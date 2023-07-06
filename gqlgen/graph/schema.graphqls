@@ -36,6 +36,13 @@ type Modal {
   position: ModalPosition
 }
 
+## Column data
+
+enum ImageDescriptionOrder {
+  IMAGE_THEN_DESCRIPTION
+  DESCRIPTION_THEN_IMAGE
+}
+
 ## Columns
 
 interface Column {
@@ -51,11 +58,6 @@ type BackgroundImageColumn implements Column {
   modal: Modal
 }
 
-enum ImageDescriptionOrder {
-  IMAGE_THEN_DESCRIPTION
-  DESCRIPTION_THEN_IMAGE
-}
-
 type ImageDecriptionColumn implements Column {
   _placeholder: String
   description: Markdown
@@ -64,5 +66,5 @@ type ImageDecriptionColumn implements Column {
 }
 
 type Query {
-  markdown: Markdown
+  columns: [Column]
 }
