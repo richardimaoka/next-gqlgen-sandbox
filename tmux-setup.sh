@@ -4,7 +4,7 @@ PWD=$(pwd)
 SESSION=$(basename "$PWD")
 
 tmux new-session -s "$SESSION" -d
-tmux send-keys -t "$SESSION:0.0" '(cd gqlgen && gow -e=gql run github.com/99designs/gqlgen generate)' C-m
+tmux send-keys -t "$SESSION:0.0" '(cd gqlgen && gow -e=graphqls run github.com/99designs/gqlgen generate)' C-m
 
 tmux split-window -v -t "$SESSION"
 tmux select-layout even-vertical   # to avoid 'no space for new pane'
