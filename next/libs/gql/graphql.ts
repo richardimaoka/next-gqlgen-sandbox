@@ -29,18 +29,55 @@ export type Scalars = {
   Float: { input: number; output: number };
 };
 
-export type BackgroundImage = {
-  __typename: "BackgroundImage";
+export type BackgroundImageColumn = Column & {
+  __typename: "BackgroundImageColumn";
+  _placeholder?: Maybe<Scalars["String"]["output"]>;
+  height?: Maybe<Scalars["Int"]["output"]>;
+  modal?: Maybe<Modal>;
+  path?: Maybe<Scalars["String"]["output"]>;
+  url?: Maybe<Scalars["String"]["output"]>;
+  width?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type Column = {
+  _placeholder?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type ImageCentered = {
+  __typename: "ImageCentered";
   height?: Maybe<Scalars["Int"]["output"]>;
   path?: Maybe<Scalars["String"]["output"]>;
   url?: Maybe<Scalars["String"]["output"]>;
   width?: Maybe<Scalars["Int"]["output"]>;
 };
 
+export type ImageDecriptionColumn = Column & {
+  __typename: "ImageDecriptionColumn";
+  _placeholder?: Maybe<Scalars["String"]["output"]>;
+  description?: Maybe<Markdown>;
+  image?: Maybe<ImageCentered>;
+  order?: Maybe<ImageDescriptionOrder>;
+};
+
+export type ImageDescriptionOrder =
+  | "DESCRIPTION_THEN_IMAGE"
+  | "IMAGE_THEN_DESCRIPTION";
+
 export type Markdown = {
   __typename: "Markdown";
+  alignment?: Maybe<MarkdownAlignment>;
   contents?: Maybe<Scalars["String"]["output"]>;
 };
+
+export type MarkdownAlignment = "CENTER" | "LEFT";
+
+export type Modal = {
+  __typename: "Modal";
+  position?: Maybe<ModalPosition>;
+  text?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type ModalPosition = "BOTTOM" | "CENTER" | "TOP";
 
 export type Query = {
   __typename: "Query";

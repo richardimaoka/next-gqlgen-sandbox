@@ -44,8 +44,37 @@ type DirectiveRoot struct {
 }
 
 type ComplexityRoot struct {
+	BackgroundImageColumn struct {
+		Height      func(childComplexity int) int
+		Modal       func(childComplexity int) int
+		Path        func(childComplexity int) int
+		Placeholder func(childComplexity int) int
+		URL         func(childComplexity int) int
+		Width       func(childComplexity int) int
+	}
+
+	ImageCentered struct {
+		Height func(childComplexity int) int
+		Path   func(childComplexity int) int
+		URL    func(childComplexity int) int
+		Width  func(childComplexity int) int
+	}
+
+	ImageDecriptionColumn struct {
+		Description func(childComplexity int) int
+		Image       func(childComplexity int) int
+		Order       func(childComplexity int) int
+		Placeholder func(childComplexity int) int
+	}
+
 	Markdown struct {
-		Contents func(childComplexity int) int
+		Alignment func(childComplexity int) int
+		Contents  func(childComplexity int) int
+	}
+
+	Modal struct {
+		Position func(childComplexity int) int
+		Text     func(childComplexity int) int
 	}
 
 	Query struct {
@@ -72,12 +101,131 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 	_ = ec
 	switch typeName + "." + field {
 
+	case "BackgroundImageColumn.height":
+		if e.complexity.BackgroundImageColumn.Height == nil {
+			break
+		}
+
+		return e.complexity.BackgroundImageColumn.Height(childComplexity), true
+
+	case "BackgroundImageColumn.modal":
+		if e.complexity.BackgroundImageColumn.Modal == nil {
+			break
+		}
+
+		return e.complexity.BackgroundImageColumn.Modal(childComplexity), true
+
+	case "BackgroundImageColumn.path":
+		if e.complexity.BackgroundImageColumn.Path == nil {
+			break
+		}
+
+		return e.complexity.BackgroundImageColumn.Path(childComplexity), true
+
+	case "BackgroundImageColumn._placeholder":
+		if e.complexity.BackgroundImageColumn.Placeholder == nil {
+			break
+		}
+
+		return e.complexity.BackgroundImageColumn.Placeholder(childComplexity), true
+
+	case "BackgroundImageColumn.url":
+		if e.complexity.BackgroundImageColumn.URL == nil {
+			break
+		}
+
+		return e.complexity.BackgroundImageColumn.URL(childComplexity), true
+
+	case "BackgroundImageColumn.width":
+		if e.complexity.BackgroundImageColumn.Width == nil {
+			break
+		}
+
+		return e.complexity.BackgroundImageColumn.Width(childComplexity), true
+
+	case "ImageCentered.height":
+		if e.complexity.ImageCentered.Height == nil {
+			break
+		}
+
+		return e.complexity.ImageCentered.Height(childComplexity), true
+
+	case "ImageCentered.path":
+		if e.complexity.ImageCentered.Path == nil {
+			break
+		}
+
+		return e.complexity.ImageCentered.Path(childComplexity), true
+
+	case "ImageCentered.url":
+		if e.complexity.ImageCentered.URL == nil {
+			break
+		}
+
+		return e.complexity.ImageCentered.URL(childComplexity), true
+
+	case "ImageCentered.width":
+		if e.complexity.ImageCentered.Width == nil {
+			break
+		}
+
+		return e.complexity.ImageCentered.Width(childComplexity), true
+
+	case "ImageDecriptionColumn.description":
+		if e.complexity.ImageDecriptionColumn.Description == nil {
+			break
+		}
+
+		return e.complexity.ImageDecriptionColumn.Description(childComplexity), true
+
+	case "ImageDecriptionColumn.image":
+		if e.complexity.ImageDecriptionColumn.Image == nil {
+			break
+		}
+
+		return e.complexity.ImageDecriptionColumn.Image(childComplexity), true
+
+	case "ImageDecriptionColumn.order":
+		if e.complexity.ImageDecriptionColumn.Order == nil {
+			break
+		}
+
+		return e.complexity.ImageDecriptionColumn.Order(childComplexity), true
+
+	case "ImageDecriptionColumn._placeholder":
+		if e.complexity.ImageDecriptionColumn.Placeholder == nil {
+			break
+		}
+
+		return e.complexity.ImageDecriptionColumn.Placeholder(childComplexity), true
+
+	case "Markdown.alignment":
+		if e.complexity.Markdown.Alignment == nil {
+			break
+		}
+
+		return e.complexity.Markdown.Alignment(childComplexity), true
+
 	case "Markdown.contents":
 		if e.complexity.Markdown.Contents == nil {
 			break
 		}
 
 		return e.complexity.Markdown.Contents(childComplexity), true
+
+	case "Modal.position":
+		if e.complexity.Modal.Position == nil {
+			break
+		}
+
+		return e.complexity.Modal.Position(childComplexity), true
+
+	case "Modal.text":
+		if e.complexity.Modal.Text == nil {
+			break
+		}
+
+		return e.complexity.Modal.Text(childComplexity), true
 
 	case "Query.markdown":
 		if e.complexity.Query.Markdown == nil {
@@ -247,6 +395,602 @@ func (ec *executionContext) field___Type_fields_args(ctx context.Context, rawArg
 
 // region    **************************** field.gotpl *****************************
 
+func (ec *executionContext) _BackgroundImageColumn__placeholder(ctx context.Context, field graphql.CollectedField, obj *model.BackgroundImageColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_BackgroundImageColumn__placeholder(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Placeholder, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_BackgroundImageColumn__placeholder(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "BackgroundImageColumn",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _BackgroundImageColumn_width(ctx context.Context, field graphql.CollectedField, obj *model.BackgroundImageColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_BackgroundImageColumn_width(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Width, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*int)
+	fc.Result = res
+	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_BackgroundImageColumn_width(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "BackgroundImageColumn",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Int does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _BackgroundImageColumn_height(ctx context.Context, field graphql.CollectedField, obj *model.BackgroundImageColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_BackgroundImageColumn_height(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Height, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*int)
+	fc.Result = res
+	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_BackgroundImageColumn_height(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "BackgroundImageColumn",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Int does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _BackgroundImageColumn_path(ctx context.Context, field graphql.CollectedField, obj *model.BackgroundImageColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_BackgroundImageColumn_path(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Path, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_BackgroundImageColumn_path(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "BackgroundImageColumn",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _BackgroundImageColumn_url(ctx context.Context, field graphql.CollectedField, obj *model.BackgroundImageColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_BackgroundImageColumn_url(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.URL, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_BackgroundImageColumn_url(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "BackgroundImageColumn",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _BackgroundImageColumn_modal(ctx context.Context, field graphql.CollectedField, obj *model.BackgroundImageColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_BackgroundImageColumn_modal(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Modal, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.Modal)
+	fc.Result = res
+	return ec.marshalOModal2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐModal(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_BackgroundImageColumn_modal(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "BackgroundImageColumn",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "text":
+				return ec.fieldContext_Modal_text(ctx, field)
+			case "position":
+				return ec.fieldContext_Modal_position(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Modal", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ImageCentered_width(ctx context.Context, field graphql.CollectedField, obj *model.ImageCentered) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ImageCentered_width(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Width, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*int)
+	fc.Result = res
+	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ImageCentered_width(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ImageCentered",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Int does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ImageCentered_height(ctx context.Context, field graphql.CollectedField, obj *model.ImageCentered) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ImageCentered_height(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Height, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*int)
+	fc.Result = res
+	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ImageCentered_height(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ImageCentered",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Int does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ImageCentered_path(ctx context.Context, field graphql.CollectedField, obj *model.ImageCentered) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ImageCentered_path(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Path, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ImageCentered_path(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ImageCentered",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ImageCentered_url(ctx context.Context, field graphql.CollectedField, obj *model.ImageCentered) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ImageCentered_url(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.URL, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ImageCentered_url(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ImageCentered",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ImageDecriptionColumn__placeholder(ctx context.Context, field graphql.CollectedField, obj *model.ImageDecriptionColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ImageDecriptionColumn__placeholder(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Placeholder, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ImageDecriptionColumn__placeholder(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ImageDecriptionColumn",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ImageDecriptionColumn_description(ctx context.Context, field graphql.CollectedField, obj *model.ImageDecriptionColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ImageDecriptionColumn_description(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Description, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.Markdown)
+	fc.Result = res
+	return ec.marshalOMarkdown2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐMarkdown(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ImageDecriptionColumn_description(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ImageDecriptionColumn",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "contents":
+				return ec.fieldContext_Markdown_contents(ctx, field)
+			case "alignment":
+				return ec.fieldContext_Markdown_alignment(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Markdown", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ImageDecriptionColumn_image(ctx context.Context, field graphql.CollectedField, obj *model.ImageDecriptionColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ImageDecriptionColumn_image(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Image, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.ImageCentered)
+	fc.Result = res
+	return ec.marshalOImageCentered2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageCentered(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ImageDecriptionColumn_image(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ImageDecriptionColumn",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "width":
+				return ec.fieldContext_ImageCentered_width(ctx, field)
+			case "height":
+				return ec.fieldContext_ImageCentered_height(ctx, field)
+			case "path":
+				return ec.fieldContext_ImageCentered_path(ctx, field)
+			case "url":
+				return ec.fieldContext_ImageCentered_url(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type ImageCentered", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ImageDecriptionColumn_order(ctx context.Context, field graphql.CollectedField, obj *model.ImageDecriptionColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ImageDecriptionColumn_order(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Order, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.ImageDescriptionOrder)
+	fc.Result = res
+	return ec.marshalOImageDescriptionOrder2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageDescriptionOrder(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ImageDecriptionColumn_order(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ImageDecriptionColumn",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type ImageDescriptionOrder does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Markdown_contents(ctx context.Context, field graphql.CollectedField, obj *model.Markdown) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Markdown_contents(ctx, field)
 	if err != nil {
@@ -283,6 +1027,129 @@ func (ec *executionContext) fieldContext_Markdown_contents(ctx context.Context, 
 		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Markdown_alignment(ctx context.Context, field graphql.CollectedField, obj *model.Markdown) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Markdown_alignment(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Alignment, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.MarkdownAlignment)
+	fc.Result = res
+	return ec.marshalOMarkdownAlignment2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐMarkdownAlignment(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Markdown_alignment(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Markdown",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type MarkdownAlignment does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Modal_text(ctx context.Context, field graphql.CollectedField, obj *model.Modal) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Modal_text(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Text, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Modal_text(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Modal",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Modal_position(ctx context.Context, field graphql.CollectedField, obj *model.Modal) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Modal_position(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Position, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.ModalPosition)
+	fc.Result = res
+	return ec.marshalOModalPosition2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐModalPosition(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Modal_position(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Modal",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type ModalPosition does not have child fields")
 		},
 	}
 	return fc, nil
@@ -326,6 +1193,8 @@ func (ec *executionContext) fieldContext_Query_markdown(ctx context.Context, fie
 			switch field.Name {
 			case "contents":
 				return ec.fieldContext_Markdown_contents(ctx, field)
+			case "alignment":
+				return ec.fieldContext_Markdown_alignment(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Markdown", field.Name)
 		},
@@ -2239,9 +3108,162 @@ func (ec *executionContext) fieldContext___Type_specifiedByURL(ctx context.Conte
 
 // region    ************************** interface.gotpl ***************************
 
+func (ec *executionContext) _Column(ctx context.Context, sel ast.SelectionSet, obj model.Column) graphql.Marshaler {
+	switch obj := (obj).(type) {
+	case nil:
+		return graphql.Null
+	case model.BackgroundImageColumn:
+		return ec._BackgroundImageColumn(ctx, sel, &obj)
+	case *model.BackgroundImageColumn:
+		if obj == nil {
+			return graphql.Null
+		}
+		return ec._BackgroundImageColumn(ctx, sel, obj)
+	case model.ImageDecriptionColumn:
+		return ec._ImageDecriptionColumn(ctx, sel, &obj)
+	case *model.ImageDecriptionColumn:
+		if obj == nil {
+			return graphql.Null
+		}
+		return ec._ImageDecriptionColumn(ctx, sel, obj)
+	default:
+		panic(fmt.Errorf("unexpected type %T", obj))
+	}
+}
+
 // endregion ************************** interface.gotpl ***************************
 
 // region    **************************** object.gotpl ****************************
+
+var backgroundImageColumnImplementors = []string{"BackgroundImageColumn", "Column"}
+
+func (ec *executionContext) _BackgroundImageColumn(ctx context.Context, sel ast.SelectionSet, obj *model.BackgroundImageColumn) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, backgroundImageColumnImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	deferred := make(map[string]*graphql.FieldSet)
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("BackgroundImageColumn")
+		case "_placeholder":
+			out.Values[i] = ec._BackgroundImageColumn__placeholder(ctx, field, obj)
+		case "width":
+			out.Values[i] = ec._BackgroundImageColumn_width(ctx, field, obj)
+		case "height":
+			out.Values[i] = ec._BackgroundImageColumn_height(ctx, field, obj)
+		case "path":
+			out.Values[i] = ec._BackgroundImageColumn_path(ctx, field, obj)
+		case "url":
+			out.Values[i] = ec._BackgroundImageColumn_url(ctx, field, obj)
+		case "modal":
+			out.Values[i] = ec._BackgroundImageColumn_modal(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch(ctx)
+	if out.Invalids > 0 {
+		return graphql.Null
+	}
+
+	atomic.AddInt32(&ec.deferred, int32(len(deferred)))
+
+	for label, dfs := range deferred {
+		ec.processDeferredGroup(graphql.DeferredGroup{
+			Label:    label,
+			Path:     graphql.GetPath(ctx),
+			FieldSet: dfs,
+			Context:  ctx,
+		})
+	}
+
+	return out
+}
+
+var imageCenteredImplementors = []string{"ImageCentered"}
+
+func (ec *executionContext) _ImageCentered(ctx context.Context, sel ast.SelectionSet, obj *model.ImageCentered) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, imageCenteredImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	deferred := make(map[string]*graphql.FieldSet)
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("ImageCentered")
+		case "width":
+			out.Values[i] = ec._ImageCentered_width(ctx, field, obj)
+		case "height":
+			out.Values[i] = ec._ImageCentered_height(ctx, field, obj)
+		case "path":
+			out.Values[i] = ec._ImageCentered_path(ctx, field, obj)
+		case "url":
+			out.Values[i] = ec._ImageCentered_url(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch(ctx)
+	if out.Invalids > 0 {
+		return graphql.Null
+	}
+
+	atomic.AddInt32(&ec.deferred, int32(len(deferred)))
+
+	for label, dfs := range deferred {
+		ec.processDeferredGroup(graphql.DeferredGroup{
+			Label:    label,
+			Path:     graphql.GetPath(ctx),
+			FieldSet: dfs,
+			Context:  ctx,
+		})
+	}
+
+	return out
+}
+
+var imageDecriptionColumnImplementors = []string{"ImageDecriptionColumn", "Column"}
+
+func (ec *executionContext) _ImageDecriptionColumn(ctx context.Context, sel ast.SelectionSet, obj *model.ImageDecriptionColumn) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, imageDecriptionColumnImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	deferred := make(map[string]*graphql.FieldSet)
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("ImageDecriptionColumn")
+		case "_placeholder":
+			out.Values[i] = ec._ImageDecriptionColumn__placeholder(ctx, field, obj)
+		case "description":
+			out.Values[i] = ec._ImageDecriptionColumn_description(ctx, field, obj)
+		case "image":
+			out.Values[i] = ec._ImageDecriptionColumn_image(ctx, field, obj)
+		case "order":
+			out.Values[i] = ec._ImageDecriptionColumn_order(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch(ctx)
+	if out.Invalids > 0 {
+		return graphql.Null
+	}
+
+	atomic.AddInt32(&ec.deferred, int32(len(deferred)))
+
+	for label, dfs := range deferred {
+		ec.processDeferredGroup(graphql.DeferredGroup{
+			Label:    label,
+			Path:     graphql.GetPath(ctx),
+			FieldSet: dfs,
+			Context:  ctx,
+		})
+	}
+
+	return out
+}
 
 var markdownImplementors = []string{"Markdown"}
 
@@ -2256,6 +3278,46 @@ func (ec *executionContext) _Markdown(ctx context.Context, sel ast.SelectionSet,
 			out.Values[i] = graphql.MarshalString("Markdown")
 		case "contents":
 			out.Values[i] = ec._Markdown_contents(ctx, field, obj)
+		case "alignment":
+			out.Values[i] = ec._Markdown_alignment(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch(ctx)
+	if out.Invalids > 0 {
+		return graphql.Null
+	}
+
+	atomic.AddInt32(&ec.deferred, int32(len(deferred)))
+
+	for label, dfs := range deferred {
+		ec.processDeferredGroup(graphql.DeferredGroup{
+			Label:    label,
+			Path:     graphql.GetPath(ctx),
+			FieldSet: dfs,
+			Context:  ctx,
+		})
+	}
+
+	return out
+}
+
+var modalImplementors = []string{"Modal"}
+
+func (ec *executionContext) _Modal(ctx context.Context, sel ast.SelectionSet, obj *model.Modal) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, modalImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	deferred := make(map[string]*graphql.FieldSet)
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("Modal")
+		case "text":
+			out.Values[i] = ec._Modal_text(ctx, field, obj)
+		case "position":
+			out.Values[i] = ec._Modal_position(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -2983,11 +4045,89 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return res
 }
 
+func (ec *executionContext) marshalOImageCentered2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageCentered(ctx context.Context, sel ast.SelectionSet, v *model.ImageCentered) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._ImageCentered(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalOImageDescriptionOrder2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageDescriptionOrder(ctx context.Context, v interface{}) (*model.ImageDescriptionOrder, error) {
+	if v == nil {
+		return nil, nil
+	}
+	var res = new(model.ImageDescriptionOrder)
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOImageDescriptionOrder2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageDescriptionOrder(ctx context.Context, sel ast.SelectionSet, v *model.ImageDescriptionOrder) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return v
+}
+
+func (ec *executionContext) unmarshalOInt2ᚖint(ctx context.Context, v interface{}) (*int, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := graphql.UnmarshalInt(v)
+	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.SelectionSet, v *int) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	res := graphql.MarshalInt(*v)
+	return res
+}
+
 func (ec *executionContext) marshalOMarkdown2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐMarkdown(ctx context.Context, sel ast.SelectionSet, v *model.Markdown) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Markdown(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalOMarkdownAlignment2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐMarkdownAlignment(ctx context.Context, v interface{}) (*model.MarkdownAlignment, error) {
+	if v == nil {
+		return nil, nil
+	}
+	var res = new(model.MarkdownAlignment)
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOMarkdownAlignment2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐMarkdownAlignment(ctx context.Context, sel ast.SelectionSet, v *model.MarkdownAlignment) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return v
+}
+
+func (ec *executionContext) marshalOModal2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐModal(ctx context.Context, sel ast.SelectionSet, v *model.Modal) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._Modal(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalOModalPosition2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐModalPosition(ctx context.Context, v interface{}) (*model.ModalPosition, error) {
+	if v == nil {
+		return nil, nil
+	}
+	var res = new(model.ModalPosition)
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOModalPosition2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐModalPosition(ctx context.Context, sel ast.SelectionSet, v *model.ModalPosition) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return v
 }
 
 func (ec *executionContext) unmarshalOString2ᚖstring(ctx context.Context, v interface{}) (*string, error) {

@@ -2,15 +2,65 @@
 #
 # https://gqlgen.com/getting-started/
 
-type Markdown {
-  contents: String
+## Markdown
+
+enum MarkdownAlignment {
+  LEFT
+  CENTER
 }
 
-type BackgroundImage {
+type Markdown {
+  contents: String
+  alignment: MarkdownAlignment
+}
+
+## Image
+
+type ImageCentered {
   width: Int
   height: Int
   path: String
   url: String
+}
+
+## Modal
+
+enum ModalPosition {
+  TOP
+  CENTER
+  BOTTOM
+}
+
+type Modal {
+  text: String
+  position: ModalPosition
+}
+
+## Columns
+
+interface Column {
+  _placeholder: String
+}
+
+type BackgroundImageColumn implements Column {
+  _placeholder: String
+  width: Int
+  height: Int
+  path: String
+  url: String
+  modal: Modal
+}
+
+enum ImageDescriptionOrder {
+  IMAGE_THEN_DESCRIPTION
+  DESCRIPTION_THEN_IMAGE
+}
+
+type ImageDecriptionColumn implements Column {
+  _placeholder: String
+  description: Markdown
+  image: ImageCentered
+  order: ImageDescriptionOrder
 }
 
 type Query {
