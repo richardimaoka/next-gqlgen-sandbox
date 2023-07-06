@@ -67,7 +67,7 @@ type ImageDecriptionColumn implements Column {
 
 type MarkdownColumn implements Column {
   _placeholder: String
-  markdown: Markdown
+  description: Markdown
 }
 
 type Query {

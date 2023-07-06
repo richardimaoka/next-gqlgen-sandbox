@@ -73,7 +73,7 @@ type ComplexityRoot struct {
 	}
 
 	MarkdownColumn struct {
-		Markdown    func(childComplexity int) int
+		Description func(childComplexity int) int
 		Placeholder func(childComplexity int) int
 	}
 
@@ -224,12 +224,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Markdown.Contents(childComplexity), true
 
-	case "MarkdownColumn.markdown":
-		if e.complexity.MarkdownColumn.Markdown == nil {
+	case "MarkdownColumn.description":
+		if e.complexity.MarkdownColumn.Description == nil {
 			break
 		}
 
-		return e.complexity.MarkdownColumn.Markdown(childComplexity), true
+		return e.complexity.MarkdownColumn.Description(childComplexity), true
 
 	case "MarkdownColumn._placeholder":
 		if e.complexity.MarkdownColumn.Placeholder == nil {
@@ -1160,8 +1160,8 @@ func (ec *executionContext) fieldContext_MarkdownColumn__placeholder(ctx context
 	return fc, nil
 }
 
-func (ec *executionContext) _MarkdownColumn_markdown(ctx context.Context, field graphql.CollectedField, obj *model.MarkdownColumn) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_MarkdownColumn_markdown(ctx, field)
+func (ec *executionContext) _MarkdownColumn_description(ctx context.Context, field graphql.CollectedField, obj *model.MarkdownColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_MarkdownColumn_description(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -1174,7 +1174,7 @@ func (ec *executionContext) _MarkdownColumn_markdown(ctx context.Context, field 
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Markdown, nil
+		return obj.Description, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1188,7 +1188,7 @@ func (ec *executionContext) _MarkdownColumn_markdown(ctx context.Context, field 
 	return ec.marshalOMarkdown2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐMarkdown(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_MarkdownColumn_markdown(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_MarkdownColumn_description(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "MarkdownColumn",
 		Field:      field,
@@ -1419,8 +1419,8 @@ func (ec *executionContext) fieldContext_Query_markdownColumn(ctx context.Contex
 			switch field.Name {
 			case "_placeholder":
 				return ec.fieldContext_MarkdownColumn__placeholder(ctx, field)
-			case "markdown":
-				return ec.fieldContext_MarkdownColumn_markdown(ctx, field)
+			case "description":
+				return ec.fieldContext_MarkdownColumn_description(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type MarkdownColumn", field.Name)
 		},
@@ -3604,8 +3604,8 @@ func (ec *executionContext) _MarkdownColumn(ctx context.Context, sel ast.Selecti
 			out.Values[i] = graphql.MarshalString("MarkdownColumn")
 		case "_placeholder":
 			out.Values[i] = ec._MarkdownColumn__placeholder(ctx, field, obj)
-		case "markdown":
-			out.Values[i] = ec._MarkdownColumn_markdown(ctx, field, obj)
+		case "description":
+			out.Values[i] = ec._MarkdownColumn_description(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}

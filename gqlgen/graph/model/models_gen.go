@@ -49,7 +49,7 @@ type Markdown struct {
 
 type MarkdownColumn struct {
 	Placeholder *string   `json:"_placeholder,omitempty"`
-	Markdown    *Markdown `json:"markdown,omitempty"`
+	Description *Markdown `json:"description,omitempty"`
 }
 
 func (MarkdownColumn) IsColumn()                    {}

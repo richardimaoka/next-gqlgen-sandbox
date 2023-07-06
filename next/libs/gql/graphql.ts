@@ -74,7 +74,7 @@ export type MarkdownAlignment = "CENTER" | "LEFT";
 export type MarkdownColumn = Column & {
   __typename: "MarkdownColumn";
   _placeholder?: Maybe<Scalars["String"]["output"]>;
-  markdown?: Maybe<Markdown>;
+  description?: Maybe<Markdown>;
 };
 
 export type Modal = {
