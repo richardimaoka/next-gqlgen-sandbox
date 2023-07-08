@@ -53,6 +53,10 @@ type ComplexityRoot struct {
 		Width       func(childComplexity int) int
 	}
 
+	ColumnWrapper struct {
+		Column func(childComplexity int) int
+	}
+
 	ImageCentered struct {
 		Height func(childComplexity int) int
 		Path   func(childComplexity int) int
@@ -91,7 +95,7 @@ type ComplexityRoot struct {
 }
 
 type QueryResolver interface {
-	Columns(ctx context.Context) ([]model.Column, error)
+	Columns(ctx context.Context) ([]*model.ColumnWrapper, error)
 	ImageDescriptionColumn(ctx context.Context) (*model.ImageDecriptionColumn, error)
 	MarkdownColumn(ctx context.Context) (*model.MarkdownColumn, error)
 	BackgroundImageColumn(ctx context.Context) (*model.BackgroundImageColumn, error)
@@ -153,6 +157,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.BackgroundImageColumn.Width(childComplexity), true
+
+	case "ColumnWrapper.column":
+		if e.complexity.ColumnWrapper.Column == nil {
+			break
+		}
+
+		return e.complexity.ColumnWrapper.Column(childComplexity), true
 
 	case "ImageCentered.height":
 		if e.complexity.ImageCentered.Height == nil {
@@ -688,6 +699,47 @@ func (ec *executionContext) fieldContext_BackgroundImageColumn_modal(ctx context
 				return ec.fieldContext_Modal_position(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Modal", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ColumnWrapper_column(ctx context.Context, field graphql.CollectedField, obj *model.ColumnWrapper) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ColumnWrapper_column(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Column, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(model.Column)
+	fc.Result = res
+	return ec.marshalOColumn2githubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐColumn(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ColumnWrapper_column(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ColumnWrapper",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("FieldContext.Child cannot be called on type INTERFACE")
 		},
 	}
 	return fc, nil
@@ -1312,9 +1364,9 @@ func (ec *executionContext) _Query_columns(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]model.Column)
+	res := resTmp.([]*model.ColumnWrapper)
 	fc.Result = res
-	return ec.marshalOColumn2ᚕgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐColumn(ctx, field.Selections, res)
+	return ec.marshalOColumnWrapper2ᚕᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐColumnWrapper(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_columns(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1324,7 +1376,11 @@ func (ec *executionContext) fieldContext_Query_columns(ctx context.Context, fiel
 		IsMethod:   true,
 		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("FieldContext.Child cannot be called on type INTERFACE")
+			switch field.Name {
+			case "column":
+				return ec.fieldContext_ColumnWrapper_column(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type ColumnWrapper", field.Name)
 		},
 	}
 	return fc, nil
@@ -3469,6 +3525,42 @@ func (ec *executionContext) _BackgroundImageColumn(ctx context.Context, sel ast.
 	return out
 }
 
+var columnWrapperImplementors = []string{"ColumnWrapper"}
+
+func (ec *executionContext) _ColumnWrapper(ctx context.Context, sel ast.SelectionSet, obj *model.ColumnWrapper) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, columnWrapperImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	deferred := make(map[string]*graphql.FieldSet)
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("ColumnWrapper")
+		case "column":
+			out.Values[i] = ec._ColumnWrapper_column(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch(ctx)
+	if out.Invalids > 0 {
+		return graphql.Null
+	}
+
+	atomic.AddInt32(&ec.deferred, int32(len(deferred)))
+
+	for label, dfs := range deferred {
+		ec.processDeferredGroup(graphql.DeferredGroup{
+			Label:    label,
+			Path:     graphql.GetPath(ctx),
+			FieldSet: dfs,
+			Context:  ctx,
+		})
+	}
+
+	return out
+}
+
 var imageCenteredImplementors = []string{"ImageCentered"}
 
 func (ec *executionContext) _ImageCentered(ctx context.Context, sel ast.SelectionSet, obj *model.ImageCentered) graphql.Marshaler {
@@ -4442,7 +4534,7 @@ func (ec *executionContext) marshalOColumn2githubᚗcomᚋrichardimaokaᚋnext�
 	return ec._Column(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOColumn2ᚕgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐColumn(ctx context.Context, sel ast.SelectionSet, v []model.Column) graphql.Marshaler {
+func (ec *executionContext) marshalOColumnWrapper2ᚕᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐColumnWrapper(ctx context.Context, sel ast.SelectionSet, v []*model.ColumnWrapper) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -4469,7 +4561,7 @@ func (ec *executionContext) marshalOColumn2ᚕgithubᚗcomᚋrichardimaokaᚋnex
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOColumn2githubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐColumn(ctx, sel, v[i])
+			ret[i] = ec.marshalOColumnWrapper2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐColumnWrapper(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -4481,6 +4573,13 @@ func (ec *executionContext) marshalOColumn2ᚕgithubᚗcomᚋrichardimaokaᚋnex
 	wg.Wait()
 
 	return ret
+}
+
+func (ec *executionContext) marshalOColumnWrapper2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐColumnWrapper(ctx context.Context, sel ast.SelectionSet, v *model.ColumnWrapper) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._ColumnWrapper(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOImageCentered2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageCentered(ctx context.Context, sel ast.SelectionSet, v *model.ImageCentered) graphql.Marshaler {

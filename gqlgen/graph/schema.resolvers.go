@@ -15,7 +15,7 @@ import (
 )
 
 // Columns is the resolver for the columns field.
-func (r *queryResolver) Columns(ctx context.Context) ([]model.Column, error) {
+func (r *queryResolver) Columns(ctx context.Context) ([]*model.ColumnWrapper, error) {
 	return nil, nil
 }
 

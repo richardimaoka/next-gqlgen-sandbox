@@ -70,8 +70,13 @@ type MarkdownColumn implements Column {
   description: Markdown
 }
 
+# wrap around Column, which is friendly for frontend pattern-matching
+type ColumnWrapper {
+  column: Column
+}
+
 type Query {
-  columns: [Column]
+  columns: [ColumnWrapper]
   imageDescriptionColumn: ImageDecriptionColumn
   markdownColumn: MarkdownColumn
   backgroundImageColumn: BackgroundImageColumn

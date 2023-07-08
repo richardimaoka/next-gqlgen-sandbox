@@ -43,6 +43,11 @@ export type Column = {
   _placeholder?: Maybe<Scalars["String"]["output"]>;
 };
 
+export type ColumnWrapper = {
+  __typename: "ColumnWrapper";
+  column?: Maybe<Column>;
+};
+
 export type ImageCentered = {
   __typename: "ImageCentered";
   height?: Maybe<Scalars["Int"]["output"]>;

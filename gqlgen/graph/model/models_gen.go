@@ -25,6 +25,10 @@ type BackgroundImageColumn struct {
 func (BackgroundImageColumn) IsColumn()                    {}
 func (this BackgroundImageColumn) GetPlaceholder() *string { return this.Placeholder }
 
+type ColumnWrapper struct {
+	Column Column `json:"column,omitempty"`
+}
+
 type ImageCentered struct {
 	Width  *int    `json:"width,omitempty"`
 	Height *int    `json:"height,omitempty"`
