@@ -16,7 +16,7 @@ func TestReadImgColumn(t *testing.T) {
 	}
 
 	for i, e := range effects {
-		internal.CompareWitGoldenFile(t, *updateFlag, fmt.Sprintf("testdata/img_col_eff_golden%d.json", i), e)
+		internal.CompareWitGoldenFile(t, *updateFlag, fmt.Sprintf("testdata/effect/img_col_eff_golden%d.json", i), e)
 	}
 }
 
@@ -29,7 +29,7 @@ func TestToImgColumn(t *testing.T) {
 
 	for i, e := range effects {
 		col := e.ToImgDescColumn()
-		internal.CompareWitGoldenFile(t, *updateFlag, fmt.Sprintf("testdata/img_col_golden%d.json", i), col)
+		internal.CompareWitGoldenFile(t, *updateFlag, fmt.Sprintf("testdata/column/img_col_golden%d.json", i), col)
 	}
 }
 
@@ -43,6 +43,6 @@ func TestToGraphQLImgColumn(t *testing.T) {
 	for i, e := range effects {
 		col := e.ToImgDescColumn()
 		gqlModel := col.ToGraphQLImgDescCol()
-		internal.CompareWitGoldenFile(t, *updateFlag, fmt.Sprintf("testdata/img_col_gql_golden%d.json", i), gqlModel)
+		internal.CompareWitGoldenFile(t, *updateFlag, fmt.Sprintf("testdata/graphql/img_col_gql_golden%d.json", i), gqlModel)
 	}
 }
