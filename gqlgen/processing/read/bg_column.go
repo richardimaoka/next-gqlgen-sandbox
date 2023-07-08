@@ -8,7 +8,7 @@ import (
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/state"
 )
 
-type BackgroundColumnEffect struct {
+type BackgroundImageColumn struct {
 	SeqNo          int    `json:"seqNo"`
 	Column         int    `json:"column"`
 	Width          int    `json:"width"`
@@ -20,20 +20,20 @@ type BackgroundColumnEffect struct {
 	ModalPosition  string `json:"modal.position"`
 }
 
-type BackgroundColumnEffects []BackgroundColumnEffect
+type BackgroundImageColumns []BackgroundImageColumn
 
-func ReadBackgroundColumnEffects(filePath string) (BackgroundColumnEffects, error) {
-	var effects BackgroundColumnEffects
+func ReadBackgroundImageColumns(filePath string) (BackgroundImageColumns, error) {
+	var effects BackgroundImageColumns
 	unmarshaller := func(jsonBytes []byte) error { return json.Unmarshal(jsonBytes, &effects) }
 	err := internal.JsonRead(filePath, unmarshaller)
 	if err != nil {
-		return nil, fmt.Errorf("ReadBackgroundColumnEffects failed to read file, %s", err)
+		return nil, fmt.Errorf("ReadBackgroundImageColumns failed to read file, %s", err)
 	}
 
 	return effects, err
 }
 
-func (t BackgroundColumnEffects) FindBySeqNo(seqNo int) *BackgroundColumnEffect {
+func (t BackgroundImageColumns) FindBySeqNo(seqNo int) *BackgroundImageColumn {
 	for _, e := range t {
 		if e.SeqNo == seqNo {
 			return &e // found!
@@ -43,7 +43,7 @@ func (t BackgroundColumnEffects) FindBySeqNo(seqNo int) *BackgroundColumnEffect 
 	return nil
 }
 
-func (e BackgroundColumnEffect) ToBgImgColumn() *state.BackgroundImageColumn {
+func (e BackgroundImageColumn) ToBgImgColumn() *state.BackgroundImageColumn {
 	return &state.BackgroundImageColumn{
 		Width:  e.Width,
 		Height: e.Height,

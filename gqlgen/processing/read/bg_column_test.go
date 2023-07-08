@@ -10,9 +10,9 @@ import (
 
 func TestReadBgColumn(t *testing.T) {
 	filepath := "testdata/bg_columns.json"
-	effects, err := read.ReadBackgroundColumnEffects(filepath)
+	effects, err := read.ReadBackgroundImageColumns(filepath)
 	if err != nil {
-		t.Fatalf("ReadBackgroundColumnEffects failed to read file, %s", err)
+		t.Fatalf("ReadBackgroundImageColumns failed to read file, %s", err)
 	}
 
 	for i, e := range effects {
@@ -22,9 +22,9 @@ func TestReadBgColumn(t *testing.T) {
 
 func TestToBgColumn(t *testing.T) {
 	filepath := "testdata/bg_columns.json"
-	effects, err := read.ReadBackgroundColumnEffects(filepath)
+	effects, err := read.ReadBackgroundImageColumns(filepath)
 	if err != nil {
-		t.Fatalf("ReadBackgroundColumnEffects failed to read file, %s", err)
+		t.Fatalf("ReadBackgroundImageColumns failed to read file, %s", err)
 	}
 
 	for i, e := range effects {
@@ -35,9 +35,9 @@ func TestToBgColumn(t *testing.T) {
 
 func TestToGraphQLBgColumn(t *testing.T) {
 	filepath := "testdata/bg_columns.json"
-	effects, err := read.ReadBackgroundColumnEffects(filepath)
+	effects, err := read.ReadBackgroundImageColumns(filepath)
 	if err != nil {
-		t.Fatalf("ReadBackgroundColumnEffects failed to read file, %s", err)
+		t.Fatalf("ReadBackgroundImageColumns failed to read file, %s", err)
 	}
 
 	for i, e := range effects {

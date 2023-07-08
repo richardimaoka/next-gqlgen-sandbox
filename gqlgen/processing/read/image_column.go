@@ -8,7 +8,7 @@ import (
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/state"
 )
 
-type ImageColumnEffect struct {
+type ImageDecriptionColumn struct {
 	SeqNo                int    `json:"seqNo"`
 	Column               int    `json:"column"`
 	Width                int    `json:"width"`
@@ -20,20 +20,20 @@ type ImageColumnEffect struct {
 	DescriptionAlignment string `json:"description.alignment"`
 }
 
-type ImageColumnEffects []ImageColumnEffect
+type ImageDecriptionColumns []ImageDecriptionColumn
 
-func ReadImageColumnEffects(filePath string) (ImageColumnEffects, error) {
-	var effects ImageColumnEffects
+func ReadImageDecriptionColumns(filePath string) (ImageDecriptionColumns, error) {
+	var effects ImageDecriptionColumns
 	unmarshaller := func(jsonBytes []byte) error { return json.Unmarshal(jsonBytes, &effects) }
 	err := internal.JsonRead(filePath, unmarshaller)
 	if err != nil {
-		return nil, fmt.Errorf("ReadImageColumnEffects failed to read file, %s", err)
+		return nil, fmt.Errorf("ReadImageDecriptionColumns failed to read file, %s", err)
 	}
 
 	return effects, err
 }
 
-func (t ImageColumnEffects) FindBySeqNo(seqNo int) *ImageColumnEffect {
+func (t ImageDecriptionColumns) FindBySeqNo(seqNo int) *ImageDecriptionColumn {
 	for _, e := range t {
 		if e.SeqNo == seqNo {
 			return &e // found!
@@ -43,7 +43,7 @@ func (t ImageColumnEffects) FindBySeqNo(seqNo int) *ImageColumnEffect {
 	return nil
 }
 
-func (e ImageColumnEffect) ToImgDescColumn() *state.ImageDecriptionColumn {
+func (e ImageDecriptionColumn) ToImgDescColumn() *state.ImageDecriptionColumn {
 	return &state.ImageDecriptionColumn{
 		Image: state.Image{
 			Width:          e.Width,
