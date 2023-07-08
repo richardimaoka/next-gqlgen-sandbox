@@ -32,3 +32,17 @@ func TestToBgColumn(t *testing.T) {
 		internal.CompareWitGoldenFile(t, *updateFlag, fmt.Sprintf("testdata/bg_col_golden%d.json", i), col)
 	}
 }
+
+func TestToGraphQLBgColumn(t *testing.T) {
+	filepath := "testdata/bg_columns.json"
+	effects, err := effect.ReadBackgroundColumnEffects(filepath)
+	if err != nil {
+		t.Fatalf("ReadBackgroundColumnEffects failed to read file, %s", err)
+	}
+
+	for i, e := range effects {
+		col := e.ToBgImgColumn()
+		gqlModel := col.ToGraphQLBgImgCol()
+		internal.CompareWitGoldenFile(t, *updateFlag, fmt.Sprintf("testdata/bg_col_gql_golden%d.json", i), gqlModel)
+	}
+}
