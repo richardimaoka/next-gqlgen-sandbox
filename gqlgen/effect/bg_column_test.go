@@ -1,0 +1,21 @@
+package effect_test
+
+import (
+	"fmt"
+	"testing"
+
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/effect"
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
+)
+
+func TestBgColumn(t *testing.T) {
+	filepath := "testdata/bg_columns.json"
+	effects, err := effect.ReadBackgroundColumnEffects(filepath)
+	if err != nil {
+		t.Fatalf("ReadBackgroundColumnEffects failed to read file, %s", err)
+	}
+
+	for i, e := range effects {
+		internal.CompareWitGoldenFile(t, *updateFlag, fmt.Sprintf("testdata/bg_column_golden%d.json", i), e)
+	}
+}

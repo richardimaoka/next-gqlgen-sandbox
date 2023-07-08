@@ -11,8 +11,8 @@ const (
 )
 
 type Modal struct {
-	text     string
-	position ModalPosition
+	Text     string
+	Position ModalPosition
 }
 
 func convertModalPosition(pos ModalPosition) model.ModalPosition {
@@ -26,8 +26,8 @@ func convertModalPosition(pos ModalPosition) model.ModalPosition {
 
 func (p *Modal) ToGraphQLModal() *model.Modal {
 	// copy to avoid mutation effect afterwards
-	text := p.text
-	position := convertModalPosition(p.position)
+	text := p.Text
+	position := convertModalPosition(p.Position)
 
 	return &model.Modal{
 		Text:     &text,
