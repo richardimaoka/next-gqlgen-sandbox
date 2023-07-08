@@ -65,6 +65,13 @@ type Modal struct {
 	Position *ModalPosition `json:"position,omitempty"`
 }
 
+type PageState struct {
+	Step     *string          `json:"step,omitempty"`
+	NextStep *string          `json:"nextStep,omitempty"`
+	PrevStep *string          `json:"prevStep,omitempty"`
+	Columns  []*ColumnWrapper `json:"columns,omitempty"`
+}
+
 type ImageDescriptionOrder string
 
 const (

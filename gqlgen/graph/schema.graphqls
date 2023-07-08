@@ -76,7 +76,19 @@ type ColumnWrapper {
   column: Column
 }
 
+# page state
+
+type PageState {
+  step: String
+  nextStep: String
+  prevStep: String
+  columns: [ColumnWrapper]
+}
+
 type Query {
+  # without passing step argument, you get the first step page
+  page(tutorial: String!, step: String): PageState
+
   columns: [ColumnWrapper]
   imageDescriptionColumn: ImageDecriptionColumn
   markdownColumn: MarkdownColumn

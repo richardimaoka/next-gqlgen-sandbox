@@ -15,6 +15,11 @@ import (
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
 )
 
+// Page is the resolver for the page field.
+func (r *queryResolver) Page(ctx context.Context, tutorial string, step *string) (*model.PageState, error) {
+	panic(fmt.Errorf("not implemented: Page - page"))
+}
+
 // Columns is the resolver for the columns field.
 func (r *queryResolver) Columns(ctx context.Context) ([]*model.ColumnWrapper, error) {
 	var columnWrappers []*model.ColumnWrapper

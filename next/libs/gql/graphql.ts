@@ -91,12 +91,26 @@ export type Modal = {
 
 export type ModalPosition = "BOTTOM" | "CENTER" | "TOP";
 
+export type PageState = {
+  __typename: "PageState";
+  columns?: Maybe<Array<Maybe<ColumnWrapper>>>;
+  nextStep?: Maybe<Scalars["String"]["output"]>;
+  prevStep?: Maybe<Scalars["String"]["output"]>;
+  step?: Maybe<Scalars["String"]["output"]>;
+};
+
 export type Query = {
   __typename: "Query";
   backgroundImageColumn?: Maybe<BackgroundImageColumn>;
   columns?: Maybe<Array<Maybe<ColumnWrapper>>>;
   imageDescriptionColumn?: Maybe<ImageDecriptionColumn>;
   markdownColumn?: Maybe<MarkdownColumn>;
+  page?: Maybe<PageState>;
+};
+
+export type QueryPageArgs = {
+  step?: InputMaybe<Scalars["String"]["input"]>;
+  tutorial: Scalars["String"]["input"];
 };
 
 export type ImageCenteredFragmentFragment = {
