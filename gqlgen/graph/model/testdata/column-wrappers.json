@@ -1,0 +1,28 @@
+[
+  {
+    "column": {
+      "__typename": "ImageDecriptionColumn",
+      "description": {
+        "contents": "それではデモンストレーションの手順を見ていきます。\n\n1. まずはGoogle Cloud Platform上での設定が必要です。OAuth Client IDを作成しましょう。"
+      },
+      "image": {
+        "width": 298,
+        "height": 452,
+        "path": "/images/015.png"
+      }
+    }
+  },
+  {
+    "column": {
+      "__typename": "BackgroundImageColumn",
+      "column": {
+        "width": 640,
+        "height": 1048,
+        "path": "/images/003.png",
+        "modal": {
+          "text": "このようなボタンを設置して"
+        }
+      }
+    }
+  }
+]

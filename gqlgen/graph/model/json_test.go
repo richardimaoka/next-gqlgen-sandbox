@@ -32,7 +32,7 @@ func TestUnmarshalImageDecriptionColumn(t *testing.T) {
 func TestUnmarshalBackgroundImageColumn(t *testing.T) {
 	var wrapper model.ColumnWrapper
 	unmarshaller := func(jsonBytes []byte) error { return json.Unmarshal(jsonBytes, &wrapper) }
-	err := internal.JsonRead("testdata/img-col-wrapper.json", unmarshaller)
+	err := internal.JsonRead("testdata/bg-col-wrapper.json", unmarshaller)
 	if err != nil {
 		t.Fatalf("TestUnmarshalBackgroundImageColumn failed, %+v", err)
 	}
@@ -44,8 +44,21 @@ func TestUnmarshalBackgroundImageColumn(t *testing.T) {
 	if col.Path == nil {
 		t.Fatalf("TestUnmarshalBackgroundImageColumn failed to get path string, %v", col.Path)
 	}
-	expectedPath := "/images/015.png"
+	expectedPath := "/images/003.png"
 	if *col.Path != expectedPath {
 		t.Fatalf("TestUnmarshalBackgroundImageColumn failed, description mismatch\nexpected = %s,\nresult   = %s", expectedPath, *col.Path)
+	}
+}
+
+func TestUnmarshalColumnWrapperSlice(t *testing.T) {
+	var wrappers []*model.ColumnWrapper
+	unmarshaller := func(jsonBytes []byte) error { return json.Unmarshal(jsonBytes, &wrappers) }
+	err := internal.JsonRead("testdata/column-wrappers.json", unmarshaller)
+	if err != nil {
+		t.Fatalf("TestUnmarshalColumnWrapperSlice failed, %+v", err)
+	}
+
+	if len(wrappers) != 2 {
+		t.Fatalf("TestUnmarshalColumnWrapperSlice failed, length mismatch\nexpected = %d,\nresult   = %d", 2, len(wrappers))
 	}
 }
