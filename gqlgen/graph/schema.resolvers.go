@@ -12,11 +12,19 @@ import (
 	"os"
 
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/graph/model"
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
 )
 
 // Columns is the resolver for the columns field.
 func (r *queryResolver) Columns(ctx context.Context) ([]*model.ColumnWrapper, error) {
-	return nil, nil
+	var columnWrappers []*model.ColumnWrapper
+	unmarshaller := func(jsonBytes []byte) error { return json.Unmarshal(jsonBytes, &columnWrappers) }
+	err := internal.JsonRead("data/state000.json", unmarshaller)
+	if err != nil {
+		return nil, fmt.Errorf("Error in Columns(), %v", err)
+	}
+
+	return columnWrappers, nil
 }
 
 // ImageDescriptionColumn is the resolver for the imageDescriptionColumn field.
