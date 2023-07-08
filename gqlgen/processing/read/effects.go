@@ -14,7 +14,7 @@ type Effect struct {
 
 type Effects []Effect
 
-func (this Effect) ToStateColumns() []state.Column {
+func (this Effect) ToStateColumns() state.Columns {
 	var columns []state.Column
 	for i := 0; i < this.Step.NColumns; i++ {
 		if this.BackgroundImageColumn.Column == i {
