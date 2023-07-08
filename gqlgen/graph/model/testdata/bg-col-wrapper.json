@@ -1,0 +1,13 @@
+{
+  "column": {
+    "__typename": "BackgroundImageColumn",
+    "column": {
+      "width": 640,
+      "height": 1048,
+      "path": "/images/003.png",
+      "modal": {
+        "text": "このようなボタンを設置して"
+      }
+    }
+  }
+}
