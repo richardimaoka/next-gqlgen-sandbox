@@ -1,13 +1,33 @@
 package read
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/state"
+)
 
 type Effect struct {
-	ImageDecriptionColumn *ImageDecriptionColumn
+	Step                  Step
 	BackgroundImageColumn *BackgroundImageColumn
+	ImageDecriptionColumn *ImageDecriptionColumn
 }
 
 type Effects []Effect
+
+func (this Effect) ToStateColumns() []state.Column {
+	var columns []state.Column
+	for i := 0; i < this.Step.NColumns; i++ {
+		if this.BackgroundImageColumn.Column == i {
+			columns = append(columns, this.BackgroundImageColumn.ToStateBgImgColumn())
+		}
+
+		if this.ImageDecriptionColumn.Column == i {
+			columns = append(columns, this.ImageDecriptionColumn.ToStateImgDescColumn())
+		}
+	}
+
+	return columns
+}
 
 func ReadAllJsonFiles(dirName string) (Effects, error) {
 	//------------------------------------
@@ -35,7 +55,7 @@ func ReadAllJsonFiles(dirName string) (Effects, error) {
 	for _, step := range steps {
 		bgCol := backgroundImageColumns.FindBySeqNo(step.SeqNo)
 		imgCol := imageDecriptionColumns.FindBySeqNo(step.SeqNo)
-		effects = append(effects, Effect{BackgroundImageColumn: bgCol, ImageDecriptionColumn: imgCol})
+		effects = append(effects, Effect{Step: step, BackgroundImageColumn: bgCol, ImageDecriptionColumn: imgCol})
 	}
 
 	return effects, nil

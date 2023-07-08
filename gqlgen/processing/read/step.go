@@ -8,8 +8,9 @@ import (
 )
 
 type Step struct {
-	SeqNo int    `json:"seqNo"`
-	Step  string `json:"step"`
+	SeqNo    int    `json:"seqNo"`
+	Step     string `json:"step"`
+	NColumns int    `json:"nColumns"`
 }
 
 type Steps []Step
