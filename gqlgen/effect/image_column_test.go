@@ -16,6 +16,19 @@ func TestReadImgColumn(t *testing.T) {
 	}
 
 	for i, e := range effects {
-		internal.CompareWitGoldenFile(t, *updateFlag, fmt.Sprintf("testdata/img_column_golden%d.json", i), e)
+		internal.CompareWitGoldenFile(t, *updateFlag, fmt.Sprintf("testdata/img_col_eff_golden%d.json", i), e)
+	}
+}
+
+func TestToImgColumn(t *testing.T) {
+	filepath := "testdata/img_columns.json"
+	effects, err := effect.ReadImageColumnEffects(filepath)
+	if err != nil {
+		t.Fatalf("ReadImageColumnEffects failed to read file, %s", err)
+	}
+
+	for i, e := range effects {
+		col := e.ToImgDescColumn()
+		internal.CompareWitGoldenFile(t, *updateFlag, fmt.Sprintf("testdata/img_col_golden%d.json", i), col)
 	}
 }
