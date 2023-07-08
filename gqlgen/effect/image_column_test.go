@@ -8,7 +8,7 @@ import (
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
 )
 
-func TestImgColumn(t *testing.T) {
+func TestReadImgColumn(t *testing.T) {
 	filepath := "testdata/bg_columns.json"
 	effects, err := effect.ReadImageColumnEffects(filepath)
 	if err != nil {

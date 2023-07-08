@@ -15,22 +15,22 @@ type Modal struct {
 	Position ModalPosition
 }
 
-func convertModalPosition(pos ModalPosition) model.ModalPosition {
+func convertModalPosition(pos ModalPosition) *model.ModalPosition {
 	p := model.ModalPosition(pos)
 	if p.IsValid() {
-		return p
+		return &p
 	} else {
-		return model.ModalPositionTop
+		return nil
 	}
 }
 
 func (p *Modal) ToGraphQLModal() *model.Modal {
 	// copy to avoid mutation effect afterwards
-	text := p.Text
-	position := convertModalPosition(p.Position)
+	text := stringRef(p.Text)
+	position := convertModalPosition(p.Position) //p.Position is passed-by-copy, to avoid mutation effect afterwards
 
 	return &model.Modal{
-		Text:     &text,
-		Position: &position,
+		Text:     text,
+		Position: position,
 	}
 }

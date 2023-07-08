@@ -43,7 +43,7 @@ func (t BackgroundColumnEffects) FindBySeqNo(seqNo int) *BackgroundColumnEffect 
 	return nil
 }
 
-func (e BackgroundColumnEffect) ToBgImgColumn(seqNo int) *processing.BackgroundImageColumn {
+func (e BackgroundColumnEffect) ToBgImgColumn() *processing.BackgroundImageColumn {
 	return &processing.BackgroundImageColumn{
 		Width:  e.Width,
 		Height: e.Height,
