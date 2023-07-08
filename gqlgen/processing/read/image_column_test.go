@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
-	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/read"
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/read"
 )
 
 func TestReadImgColumn(t *testing.T) {
