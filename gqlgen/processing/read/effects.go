@@ -3,6 +3,7 @@ package read
 import (
 	"fmt"
 
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/state"
 )
 
@@ -17,11 +18,11 @@ type Effects []Effect
 func (this Effect) ToStateColumns() state.Columns {
 	var columns []state.Column
 	for i := 0; i < this.Step.NColumns; i++ {
-		if this.BackgroundImageColumn.Column == i {
+		if this.BackgroundImageColumn != nil && this.BackgroundImageColumn.Column == i {
 			columns = append(columns, this.BackgroundImageColumn.ToStateBgImgColumn())
 		}
 
-		if this.ImageDecriptionColumn.Column == i {
+		if this.ImageDecriptionColumn != nil && this.ImageDecriptionColumn.Column == i {
 			columns = append(columns, this.ImageDecriptionColumn.ToStateImgDescColumn())
 		}
 	}
@@ -29,7 +30,14 @@ func (this Effect) ToStateColumns() state.Columns {
 	return columns
 }
 
-func ReadAllJsonFiles(dirName string) (Effects, error) {
+func (this Effects) WriteResults(dirName string) {
+	for _, effect := range this {
+		columns := effect.ToStateColumns()
+		internal.WriteJsonToFile(columns, fmt.Sprintf("%s/state/%s.json", dirName, effect.Step.Step))
+	}
+}
+
+func ReadEffects(dirName string) (Effects, error) {
 	//------------------------------------
 	// 1. read from JSON files
 	//------------------------------------

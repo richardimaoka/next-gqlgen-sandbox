@@ -17,6 +17,13 @@ import (
 
 // Page is the resolver for the page field.
 func (r *queryResolver) Page(ctx context.Context, tutorial string, step *string) (*model.PageState, error) {
+	var filepath string
+	if step == nil {
+		filepath = fmt.Sprintf("data/%s/state/_initial.json", tutorial)
+	} else {
+		filepath = fmt.Sprintf("data/%s/state/%s.json", tutorial, *step)
+	}
+
 	panic(fmt.Errorf("not implemented: Page - page"))
 }
 
