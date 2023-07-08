@@ -43,7 +43,7 @@ func (t BackgroundImageColumns) FindBySeqNo(seqNo int) *BackgroundImageColumn {
 	return nil
 }
 
-func (e BackgroundImageColumn) ToBgImgColumn() *state.BackgroundImageColumn {
+func (e BackgroundImageColumn) ToStateBgImgColumn() *state.BackgroundImageColumn {
 	return &state.BackgroundImageColumn{
 		Width:  e.Width,
 		Height: e.Height,

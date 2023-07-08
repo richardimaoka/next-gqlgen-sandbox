@@ -28,7 +28,7 @@ func TestToBgColumn(t *testing.T) {
 	}
 
 	for i, e := range effects {
-		col := e.ToBgImgColumn()
+		col := e.ToStateBgImgColumn()
 		internal.CompareWitGoldenFile(t, *updateFlag, fmt.Sprintf("testdata/column/bg_col_golden%d.json", i), col)
 	}
 }
@@ -41,7 +41,7 @@ func TestToGraphQLBgColumn(t *testing.T) {
 	}
 
 	for i, e := range effects {
-		col := e.ToBgImgColumn()
+		col := e.ToStateBgImgColumn()
 		gqlModel := col.ToGraphQLBgImgCol()
 		internal.CompareWitGoldenFile(t, *updateFlag, fmt.Sprintf("testdata/graphql/bg_col_gql_golden%d.json", i), gqlModel)
 	}

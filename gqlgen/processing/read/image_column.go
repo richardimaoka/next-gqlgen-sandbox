@@ -43,7 +43,7 @@ func (t ImageDecriptionColumns) FindBySeqNo(seqNo int) *ImageDecriptionColumn {
 	return nil
 }
 
-func (e ImageDecriptionColumn) ToImgDescColumn() *state.ImageDecriptionColumn {
+func (e ImageDecriptionColumn) ToStateImgDescColumn() *state.ImageDecriptionColumn {
 	return &state.ImageDecriptionColumn{
 		Image: state.Image{
 			Width:          e.Width,
