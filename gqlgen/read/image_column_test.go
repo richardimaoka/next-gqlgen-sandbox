@@ -1,16 +1,16 @@
-package effect_test
+package read_test
 
 import (
 	"fmt"
 	"testing"
 
-	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/effect"
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/read"
 )
 
 func TestReadImgColumn(t *testing.T) {
 	filepath := "testdata/bg_columns.json"
-	effects, err := effect.ReadImageColumnEffects(filepath)
+	effects, err := read.ReadImageColumnEffects(filepath)
 	if err != nil {
 		t.Fatalf("ReadImageColumnEffects failed to read file, %s", err)
 	}
@@ -22,7 +22,7 @@ func TestReadImgColumn(t *testing.T) {
 
 func TestToImgColumn(t *testing.T) {
 	filepath := "testdata/img_columns.json"
-	effects, err := effect.ReadImageColumnEffects(filepath)
+	effects, err := read.ReadImageColumnEffects(filepath)
 	if err != nil {
 		t.Fatalf("ReadImageColumnEffects failed to read file, %s", err)
 	}
@@ -35,7 +35,7 @@ func TestToImgColumn(t *testing.T) {
 
 func TestToGraphQLImgColumn(t *testing.T) {
 	filepath := "testdata/img_columns.json"
-	effects, err := effect.ReadImageColumnEffects(filepath)
+	effects, err := read.ReadImageColumnEffects(filepath)
 	if err != nil {
 		t.Fatalf("ReadImageColumnEffects failed to read file, %s", err)
 	}

@@ -1,4 +1,4 @@
-package effect
+package read
 
 import (
 	"encoding/json"

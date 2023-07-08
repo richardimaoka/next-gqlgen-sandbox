@@ -1,4 +1,4 @@
-package effect_test
+package read_test
 
 import "flag"
 
