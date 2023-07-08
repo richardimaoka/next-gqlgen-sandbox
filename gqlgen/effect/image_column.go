@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
-	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing"
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/state"
 )
 
 type ImageColumnEffect struct {
@@ -43,18 +43,18 @@ func (t ImageColumnEffects) FindBySeqNo(seqNo int) *ImageColumnEffect {
 	return nil
 }
 
-func (e ImageColumnEffect) ToImgDescColumn() *processing.ImageDecriptionColumn {
-	return &processing.ImageDecriptionColumn{
-		Image: processing.Image{
+func (e ImageColumnEffect) ToImgDescColumn() *state.ImageDecriptionColumn {
+	return &state.ImageDecriptionColumn{
+		Image: state.Image{
 			Width:          e.Width,
 			Height:         e.Height,
 			OriginalWidth:  e.OriginalWidth,
 			OriginalHeight: e.OriginalHeight,
 			Path:           e.Path,
 		},
-		Description: processing.Markdown{
+		Description: state.Markdown{
 			Contents:  e.DescriptionContents,
-			Alignment: processing.MarkdownAlignment(e.DescriptionAlignment),
+			Alignment: state.MarkdownAlignment(e.DescriptionAlignment),
 		},
 	}
 }

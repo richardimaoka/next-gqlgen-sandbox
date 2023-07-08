@@ -1,4 +1,4 @@
-package processing
+package state
 
 import "github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/graph/model"
 

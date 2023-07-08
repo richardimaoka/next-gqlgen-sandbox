@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
-	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing"
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/state"
 )
 
 type BackgroundColumnEffect struct {
@@ -43,14 +43,14 @@ func (t BackgroundColumnEffects) FindBySeqNo(seqNo int) *BackgroundColumnEffect 
 	return nil
 }
 
-func (e BackgroundColumnEffect) ToBgImgColumn() *processing.BackgroundImageColumn {
-	return &processing.BackgroundImageColumn{
+func (e BackgroundColumnEffect) ToBgImgColumn() *state.BackgroundImageColumn {
+	return &state.BackgroundImageColumn{
 		Width:  e.Width,
 		Height: e.Height,
 		Path:   e.Path,
-		Modal: processing.Modal{
+		Modal: state.Modal{
 			Text:     e.ModalText,
-			Position: processing.ModalPosition(e.ModalPosition),
+			Position: state.ModalPosition(e.ModalPosition),
 		},
 	}
 }

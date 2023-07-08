@@ -1,4 +1,4 @@
-package processing
+package state
 
 func stringRef(s string) *string {
 	if s == "" {
