@@ -55,6 +55,7 @@ type ComplexityRoot struct {
 
 	ColumnWrapper struct {
 		Column func(childComplexity int) int
+		Index  func(childComplexity int) int
 	}
 
 	ImageCentered struct {
@@ -164,6 +165,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.ColumnWrapper.Column(childComplexity), true
+
+	case "ColumnWrapper.index":
+		if e.complexity.ColumnWrapper.Index == nil {
+			break
+		}
+
+		return e.complexity.ColumnWrapper.Index(childComplexity), true
 
 	case "ImageCentered.height":
 		if e.complexity.ImageCentered.Height == nil {
@@ -699,6 +707,47 @@ func (ec *executionContext) fieldContext_BackgroundImageColumn_modal(ctx context
 				return ec.fieldContext_Modal_position(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Modal", field.Name)
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _ColumnWrapper_index(ctx context.Context, field graphql.CollectedField, obj *model.ColumnWrapper) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ColumnWrapper_index(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Index, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*int)
+	fc.Result = res
+	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_ColumnWrapper_index(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "ColumnWrapper",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Int does not have child fields")
 		},
 	}
 	return fc, nil
@@ -1377,6 +1426,8 @@ func (ec *executionContext) fieldContext_Query_columns(ctx context.Context, fiel
 		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
+			case "index":
+				return ec.fieldContext_ColumnWrapper_index(ctx, field)
 			case "column":
 				return ec.fieldContext_ColumnWrapper_column(ctx, field)
 			}
@@ -3536,6 +3587,8 @@ func (ec *executionContext) _ColumnWrapper(ctx context.Context, sel ast.Selectio
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("ColumnWrapper")
+		case "index":
+			out.Values[i] = ec._ColumnWrapper_index(ctx, field, obj)
 		case "column":
 			out.Values[i] = ec._ColumnWrapper_column(ctx, field, obj)
 		default:

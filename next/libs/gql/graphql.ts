@@ -46,6 +46,7 @@ export type Column = {
 export type ColumnWrapper = {
   __typename: "ColumnWrapper";
   column?: Maybe<Column>;
+  index?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type ImageCentered = {
@@ -93,7 +94,7 @@ export type ModalPosition = "BOTTOM" | "CENTER" | "TOP";
 export type Query = {
   __typename: "Query";
   backgroundImageColumn?: Maybe<BackgroundImageColumn>;
-  columns?: Maybe<Array<Maybe<Column>>>;
+  columns?: Maybe<Array<Maybe<ColumnWrapper>>>;
   imageDescriptionColumn?: Maybe<ImageDecriptionColumn>;
   markdownColumn?: Maybe<MarkdownColumn>;
 };

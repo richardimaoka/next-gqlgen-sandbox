@@ -72,6 +72,7 @@ type MarkdownColumn implements Column {
 
 # wrap around Column, which is friendly for frontend pattern-matching
 type ColumnWrapper {
+  index: Int
   column: Column
 }
 

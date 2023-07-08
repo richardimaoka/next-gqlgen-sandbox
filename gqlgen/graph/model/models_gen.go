@@ -26,6 +26,7 @@ func (BackgroundImageColumn) IsColumn()                    {}
 func (this BackgroundImageColumn) GetPlaceholder() *string { return this.Placeholder }
 
 type ColumnWrapper struct {
+	Index  *int   `json:"index,omitempty"`
 	Column Column `json:"column,omitempty"`
 }
 
