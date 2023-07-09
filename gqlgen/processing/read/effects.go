@@ -3,6 +3,7 @@ package read
 import (
 	"fmt"
 
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/graph/model"
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/state"
 )
@@ -28,6 +29,25 @@ func (this Effect) ToStateColumns() state.Columns {
 	}
 
 	return columns
+}
+
+func (this Effect) ToGraphQLColumns() []*model.ColumnWrapper {
+	var colWrappers []*model.ColumnWrapper
+	for i := 0; i < this.Step.NColumns; i++ {
+		if this.BackgroundImageColumn != nil && this.BackgroundImageColumn.Column == i {
+			state := this.BackgroundImageColumn.ToStateBgImgColumn()
+			column := state.ToGraphQLBgImgCol()
+			colWrappers = append(colWrappers, &model.ColumnWrapper{Column: column})
+		}
+
+		if this.ImageDecriptionColumn != nil && this.ImageDecriptionColumn.Column == i {
+			state := this.ImageDecriptionColumn.ToStateImgDescColumn()
+			column := state.ToGraphQLImgDescCol()
+			colWrappers = append(colWrappers, &model.ColumnWrapper{Column: column})
+		}
+	}
+
+	return colWrappers
 }
 
 func (this Effects) WriteResults(dirName string) {
@@ -63,7 +83,13 @@ func ReadEffects(dirName string) (Effects, error) {
 	for _, step := range steps {
 		bgCol := backgroundImageColumns.FindBySeqNo(step.SeqNo)
 		imgCol := imageDecriptionColumns.FindBySeqNo(step.SeqNo)
-		effects = append(effects, Effect{Step: step, BackgroundImageColumn: bgCol, ImageDecriptionColumn: imgCol})
+
+		effect := Effect{
+			Step:                  step,
+			BackgroundImageColumn: bgCol,
+			ImageDecriptionColumn: imgCol,
+		}
+		effects = append(effects, effect)
 	}
 
 	return effects, nil
