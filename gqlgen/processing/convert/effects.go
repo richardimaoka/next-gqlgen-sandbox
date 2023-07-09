@@ -61,6 +61,18 @@ func (this StepConverters) ToGraphQLPages() []model.PageState {
 	return pages
 }
 
+func (this StepConverters) WriteResults(dirName string) error {
+	for _, p := range this.ToGraphQLPages() {
+		filename := fmt.Sprintf("%s/state/%s.json", dirName, *p.Step)
+		err := internal.WriteJsonToFile(p, filename)
+		if err != nil {
+			return fmt.Errorf("WriteResults failed, %s", err)
+		}
+	}
+
+	return nil
+}
+
 func ReadStepConverters(dirName string) (StepConverters, error) {
 	//------------------------------------
 	// 1. read from JSON files
@@ -99,7 +111,7 @@ func ReadStepConverters(dirName string) (StepConverters, error) {
 		if i == len(steps)-1 {
 			nextStep = ""
 		} else {
-			prevStep = steps[i+1].Step
+			nextStep = steps[i+1].Step
 		}
 
 		conv := stepConverter{
@@ -114,4 +126,15 @@ func ReadStepConverters(dirName string) (StepConverters, error) {
 	}
 
 	return converters, nil
+}
+
+func Process(dirName string) error {
+	converters, err := ReadStepConverters(dirName)
+	if err != nil {
+		return fmt.Errorf("Process failed, %s", err)
+	}
+	if err := converters.WriteResults(dirName); err != nil {
+		return fmt.Errorf("Process failed, %s", err)
+	}
+	return nil
 }

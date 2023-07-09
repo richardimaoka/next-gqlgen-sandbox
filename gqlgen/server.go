@@ -8,11 +8,12 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/graph"
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/convert"
 )
 
 const defaultPort = "8080"
 
-func main() {
+func server() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
@@ -25,4 +26,16 @@ func main() {
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
+}
+
+func processing() {
+	err := convert.Process("data/sign-in-with-google")
+	if err != nil {
+		panic(err)
+	}
+}
+
+func main() {
+	// server()
+	processing()
 }
