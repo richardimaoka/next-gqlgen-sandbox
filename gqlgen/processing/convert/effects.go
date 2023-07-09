@@ -7,25 +7,25 @@ import (
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/read"
 )
 
-type Effect struct {
-	Step                  read.Step
-	BackgroundImageColumn *read.BackgroundImageColumn
-	ImageDecriptionColumn *read.ImageDecriptionColumn
+type StepConverter struct {
+	step                  read.Step
+	backgroundImageColumn *read.BackgroundImageColumn
+	imageDecriptionColumn *read.ImageDecriptionColumn
 }
 
-type Effects []Effect
+type StepConverters []StepConverter
 
-func (this Effect) ToGraphQLColumns() []*model.ColumnWrapper {
+func (this StepConverter) ToGraphQLColumns() []*model.ColumnWrapper {
 	var colWrappers []*model.ColumnWrapper
-	for i := 0; i < this.Step.NColumns; i++ {
-		if this.BackgroundImageColumn != nil && this.BackgroundImageColumn.Column == i {
-			state := this.BackgroundImageColumn.ToStateBgImgColumn()
+	for i := 0; i < this.step.NColumns; i++ {
+		if this.backgroundImageColumn != nil && this.backgroundImageColumn.Column == i {
+			state := this.backgroundImageColumn.ToStateBgImgColumn()
 			column := state.ToGraphQLBgImgCol()
 			colWrappers = append(colWrappers, &model.ColumnWrapper{Column: column})
 		}
 
-		if this.ImageDecriptionColumn != nil && this.ImageDecriptionColumn.Column == i {
-			state := this.ImageDecriptionColumn.ToStateImgDescColumn()
+		if this.imageDecriptionColumn != nil && this.imageDecriptionColumn.Column == i {
+			state := this.imageDecriptionColumn.ToStateImgDescColumn()
 			column := state.ToGraphQLImgDescCol()
 			colWrappers = append(colWrappers, &model.ColumnWrapper{Column: column})
 		}
@@ -34,14 +34,14 @@ func (this Effect) ToGraphQLColumns() []*model.ColumnWrapper {
 	return colWrappers
 }
 
-// func (this Effects) WriteResults(dirName string) {
+// func (this StepConverters) WriteResults(dirName string) {
 // 	for _, effect := range this {
 // 		columns := effect.ToStateColumns()
 // 		internal.WriteJsonToFile(columns, fmt.Sprintf("%s/state/%s.json", dirName, effect.Step.Step))
 // 	}
 // }
 
-func ReadEffects(dirName string) (Effects, error) {
+func ReadStepConverters(dirName string) (StepConverters, error) {
 	//------------------------------------
 	// 1. read from JSON files
 	//------------------------------------
@@ -63,18 +63,18 @@ func ReadEffects(dirName string) (Effects, error) {
 	//--------------------------------------------------------
 	// 2. construct data for each step
 	//--------------------------------------------------------
-	var effects Effects
+	var converters StepConverters
 	for _, step := range steps {
 		bgCol := backgroundImageColumns.FindBySeqNo(step.SeqNo)
 		imgCol := imageDecriptionColumns.FindBySeqNo(step.SeqNo)
 
-		effect := Effect{
-			Step:                  step,
-			BackgroundImageColumn: bgCol,
-			ImageDecriptionColumn: imgCol,
+		conv := StepConverter{
+			step:                  step,
+			backgroundImageColumn: bgCol,
+			imageDecriptionColumn: imgCol,
 		}
-		effects = append(effects, effect)
+		converters = append(converters, conv)
 	}
 
-	return effects, nil
+	return converters, nil
 }

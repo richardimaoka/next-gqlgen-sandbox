@@ -7,10 +7,10 @@ import (
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/convert"
 )
 
-func TestReadEffects(t *testing.T) {
-	effects, err := convert.ReadEffects("testdata")
+func TestReadStepConverters(t *testing.T) {
+	effects, err := convert.ReadStepConverters("testdata")
 	if err != nil {
-		t.Fatalf("ReadEffects failed to read file, %s", err)
+		t.Fatalf("ReadStepConverters failed to read file, %s", err)
 	}
 
 	internal.CompareWitGoldenFile(t, *updateFlag, "testdata/effects_golden.json", effects)
