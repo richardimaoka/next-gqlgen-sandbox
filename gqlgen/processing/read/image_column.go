@@ -23,14 +23,14 @@ type ImageDecriptionColumn struct {
 type ImageDecriptionColumns []ImageDecriptionColumn
 
 func ReadImageDecriptionColumns(filePath string) (ImageDecriptionColumns, error) {
-	var effects ImageDecriptionColumns
-	unmarshaller := func(jsonBytes []byte) error { return json.Unmarshal(jsonBytes, &effects) }
+	var elements ImageDecriptionColumns
+	unmarshaller := func(jsonBytes []byte) error { return json.Unmarshal(jsonBytes, &elements) }
 	err := internal.JsonRead(filePath, unmarshaller)
 	if err != nil {
 		return nil, fmt.Errorf("ReadImageDecriptionColumns failed to read file, %s", err)
 	}
 
-	return effects, err
+	return elements, err
 }
 
 func (t ImageDecriptionColumns) FindBySeqNo(seqNo int) *ImageDecriptionColumn {

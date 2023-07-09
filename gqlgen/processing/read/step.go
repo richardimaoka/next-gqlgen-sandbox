@@ -16,12 +16,12 @@ type Step struct {
 type Steps []Step
 
 func ReadSteps(filePath string) (Steps, error) {
-	var effects Steps
-	unmarshaller := func(jsonBytes []byte) error { return json.Unmarshal(jsonBytes, &effects) }
+	var elements Steps
+	unmarshaller := func(jsonBytes []byte) error { return json.Unmarshal(jsonBytes, &elements) }
 	err := internal.JsonRead(filePath, unmarshaller)
 	if err != nil {
 		return nil, fmt.Errorf("ReadSteps failed to read file, %s", err)
 	}
 
-	return effects, err
+	return elements, err
 }

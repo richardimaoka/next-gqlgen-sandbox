@@ -23,14 +23,14 @@ type BackgroundImageColumn struct {
 type BackgroundImageColumns []BackgroundImageColumn
 
 func ReadBackgroundImageColumns(filePath string) (BackgroundImageColumns, error) {
-	var effects BackgroundImageColumns
-	unmarshaller := func(jsonBytes []byte) error { return json.Unmarshal(jsonBytes, &effects) }
+	var elements BackgroundImageColumns
+	unmarshaller := func(jsonBytes []byte) error { return json.Unmarshal(jsonBytes, &elements) }
 	err := internal.JsonRead(filePath, unmarshaller)
 	if err != nil {
 		return nil, fmt.Errorf("ReadBackgroundImageColumns failed to read file, %s", err)
 	}
 
-	return effects, err
+	return elements, err
 }
 
 func (t BackgroundImageColumns) FindBySeqNo(seqNo int) *BackgroundImageColumn {
