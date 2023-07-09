@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/graph/model"
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/read"
 )
 
@@ -37,12 +38,26 @@ func (this StepConverter) ToGraphQLColumns() []*model.ColumnWrapper {
 	return colWrappers
 }
 
-// func (this StepConverters) WriteResults(dirName string) {
-// 	for _, effect := range this {
-// 		columns := effect.ToStateColumns()
-// 		internal.WriteJsonToFile(columns, fmt.Sprintf("%s/state/%s.json", dirName, effect.Step.Step))
-// 	}
-// }
+func (this StepConverters) ToGraphQLPages() []model.PageState {
+	var pages []model.PageState
+	for _, c := range this {
+		// copy to avoid mutation effects afterwards
+		step := internal.StringRef(c.Step)
+		prevStep := internal.StringRef(c.PrevStep)
+		nextStep := internal.StringRef(c.NextStep)
+		columns := c.ToGraphQLColumns()
+
+		page := model.PageState{
+			Step:     step,
+			PrevStep: prevStep,
+			NextStep: nextStep,
+			Columns:  columns,
+		}
+		pages = append(pages, page)
+	}
+
+	return pages
+}
 
 func ReadStepConverters(dirName string) (StepConverters, error) {
 	//------------------------------------

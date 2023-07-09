@@ -1,0 +1,55 @@
+[
+  {
+    "step": "fbca8c95-678e-4ca0-8f09-2184b167ad9c",
+    "prevStep": "d0d00a27-e289-4342-bd3b-8087795b67a3",
+    "columns": [
+      {
+        "column": {
+          "description": {
+            "contents": "Googleのサービスで、\n\n**「素早く」「簡単に」** 認証を導入！",
+            "alignment": "CENTER"
+          },
+          "image": {
+            "width": 171,
+            "height": 38,
+            "path": "/images/000.png"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "step": "d0d00a27-e289-4342-bd3b-8087795b67a3",
+    "prevStep": "863dbf18-84b7-4723-8ef2-a7dd9f0aa28b",
+    "columns": [
+      {
+        "column": {
+          "description": {
+            "contents": "それではデモンストレーションの手順を見ていきます。\n\n1. まずはGoogle Cloud Platform上での設定が必要です。OAuth Client IDを作成しましょう。"
+          },
+          "image": {
+            "width": 298,
+            "height": 452,
+            "path": "/images/015.png"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "step": "863dbf18-84b7-4723-8ef2-a7dd9f0aa28b",
+    "prevStep": "d0d00a27-e289-4342-bd3b-8087795b67a3",
+    "columns": [
+      {
+        "column": {
+          "width": 640,
+          "height": 1048,
+          "path": "/images/002.png",
+          "modal": {
+            "text": "このようなボタンを設置して"
+          }
+        }
+      }
+    ]
+  }
+]
