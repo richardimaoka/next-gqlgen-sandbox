@@ -15,6 +15,8 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
 const documents = {
   "\n  fragment ImageCenteredFragment on ImageCentered {\n    width\n    height\n    path\n  }\n":
     types.ImageCenteredFragmentFragmentDoc,
+  "\n  fragment ImageDescriptionColumnFragment on ImageDescriptionColumn {\n    description {\n      ...MarkdownFragment\n    }\n    image {\n      ...ImageCenteredFragment\n    }\n    order\n  }\n":
+    types.ImageDescriptionColumnFragmentFragmentDoc,
   "\n  fragment MarkdownFragment on Markdown {\n    contents\n  }\n":
     types.MarkdownFragmentFragmentDoc,
   "\n  query IndexPage($tutorial: String!, $step: String) {\n    page(tutorial: $tutorial, step: $step) {\n      step\n      nextStep\n      prevStep\n      columns {\n        column {\n          __typename\n        }\n      }\n    }\n  }\n":
@@ -41,6 +43,12 @@ export function graphql(source: string): unknown;
 export function graphql(
   source: "\n  fragment ImageCenteredFragment on ImageCentered {\n    width\n    height\n    path\n  }\n",
 ): (typeof documents)["\n  fragment ImageCenteredFragment on ImageCentered {\n    width\n    height\n    path\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  fragment ImageDescriptionColumnFragment on ImageDescriptionColumn {\n    description {\n      ...MarkdownFragment\n    }\n    image {\n      ...ImageCenteredFragment\n    }\n    order\n  }\n",
+): (typeof documents)["\n  fragment ImageDescriptionColumnFragment on ImageDescriptionColumn {\n    description {\n      ...MarkdownFragment\n    }\n    image {\n      ...ImageCenteredFragment\n    }\n    order\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
