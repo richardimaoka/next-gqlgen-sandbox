@@ -33,7 +33,7 @@ export const Column = ({ children, position }: ColumnProps) => {
             height: 100vh;
           }
           width: 768px;
-          height: 100vh;
+          height: 200vh;
           overflow: auto;
 
           background-color: ${dark1MainBg};

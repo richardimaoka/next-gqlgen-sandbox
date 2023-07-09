@@ -1,12 +1,13 @@
 import { Column } from "@/components/Column";
-import { ImageCentered } from "@/components/ImageCentered";
-import { MarkdownView } from "@/components/MarkdownView";
 import { IndexPageQuery } from "@/libs/gql/graphql";
 import { css } from "@emotion/react";
 import { GetServerSideProps } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import { client } from "../libs/apolloClient";
 import { graphql } from "../libs/gql";
+import { NextButton } from "@/components/NextButton";
+import { PrevButton } from "@/components/PrevButton";
+import { ParsedUrlQuery } from "querystring";
 
 const notoSansJP = Noto_Sans_JP({
   // Japanese font needs this settings, as index.d.ts doesn't allow subsets = japanese, which is probably due to the large size of japanese font
@@ -14,23 +15,51 @@ const notoSansJP = Noto_Sans_JP({
   display: "swap", // removing this will unapplied japanese font, BUT THIS CAUSES LAYOUT SHIFT...!!!
 });
 
+const extractString = (
+  queryString: string | string[] | undefined
+): string | undefined => {
+  // if object, it must be string[]
+  if (typeof queryString == "object") {
+    if (queryString.length > 0) {
+      return queryString[0];
+    } else {
+      return undefined;
+    }
+  } else if (typeof queryString == "string") {
+    return queryString;
+  } else {
+    return undefined;
+  }
+};
+
 const queryDefinition = graphql(/* GraphQL */ `
-  query IndexPage {
-    imageDescriptionColumn {
-      description {
-        ...MarkdownFragment
+  query IndexPage($tutorial: String!, $step: String) {
+    page(tutorial: $tutorial, step: $step) {
+      step
+      nextStep
+      prevStep
+      columns {
+        column {
+          __typename
+        }
       }
-      image {
-        ...ImageCenteredFragment
-      }
-      order
     }
   }
 `);
 
-export const getServerSideProps: GetServerSideProps = async () => {
+interface PageParams extends ParsedUrlQuery {
+  step: string;
+}
+
+export const getServerSideProps: GetServerSideProps<
+  IndexPageQuery,
+  PageParams
+> = async (context) => {
+  const step = extractString(context.query.step);
+
   const { data } = await client.query({
     query: queryDefinition,
+    variables: { tutorial: "sign-in-with-google", step },
   });
 
   return {
@@ -38,7 +67,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-export default function Home({ imageDescriptionColumn }: IndexPageQuery) {
+export default function Home({ page }: IndexPageQuery) {
   return (
     <div className={notoSansJP.className}>
       <div
@@ -47,15 +76,10 @@ export default function Home({ imageDescriptionColumn }: IndexPageQuery) {
           gap: 16px;
         `}
       >
-        <Column position="middle">
-          {imageDescriptionColumn?.description && (
-            <MarkdownView fragment={imageDescriptionColumn?.description} />
-          )}
-          {imageDescriptionColumn?.image && (
-            <ImageCentered fragment={imageDescriptionColumn?.image} />
-          )}
-        </Column>
+        <Column position="middle">s</Column>
       </div>
+      {page?.prevStep && <PrevButton href={`/?step=${page.prevStep}`} />}
+      {page?.nextStep && <NextButton href={`/?step=${page.nextStep}`} />}
     </div>
   );
 }

@@ -125,27 +125,26 @@ export type MarkdownFragmentFragment = {
   contents?: string | null;
 } & { " $fragmentName"?: "MarkdownFragmentFragment" };
 
-export type IndexPageQueryVariables = Exact<{ [key: string]: never }>;
+export type IndexPageQueryVariables = Exact<{
+  tutorial: Scalars["String"]["input"];
+  step?: InputMaybe<Scalars["String"]["input"]>;
+}>;
 
 export type IndexPageQuery = {
   __typename: "Query";
-  imageDescriptionColumn?: {
-    __typename: "ImageDecriptionColumn";
-    order?: ImageDescriptionOrder | null;
-    description?:
-      | ({ __typename: "Markdown" } & {
-          " $fragmentRefs"?: {
-            MarkdownFragmentFragment: MarkdownFragmentFragment;
-          };
-        })
-      | null;
-    image?:
-      | ({ __typename: "ImageCentered" } & {
-          " $fragmentRefs"?: {
-            ImageCenteredFragmentFragment: ImageCenteredFragmentFragment;
-          };
-        })
-      | null;
+  page?: {
+    __typename: "PageState";
+    step?: string | null;
+    nextStep?: string | null;
+    prevStep?: string | null;
+    columns?: Array<{
+      __typename: "ColumnWrapper";
+      column?:
+        | { __typename: "BackgroundImageColumn" }
+        | { __typename: "ImageDecriptionColumn" }
+        | { __typename: "MarkdownColumn" }
+        | null;
+    } | null> | null;
   } | null;
 };
 
@@ -196,75 +195,82 @@ export const IndexPageDocument = {
       kind: "OperationDefinition",
       operation: "query",
       name: { kind: "Name", value: "IndexPage" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "tutorial" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "step" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
+        },
+      ],
       selectionSet: {
         kind: "SelectionSet",
         selections: [
           {
             kind: "Field",
-            name: { kind: "Name", value: "imageDescriptionColumn" },
+            name: { kind: "Name", value: "page" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "tutorial" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "tutorial" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "step" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "step" },
+                },
+              },
+            ],
             selectionSet: {
               kind: "SelectionSet",
               selections: [
+                { kind: "Field", name: { kind: "Name", value: "step" } },
+                { kind: "Field", name: { kind: "Name", value: "nextStep" } },
+                { kind: "Field", name: { kind: "Name", value: "prevStep" } },
                 {
                   kind: "Field",
-                  name: { kind: "Name", value: "description" },
+                  name: { kind: "Name", value: "columns" },
                   selectionSet: {
                     kind: "SelectionSet",
                     selections: [
                       {
-                        kind: "FragmentSpread",
-                        name: { kind: "Name", value: "MarkdownFragment" },
+                        kind: "Field",
+                        name: { kind: "Name", value: "column" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "__typename" },
+                            },
+                          ],
+                        },
                       },
                     ],
                   },
                 },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "image" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      {
-                        kind: "FragmentSpread",
-                        name: { kind: "Name", value: "ImageCenteredFragment" },
-                      },
-                    ],
-                  },
-                },
-                { kind: "Field", name: { kind: "Name", value: "order" } },
               ],
             },
           },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "MarkdownFragment" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "Markdown" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "contents" } },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "ImageCenteredFragment" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "ImageCentered" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "width" } },
-          { kind: "Field", name: { kind: "Name", value: "height" } },
-          { kind: "Field", name: { kind: "Name", value: "path" } },
         ],
       },
     },
