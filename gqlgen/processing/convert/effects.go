@@ -1,35 +1,19 @@
-package read
+package convert
 
 import (
 	"fmt"
 
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/graph/model"
-	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
-	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/state"
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/read"
 )
 
 type Effect struct {
-	Step                  Step
-	BackgroundImageColumn *BackgroundImageColumn
-	ImageDecriptionColumn *ImageDecriptionColumn
+	Step                  read.Step
+	BackgroundImageColumn *read.BackgroundImageColumn
+	ImageDecriptionColumn *read.ImageDecriptionColumn
 }
 
 type Effects []Effect
-
-func (this Effect) ToStateColumns() state.Columns {
-	var columns []state.Column
-	for i := 0; i < this.Step.NColumns; i++ {
-		if this.BackgroundImageColumn != nil && this.BackgroundImageColumn.Column == i {
-			columns = append(columns, this.BackgroundImageColumn.ToStateBgImgColumn())
-		}
-
-		if this.ImageDecriptionColumn != nil && this.ImageDecriptionColumn.Column == i {
-			columns = append(columns, this.ImageDecriptionColumn.ToStateImgDescColumn())
-		}
-	}
-
-	return columns
-}
 
 func (this Effect) ToGraphQLColumns() []*model.ColumnWrapper {
 	var colWrappers []*model.ColumnWrapper
@@ -50,28 +34,28 @@ func (this Effect) ToGraphQLColumns() []*model.ColumnWrapper {
 	return colWrappers
 }
 
-func (this Effects) WriteResults(dirName string) {
-	for _, effect := range this {
-		columns := effect.ToStateColumns()
-		internal.WriteJsonToFile(columns, fmt.Sprintf("%s/state/%s.json", dirName, effect.Step.Step))
-	}
-}
+// func (this Effects) WriteResults(dirName string) {
+// 	for _, effect := range this {
+// 		columns := effect.ToStateColumns()
+// 		internal.WriteJsonToFile(columns, fmt.Sprintf("%s/state/%s.json", dirName, effect.Step.Step))
+// 	}
+// }
 
 func ReadEffects(dirName string) (Effects, error) {
 	//------------------------------------
 	// 1. read from JSON files
 	//------------------------------------
-	steps, err := ReadSteps(dirName + "/steps.json")
+	steps, err := read.ReadSteps(dirName + "/steps.json")
 	if err != nil {
 		return nil, fmt.Errorf("InitialRead failed, %s", err)
 	}
 
-	backgroundImageColumns, err := ReadBackgroundImageColumns(dirName + "/bg_columns.json")
+	backgroundImageColumns, err := read.ReadBackgroundImageColumns(dirName + "/bg_columns.json")
 	if err != nil {
 		return nil, fmt.Errorf("InitialRead failed, %s", err)
 	}
 
-	imageDecriptionColumns, err := ReadImageDecriptionColumns(dirName + "/img_columns.json")
+	imageDecriptionColumns, err := read.ReadImageDecriptionColumns(dirName + "/img_columns.json")
 	if err != nil {
 		return nil, fmt.Errorf("InitialRead failed, %s", err)
 	}
