@@ -14,19 +14,19 @@ func Address(s string) *string {
 }
 
 func compareJsonBytes(expectedBytes, resultBytes []byte) error {
-	var resultMap map[string]interface{}
-	err := json.Unmarshal(resultBytes, &resultMap)
+	var result interface{}
+	err := json.Unmarshal(resultBytes, &result)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal result json %s", err)
 	}
 
-	var expectedMap map[string]interface{}
-	err = json.Unmarshal(expectedBytes, &expectedMap)
+	var expected interface{}
+	err = json.Unmarshal(expectedBytes, &expected)
 	if err != nil {
 		return fmt.Errorf("failed to unmarshal expected json %s", err)
 	}
 
-	if diff := cmp.Diff(expectedMap, resultMap); diff != "" {
+	if diff := cmp.Diff(expected, result); diff != "" {
 		return fmt.Errorf("mismatch (-expected +result):\n%s", diff)
 	}
 
