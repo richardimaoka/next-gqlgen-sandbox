@@ -13,5 +13,5 @@ func TestReadStepConverters(t *testing.T) {
 		t.Fatalf("ReadStepConverters failed to read file, %s", err)
 	}
 
-	internal.CompareWitGoldenFile(t, *updateFlag, "testdata/effects_golden.json", effects)
+	internal.CompareWitGoldenFile(t, *updateFlag, "testdata/step_converter_golden.json", effects)
 }

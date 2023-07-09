@@ -8,24 +8,24 @@ import (
 )
 
 type StepConverter struct {
-	step                  read.Step
-	backgroundImageColumn *read.BackgroundImageColumn
-	imageDecriptionColumn *read.ImageDecriptionColumn
+	Step                  read.Step
+	BackgroundImageColumn *read.BackgroundImageColumn
+	ImageDecriptionColumn *read.ImageDecriptionColumn
 }
 
 type StepConverters []StepConverter
 
 func (this StepConverter) ToGraphQLColumns() []*model.ColumnWrapper {
 	var colWrappers []*model.ColumnWrapper
-	for i := 0; i < this.step.NColumns; i++ {
-		if this.backgroundImageColumn != nil && this.backgroundImageColumn.Column == i {
-			state := this.backgroundImageColumn.ToStateBgImgColumn()
+	for i := 0; i < this.Step.NColumns; i++ {
+		if this.BackgroundImageColumn != nil && this.BackgroundImageColumn.Column == i {
+			state := this.BackgroundImageColumn.ToStateBgImgColumn()
 			column := state.ToGraphQLBgImgCol()
 			colWrappers = append(colWrappers, &model.ColumnWrapper{Column: column})
 		}
 
-		if this.imageDecriptionColumn != nil && this.imageDecriptionColumn.Column == i {
-			state := this.imageDecriptionColumn.ToStateImgDescColumn()
+		if this.ImageDecriptionColumn != nil && this.ImageDecriptionColumn.Column == i {
+			state := this.ImageDecriptionColumn.ToStateImgDescColumn()
 			column := state.ToGraphQLImgDescCol()
 			colWrappers = append(colWrappers, &model.ColumnWrapper{Column: column})
 		}
@@ -69,9 +69,9 @@ func ReadStepConverters(dirName string) (StepConverters, error) {
 		imgCol := imageDecriptionColumns.FindBySeqNo(step.SeqNo)
 
 		conv := StepConverter{
-			step:                  step,
-			backgroundImageColumn: bgCol,
-			imageDecriptionColumn: imgCol,
+			Step:                  step,
+			BackgroundImageColumn: bgCol,
+			ImageDecriptionColumn: imgCol,
 		}
 		converters = append(converters, conv)
 	}
