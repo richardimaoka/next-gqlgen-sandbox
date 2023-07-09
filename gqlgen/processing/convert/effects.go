@@ -8,16 +8,19 @@ import (
 )
 
 type StepConverter struct {
-	Step                  read.Step
-	BackgroundImageColumn *read.BackgroundImageColumn
-	ImageDecriptionColumn *read.ImageDecriptionColumn
+	Step                  string                      `json:"step"`
+	NColumns              int                         `json:"nColumns"`
+	PrevStep              string                      `json:"prevStep,omitempty"`
+	NextStep              string                      `json:"nextStep,omitempty"`
+	BackgroundImageColumn *read.BackgroundImageColumn `json:"backgroundImageColumn,omitempty"`
+	ImageDecriptionColumn *read.ImageDecriptionColumn `json:"imageDecriptionColumn,omitempty"`
 }
 
 type StepConverters []StepConverter
 
 func (this StepConverter) ToGraphQLColumns() []*model.ColumnWrapper {
 	var colWrappers []*model.ColumnWrapper
-	for i := 0; i < this.Step.NColumns; i++ {
+	for i := 0; i < this.NColumns; i++ {
 		if this.BackgroundImageColumn != nil && this.BackgroundImageColumn.Column == i {
 			state := this.BackgroundImageColumn.ToStateBgImgColumn()
 			column := state.ToGraphQLBgImgCol()
@@ -64,12 +67,29 @@ func ReadStepConverters(dirName string) (StepConverters, error) {
 	// 2. construct data for each step
 	//--------------------------------------------------------
 	var converters StepConverters
-	for _, step := range steps {
+	for i, step := range steps {
 		bgCol := backgroundImageColumns.FindBySeqNo(step.SeqNo)
 		imgCol := imageDecriptionColumns.FindBySeqNo(step.SeqNo)
 
+		var prevStep string
+		if i == 0 {
+			prevStep = ""
+		} else {
+			prevStep = steps[i-1].Step
+		}
+
+		var nextStep string
+		if i == len(steps)-1 {
+			nextStep = ""
+		} else {
+			prevStep = steps[i+1].Step
+		}
+
 		conv := StepConverter{
-			Step:                  step,
+			Step:                  step.Step,
+			NColumns:              step.NColumns,
+			PrevStep:              prevStep,
+			NextStep:              nextStep,
 			BackgroundImageColumn: bgCol,
 			ImageDecriptionColumn: imgCol,
 		}
