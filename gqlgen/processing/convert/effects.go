@@ -100,11 +100,18 @@ func ReadStepConverters(dirName string) (StepConverters, error) {
 		bgCol := backgroundImageColumns.FindBySeqNo(step.SeqNo)
 		imgCol := imageDecriptionColumns.FindBySeqNo(step.SeqNo)
 
+		var currentStep string
+		if i == 0 {
+			currentStep = "_initial"
+		} else {
+			currentStep = steps[i].Step
+		}
+
 		var prevStep string
 		if i == 0 {
 			prevStep = ""
 		} else {
-			prevStep = steps[i-1].Step
+			prevStep = converters[i-1].Step
 		}
 
 		var nextStep string
@@ -115,10 +122,10 @@ func ReadStepConverters(dirName string) (StepConverters, error) {
 		}
 
 		conv := stepConverter{
-			Step:                  step.Step,
-			NColumns:              step.NColumns,
+			Step:                  currentStep,
 			PrevStep:              prevStep,
 			NextStep:              nextStep,
+			NColumns:              step.NColumns,
 			BackgroundImageColumn: bgCol,
 			ImageDecriptionColumn: imgCol,
 		}

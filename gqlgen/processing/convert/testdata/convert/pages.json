@@ -1,7 +1,7 @@
 [
   {
-    "step": "fbca8c95-678e-4ca0-8f09-2184b167ad9c",
-    "prevStep": "d0d00a27-e289-4342-bd3b-8087795b67a3",
+    "step": "_initial",
+    "nextStep": "d0d00a27-e289-4342-bd3b-8087795b67a3",
     "columns": [
       {
         "column": {
@@ -20,7 +20,8 @@
   },
   {
     "step": "d0d00a27-e289-4342-bd3b-8087795b67a3",
-    "prevStep": "863dbf18-84b7-4723-8ef2-a7dd9f0aa28b",
+    "nextStep": "863dbf18-84b7-4723-8ef2-a7dd9f0aa28b",
+    "prevStep": "_initial",
     "columns": [
       {
         "column": {
