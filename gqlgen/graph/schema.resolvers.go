@@ -47,7 +47,7 @@ func (r *queryResolver) Columns(ctx context.Context) ([]*model.ColumnWrapper, er
 }
 
 // ImageDescriptionColumn is the resolver for the imageDescriptionColumn field.
-func (r *queryResolver) ImageDescriptionColumn(ctx context.Context) (*model.ImageDecriptionColumn, error) {
+func (r *queryResolver) ImageDescriptionColumn(ctx context.Context) (*model.ImageDescriptionColumn, error) {
 	file := "data/ImageDescriptionColumn.json"
 	bytes, err := os.ReadFile(file)
 	if err != nil {
@@ -55,7 +55,7 @@ func (r *queryResolver) ImageDescriptionColumn(ctx context.Context) (*model.Imag
 		return nil, err
 	}
 
-	var column model.ImageDecriptionColumn
+	var column model.ImageDescriptionColumn
 	json.Unmarshal(bytes, &column)
 	if err != nil {
 		log.Printf("error unmarshaling file %s in Columns(), %+v", file, err)

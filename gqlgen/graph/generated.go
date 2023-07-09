@@ -65,7 +65,7 @@ type ComplexityRoot struct {
 		Width  func(childComplexity int) int
 	}
 
-	ImageDecriptionColumn struct {
+	ImageDescriptionColumn struct {
 		Description func(childComplexity int) int
 		Image       func(childComplexity int) int
 		Order       func(childComplexity int) int
@@ -106,7 +106,7 @@ type ComplexityRoot struct {
 type QueryResolver interface {
 	Page(ctx context.Context, tutorial string, step *string) (*model.PageState, error)
 	Columns(ctx context.Context) ([]*model.ColumnWrapper, error)
-	ImageDescriptionColumn(ctx context.Context) (*model.ImageDecriptionColumn, error)
+	ImageDescriptionColumn(ctx context.Context) (*model.ImageDescriptionColumn, error)
 	MarkdownColumn(ctx context.Context) (*model.MarkdownColumn, error)
 	BackgroundImageColumn(ctx context.Context) (*model.BackgroundImageColumn, error)
 }
@@ -210,33 +210,33 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.ImageCentered.Width(childComplexity), true
 
-	case "ImageDecriptionColumn.description":
-		if e.complexity.ImageDecriptionColumn.Description == nil {
+	case "ImageDescriptionColumn.description":
+		if e.complexity.ImageDescriptionColumn.Description == nil {
 			break
 		}
 
-		return e.complexity.ImageDecriptionColumn.Description(childComplexity), true
+		return e.complexity.ImageDescriptionColumn.Description(childComplexity), true
 
-	case "ImageDecriptionColumn.image":
-		if e.complexity.ImageDecriptionColumn.Image == nil {
+	case "ImageDescriptionColumn.image":
+		if e.complexity.ImageDescriptionColumn.Image == nil {
 			break
 		}
 
-		return e.complexity.ImageDecriptionColumn.Image(childComplexity), true
+		return e.complexity.ImageDescriptionColumn.Image(childComplexity), true
 
-	case "ImageDecriptionColumn.order":
-		if e.complexity.ImageDecriptionColumn.Order == nil {
+	case "ImageDescriptionColumn.order":
+		if e.complexity.ImageDescriptionColumn.Order == nil {
 			break
 		}
 
-		return e.complexity.ImageDecriptionColumn.Order(childComplexity), true
+		return e.complexity.ImageDescriptionColumn.Order(childComplexity), true
 
-	case "ImageDecriptionColumn._placeholder":
-		if e.complexity.ImageDecriptionColumn.Placeholder == nil {
+	case "ImageDescriptionColumn._placeholder":
+		if e.complexity.ImageDescriptionColumn.Placeholder == nil {
 			break
 		}
 
-		return e.complexity.ImageDecriptionColumn.Placeholder(childComplexity), true
+		return e.complexity.ImageDescriptionColumn.Placeholder(childComplexity), true
 
 	case "Markdown.alignment":
 		if e.complexity.Markdown.Alignment == nil {
@@ -1031,8 +1031,8 @@ func (ec *executionContext) fieldContext_ImageCentered_url(ctx context.Context, 
 	return fc, nil
 }
 
-func (ec *executionContext) _ImageDecriptionColumn__placeholder(ctx context.Context, field graphql.CollectedField, obj *model.ImageDecriptionColumn) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_ImageDecriptionColumn__placeholder(ctx, field)
+func (ec *executionContext) _ImageDescriptionColumn__placeholder(ctx context.Context, field graphql.CollectedField, obj *model.ImageDescriptionColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ImageDescriptionColumn__placeholder(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -1059,9 +1059,9 @@ func (ec *executionContext) _ImageDecriptionColumn__placeholder(ctx context.Cont
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_ImageDecriptionColumn__placeholder(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_ImageDescriptionColumn__placeholder(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "ImageDecriptionColumn",
+		Object:     "ImageDescriptionColumn",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
@@ -1072,8 +1072,8 @@ func (ec *executionContext) fieldContext_ImageDecriptionColumn__placeholder(ctx 
 	return fc, nil
 }
 
-func (ec *executionContext) _ImageDecriptionColumn_description(ctx context.Context, field graphql.CollectedField, obj *model.ImageDecriptionColumn) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_ImageDecriptionColumn_description(ctx, field)
+func (ec *executionContext) _ImageDescriptionColumn_description(ctx context.Context, field graphql.CollectedField, obj *model.ImageDescriptionColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ImageDescriptionColumn_description(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -1100,9 +1100,9 @@ func (ec *executionContext) _ImageDecriptionColumn_description(ctx context.Conte
 	return ec.marshalOMarkdown2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐMarkdown(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_ImageDecriptionColumn_description(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_ImageDescriptionColumn_description(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "ImageDecriptionColumn",
+		Object:     "ImageDescriptionColumn",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
@@ -1119,8 +1119,8 @@ func (ec *executionContext) fieldContext_ImageDecriptionColumn_description(ctx c
 	return fc, nil
 }
 
-func (ec *executionContext) _ImageDecriptionColumn_image(ctx context.Context, field graphql.CollectedField, obj *model.ImageDecriptionColumn) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_ImageDecriptionColumn_image(ctx, field)
+func (ec *executionContext) _ImageDescriptionColumn_image(ctx context.Context, field graphql.CollectedField, obj *model.ImageDescriptionColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ImageDescriptionColumn_image(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -1147,9 +1147,9 @@ func (ec *executionContext) _ImageDecriptionColumn_image(ctx context.Context, fi
 	return ec.marshalOImageCentered2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageCentered(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_ImageDecriptionColumn_image(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_ImageDescriptionColumn_image(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "ImageDecriptionColumn",
+		Object:     "ImageDescriptionColumn",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
@@ -1170,8 +1170,8 @@ func (ec *executionContext) fieldContext_ImageDecriptionColumn_image(ctx context
 	return fc, nil
 }
 
-func (ec *executionContext) _ImageDecriptionColumn_order(ctx context.Context, field graphql.CollectedField, obj *model.ImageDecriptionColumn) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_ImageDecriptionColumn_order(ctx, field)
+func (ec *executionContext) _ImageDescriptionColumn_order(ctx context.Context, field graphql.CollectedField, obj *model.ImageDescriptionColumn) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_ImageDescriptionColumn_order(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -1198,9 +1198,9 @@ func (ec *executionContext) _ImageDecriptionColumn_order(ctx context.Context, fi
 	return ec.marshalOImageDescriptionOrder2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageDescriptionOrder(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_ImageDecriptionColumn_order(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_ImageDescriptionColumn_order(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
-		Object:     "ImageDecriptionColumn",
+		Object:     "ImageDescriptionColumn",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
@@ -1765,9 +1765,9 @@ func (ec *executionContext) _Query_imageDescriptionColumn(ctx context.Context, f
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.ImageDecriptionColumn)
+	res := resTmp.(*model.ImageDescriptionColumn)
 	fc.Result = res
-	return ec.marshalOImageDecriptionColumn2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageDecriptionColumn(ctx, field.Selections, res)
+	return ec.marshalOImageDescriptionColumn2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageDescriptionColumn(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_imageDescriptionColumn(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1779,15 +1779,15 @@ func (ec *executionContext) fieldContext_Query_imageDescriptionColumn(ctx contex
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
 			case "_placeholder":
-				return ec.fieldContext_ImageDecriptionColumn__placeholder(ctx, field)
+				return ec.fieldContext_ImageDescriptionColumn__placeholder(ctx, field)
 			case "description":
-				return ec.fieldContext_ImageDecriptionColumn_description(ctx, field)
+				return ec.fieldContext_ImageDescriptionColumn_description(ctx, field)
 			case "image":
-				return ec.fieldContext_ImageDecriptionColumn_image(ctx, field)
+				return ec.fieldContext_ImageDescriptionColumn_image(ctx, field)
 			case "order":
-				return ec.fieldContext_ImageDecriptionColumn_order(ctx, field)
+				return ec.fieldContext_ImageDescriptionColumn_order(ctx, field)
 			}
-			return nil, fmt.Errorf("no field named %q was found under type ImageDecriptionColumn", field.Name)
+			return nil, fmt.Errorf("no field named %q was found under type ImageDescriptionColumn", field.Name)
 		},
 	}
 	return fc, nil
@@ -3812,13 +3812,13 @@ func (ec *executionContext) _Column(ctx context.Context, sel ast.SelectionSet, o
 			return graphql.Null
 		}
 		return ec._BackgroundImageColumn(ctx, sel, obj)
-	case model.ImageDecriptionColumn:
-		return ec._ImageDecriptionColumn(ctx, sel, &obj)
-	case *model.ImageDecriptionColumn:
+	case model.ImageDescriptionColumn:
+		return ec._ImageDescriptionColumn(ctx, sel, &obj)
+	case *model.ImageDescriptionColumn:
 		if obj == nil {
 			return graphql.Null
 		}
-		return ec._ImageDecriptionColumn(ctx, sel, obj)
+		return ec._ImageDescriptionColumn(ctx, sel, obj)
 	case model.MarkdownColumn:
 		return ec._MarkdownColumn(ctx, sel, &obj)
 	case *model.MarkdownColumn:
@@ -3961,25 +3961,25 @@ func (ec *executionContext) _ImageCentered(ctx context.Context, sel ast.Selectio
 	return out
 }
 
-var imageDecriptionColumnImplementors = []string{"ImageDecriptionColumn", "Column"}
+var imageDescriptionColumnImplementors = []string{"ImageDescriptionColumn", "Column"}
 
-func (ec *executionContext) _ImageDecriptionColumn(ctx context.Context, sel ast.SelectionSet, obj *model.ImageDecriptionColumn) graphql.Marshaler {
-	fields := graphql.CollectFields(ec.OperationContext, sel, imageDecriptionColumnImplementors)
+func (ec *executionContext) _ImageDescriptionColumn(ctx context.Context, sel ast.SelectionSet, obj *model.ImageDescriptionColumn) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, imageDescriptionColumnImplementors)
 
 	out := graphql.NewFieldSet(fields)
 	deferred := make(map[string]*graphql.FieldSet)
 	for i, field := range fields {
 		switch field.Name {
 		case "__typename":
-			out.Values[i] = graphql.MarshalString("ImageDecriptionColumn")
+			out.Values[i] = graphql.MarshalString("ImageDescriptionColumn")
 		case "_placeholder":
-			out.Values[i] = ec._ImageDecriptionColumn__placeholder(ctx, field, obj)
+			out.Values[i] = ec._ImageDescriptionColumn__placeholder(ctx, field, obj)
 		case "description":
-			out.Values[i] = ec._ImageDecriptionColumn_description(ctx, field, obj)
+			out.Values[i] = ec._ImageDescriptionColumn_description(ctx, field, obj)
 		case "image":
-			out.Values[i] = ec._ImageDecriptionColumn_image(ctx, field, obj)
+			out.Values[i] = ec._ImageDescriptionColumn_image(ctx, field, obj)
 		case "order":
-			out.Values[i] = ec._ImageDecriptionColumn_order(ctx, field, obj)
+			out.Values[i] = ec._ImageDescriptionColumn_order(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -5008,11 +5008,11 @@ func (ec *executionContext) marshalOImageCentered2ᚖgithubᚗcomᚋrichardimaok
 	return ec._ImageCentered(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOImageDecriptionColumn2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageDecriptionColumn(ctx context.Context, sel ast.SelectionSet, v *model.ImageDecriptionColumn) graphql.Marshaler {
+func (ec *executionContext) marshalOImageDescriptionColumn2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageDescriptionColumn(ctx context.Context, sel ast.SelectionSet, v *model.ImageDescriptionColumn) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
-	return ec._ImageDecriptionColumn(ctx, sel, v)
+	return ec._ImageDescriptionColumn(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOImageDescriptionOrder2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐImageDescriptionOrder(ctx context.Context, v interface{}) (*model.ImageDescriptionOrder, error) {

@@ -2,7 +2,7 @@ package model
 
 import "encoding/json"
 
-func (this ImageDecriptionColumn) MarshalJSON() ([]byte, error) {
+func (this ImageDescriptionColumn) MarshalJSON() ([]byte, error) {
 	extendedOutput := struct {
 		TypeName    string                 `json:"__typename"`
 		Placeholder *string                `json:"_placeholder,omitempty"`
@@ -10,7 +10,7 @@ func (this ImageDecriptionColumn) MarshalJSON() ([]byte, error) {
 		Image       *ImageCentered         `json:"image,omitempty"`
 		Order       *ImageDescriptionOrder `json:"order,omitempty"`
 	}{
-		TypeName:    "ImageDecriptionColumn",
+		TypeName:    "ImageDescriptionColumn",
 		Placeholder: this.Placeholder,
 		Description: this.Description,
 		Image:       this.Image,

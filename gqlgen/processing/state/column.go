@@ -6,5 +6,5 @@ type Column interface {
 
 type Columns []Column
 
-func (c *BackgroundImageColumn) IsColumn() {}
-func (c *ImageDecriptionColumn) IsColumn() {}
+func (c *BackgroundImageColumn) IsColumn()  {}
+func (c *ImageDescriptionColumn) IsColumn() {}

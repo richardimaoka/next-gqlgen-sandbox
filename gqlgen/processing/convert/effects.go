@@ -12,12 +12,12 @@ import (
 // Other packages don't use this, so unexported (lowercase) struct
 type stepConverter struct {
 	// Uppercase fields to allow json dump for testing
-	Step                  string                      `json:"step"`
-	NColumns              int                         `json:"nColumns"`
-	PrevStep              string                      `json:"prevStep,omitempty"`
-	NextStep              string                      `json:"nextStep,omitempty"`
-	BackgroundImageColumn *read.BackgroundImageColumn `json:"backgroundImageColumn,omitempty"`
-	ImageDecriptionColumn *read.ImageDecriptionColumn `json:"imageDecriptionColumn,omitempty"`
+	Step                   string                       `json:"step"`
+	NColumns               int                          `json:"nColumns"`
+	PrevStep               string                       `json:"prevStep,omitempty"`
+	NextStep               string                       `json:"nextStep,omitempty"`
+	BackgroundImageColumn  *read.BackgroundImageColumn  `json:"backgroundImageColumn,omitempty"`
+	ImageDescriptionColumn *read.ImageDescriptionColumn `json:"imageDescriptionColumn,omitempty"`
 }
 
 type StepConverters []stepConverter
@@ -31,8 +31,8 @@ func (this stepConverter) ToGraphQLColumns() []*model.ColumnWrapper {
 			colWrappers = append(colWrappers, &model.ColumnWrapper{Column: column})
 		}
 
-		if this.ImageDecriptionColumn != nil && this.ImageDecriptionColumn.Column == i {
-			state := this.ImageDecriptionColumn.ToStateImgDescColumn()
+		if this.ImageDescriptionColumn != nil && this.ImageDescriptionColumn.Column == i {
+			state := this.ImageDescriptionColumn.ToStateImgDescColumn()
 			column := state.ToGraphQLImgDescCol()
 			colWrappers = append(colWrappers, &model.ColumnWrapper{Column: column})
 		}
@@ -98,7 +98,7 @@ func ReadStepConverters(dirName string) (StepConverters, error) {
 		return nil, fmt.Errorf("InitialRead failed, %s", err)
 	}
 
-	imageDecriptionColumns, err := read.ReadImageDecriptionColumns(dirName + "/img_columns.json")
+	imageDescriptionColumns, err := read.ReadImageDescriptionColumns(dirName + "/img_columns.json")
 	if err != nil {
 		return nil, fmt.Errorf("InitialRead failed, %s", err)
 	}
@@ -109,7 +109,7 @@ func ReadStepConverters(dirName string) (StepConverters, error) {
 	var converters StepConverters
 	for i, step := range steps {
 		bgCol := backgroundImageColumns.FindBySeqNo(step.SeqNo)
-		imgCol := imageDecriptionColumns.FindBySeqNo(step.SeqNo)
+		imgCol := imageDescriptionColumns.FindBySeqNo(step.SeqNo)
 
 		var currentStep string
 		if i == 0 {
@@ -133,12 +133,12 @@ func ReadStepConverters(dirName string) (StepConverters, error) {
 		}
 
 		conv := stepConverter{
-			Step:                  currentStep,
-			PrevStep:              prevStep,
-			NextStep:              nextStep,
-			NColumns:              step.NColumns,
-			BackgroundImageColumn: bgCol,
-			ImageDecriptionColumn: imgCol,
+			Step:                   currentStep,
+			PrevStep:               prevStep,
+			NextStep:               nextStep,
+			NColumns:               step.NColumns,
+			BackgroundImageColumn:  bgCol,
+			ImageDescriptionColumn: imgCol,
 		}
 		converters = append(converters, conv)
 	}

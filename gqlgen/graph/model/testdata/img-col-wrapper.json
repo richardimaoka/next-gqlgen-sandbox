@@ -1,6 +1,6 @@
 {
   "column": {
-    "__typename": "ImageDecriptionColumn",
+    "__typename": "ImageDescriptionColumn",
     "description": {
       "contents": "それではデモンストレーションの手順を見ていきます。\n\n1. まずはGoogle Cloud Platform上での設定が必要です。OAuth Client IDを作成しましょう。"
     },

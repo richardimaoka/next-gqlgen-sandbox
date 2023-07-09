@@ -37,15 +37,15 @@ type ImageCentered struct {
 	URL    *string `json:"url,omitempty"`
 }
 
-type ImageDecriptionColumn struct {
+type ImageDescriptionColumn struct {
 	Placeholder *string                `json:"_placeholder,omitempty"`
 	Description *Markdown              `json:"description,omitempty"`
 	Image       *ImageCentered         `json:"image,omitempty"`
 	Order       *ImageDescriptionOrder `json:"order,omitempty"`
 }
 
-func (ImageDecriptionColumn) IsColumn()                    {}
-func (this ImageDecriptionColumn) GetPlaceholder() *string { return this.Placeholder }
+func (ImageDescriptionColumn) IsColumn()                    {}
+func (this ImageDescriptionColumn) GetPlaceholder() *string { return this.Placeholder }
 
 type Markdown struct {
 	Contents  *string            `json:"contents,omitempty"`

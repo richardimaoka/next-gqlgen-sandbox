@@ -8,7 +8,7 @@ import (
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/state"
 )
 
-type ImageDecriptionColumn struct {
+type ImageDescriptionColumn struct {
 	SeqNo                int    `json:"seqNo"`
 	Column               int    `json:"column"`
 	Width                int    `json:"width"`
@@ -20,20 +20,20 @@ type ImageDecriptionColumn struct {
 	DescriptionAlignment string `json:"description.alignment"`
 }
 
-type ImageDecriptionColumns []ImageDecriptionColumn
+type ImageDescriptionColumns []ImageDescriptionColumn
 
-func ReadImageDecriptionColumns(filePath string) (ImageDecriptionColumns, error) {
-	var elements ImageDecriptionColumns
+func ReadImageDescriptionColumns(filePath string) (ImageDescriptionColumns, error) {
+	var elements ImageDescriptionColumns
 	unmarshaller := func(jsonBytes []byte) error { return json.Unmarshal(jsonBytes, &elements) }
 	err := internal.JsonRead(filePath, unmarshaller)
 	if err != nil {
-		return nil, fmt.Errorf("ReadImageDecriptionColumns failed to read file, %s", err)
+		return nil, fmt.Errorf("ReadImageDescriptionColumns failed to read file, %s", err)
 	}
 
 	return elements, err
 }
 
-func (t ImageDecriptionColumns) FindBySeqNo(seqNo int) *ImageDecriptionColumn {
+func (t ImageDescriptionColumns) FindBySeqNo(seqNo int) *ImageDescriptionColumn {
 	for _, e := range t {
 		if e.SeqNo == seqNo {
 			return &e // found!
@@ -43,8 +43,8 @@ func (t ImageDecriptionColumns) FindBySeqNo(seqNo int) *ImageDecriptionColumn {
 	return nil
 }
 
-func (e ImageDecriptionColumn) ToStateImgDescColumn() *state.ImageDecriptionColumn {
-	return &state.ImageDecriptionColumn{
+func (e ImageDescriptionColumn) ToStateImgDescColumn() *state.ImageDescriptionColumn {
+	return &state.ImageDescriptionColumn{
 		Image: state.Image{
 			Width:          e.Width,
 			Height:         e.Height,

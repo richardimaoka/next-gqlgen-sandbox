@@ -8,7 +8,7 @@ import (
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
 )
 
-func TestUnmarshalImageDecriptionColumn(t *testing.T) {
+func TestUnmarshalImageDescriptionColumn(t *testing.T) {
 	var wrapper model.ColumnWrapper
 	unmarshaller := func(jsonBytes []byte) error { return json.Unmarshal(jsonBytes, &wrapper) }
 	err := internal.JsonRead("testdata/img-col-wrapper.json", unmarshaller)
@@ -16,9 +16,9 @@ func TestUnmarshalImageDecriptionColumn(t *testing.T) {
 		t.Fatalf("TestColumnUnmarshal failed, %+v", err)
 	}
 
-	col, ok := wrapper.Column.(*model.ImageDecriptionColumn)
+	col, ok := wrapper.Column.(*model.ImageDescriptionColumn)
 	if !ok {
-		t.Fatalf("TestColumnUnmarshal failed to cast wrapper.column to ImageDecriptionColumn")
+		t.Fatalf("TestColumnUnmarshal failed to cast wrapper.column to ImageDescriptionColumn")
 	}
 	if col.Description == nil || col.Description.Contents == nil {
 		t.Fatalf("TestColumnUnmarshal failed to get description string, %v", col.Description)

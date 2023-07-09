@@ -58,7 +58,7 @@ type BackgroundImageColumn implements Column {
   modal: Modal
 }
 
-type ImageDecriptionColumn implements Column {
+type ImageDescriptionColumn implements Column {
   _placeholder: String
   description: Markdown
   image: ImageCentered
@@ -90,7 +90,7 @@ type Query {
   page(tutorial: String!, step: String): PageState
 
   columns: [ColumnWrapper]
-  imageDescriptionColumn: ImageDecriptionColumn
+  imageDescriptionColumn: ImageDescriptionColumn
   markdownColumn: MarkdownColumn
   backgroundImageColumn: BackgroundImageColumn
 }

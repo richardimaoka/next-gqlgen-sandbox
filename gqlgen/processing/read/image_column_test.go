@@ -10,9 +10,9 @@ import (
 
 func TestReadImgColumn(t *testing.T) {
 	filepath := "testdata/bg_columns.json"
-	elements, err := read.ReadImageDecriptionColumns(filepath)
+	elements, err := read.ReadImageDescriptionColumns(filepath)
 	if err != nil {
-		t.Fatalf("ReadImageDecriptionColumns failed to read file, %s", err)
+		t.Fatalf("ReadImageDescriptionColumns failed to read file, %s", err)
 	}
 
 	for i, e := range elements {
@@ -22,9 +22,9 @@ func TestReadImgColumn(t *testing.T) {
 
 func TestToImgColumn(t *testing.T) {
 	filepath := "testdata/img_columns.json"
-	elements, err := read.ReadImageDecriptionColumns(filepath)
+	elements, err := read.ReadImageDescriptionColumns(filepath)
 	if err != nil {
-		t.Fatalf("ReadImageDecriptionColumns failed to read file, %s", err)
+		t.Fatalf("ReadImageDescriptionColumns failed to read file, %s", err)
 	}
 
 	for i, e := range elements {
@@ -35,9 +35,9 @@ func TestToImgColumn(t *testing.T) {
 
 func TestToGraphQLImgColumn(t *testing.T) {
 	filepath := "testdata/img_columns.json"
-	columns, err := read.ReadImageDecriptionColumns(filepath)
+	columns, err := read.ReadImageDescriptionColumns(filepath)
 	if err != nil {
-		t.Fatalf("ReadImageDecriptionColumns failed to read file, %s", err)
+		t.Fatalf("ReadImageDescriptionColumns failed to read file, %s", err)
 	}
 
 	for i, e := range columns {

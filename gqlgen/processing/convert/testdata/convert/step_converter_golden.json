@@ -3,7 +3,7 @@
     "step": "_initial",
     "nColumns": 1,
     "nextStep": "d0d00a27-e289-4342-bd3b-8087795b67a3",
-    "imageDecriptionColumn": {
+    "imageDescriptionColumn": {
       "seqNo": 0,
       "column": 0,
       "width": 171,
@@ -20,7 +20,7 @@
     "nColumns": 1,
     "prevStep": "_initial",
     "nextStep": "863dbf18-84b7-4723-8ef2-a7dd9f0aa28b",
-    "imageDecriptionColumn": {
+    "imageDescriptionColumn": {
       "seqNo": 1,
       "column": 0,
       "width": 298,

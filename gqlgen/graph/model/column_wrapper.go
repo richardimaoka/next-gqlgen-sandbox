@@ -48,8 +48,8 @@ func columnFromBytes(bytes []byte) (Column, error) {
 		}
 		return &col, nil
 
-	case "ImageDecriptionColumn":
-		var col ImageDecriptionColumn
+	case "ImageDescriptionColumn":
+		var col ImageDescriptionColumn
 		if err := json.Unmarshal(bytes, &col); err != nil {
 			return nil, err
 		}
