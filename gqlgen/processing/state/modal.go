@@ -1,6 +1,9 @@
 package state
 
-import "github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/graph/model"
+import (
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/graph/model"
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
+)
 
 type ModalPosition string
 
@@ -26,7 +29,7 @@ func convertModalPosition(pos ModalPosition) *model.ModalPosition {
 
 func (p *Modal) ToGraphQLModal() *model.Modal {
 	// copy to avoid mutation effect afterwards
-	text := stringRef(p.Text)
+	text := internal.StringRef(p.Text)
 	position := convertModalPosition(p.Position) //p.Position is passed-by-copy, to avoid mutation effect afterwards
 
 	return &model.Modal{

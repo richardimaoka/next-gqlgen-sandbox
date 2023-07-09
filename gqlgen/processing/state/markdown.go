@@ -1,6 +1,9 @@
 package state
 
-import "github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/graph/model"
+import (
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/graph/model"
+	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
+)
 
 type MarkdownAlignment string
 
@@ -25,7 +28,7 @@ func convertMarkdownAlignment(align MarkdownAlignment) *model.MarkdownAlignment 
 
 func (p *Markdown) ToGraphQLMarkdown() *model.Markdown {
 	// copy to avoid mutation effect afterwards
-	contents := stringRef(p.Contents)
+	contents := internal.StringRef(p.Contents)
 	alignment := convertMarkdownAlignment(p.Alignment) //p.Alignment is passed-by-copy, to avoid mutation effect afterwards
 
 	return &model.Markdown{

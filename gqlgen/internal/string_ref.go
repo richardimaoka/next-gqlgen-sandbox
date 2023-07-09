@@ -1,6 +1,6 @@
-package state
+package internal
 
-func stringRef(s string) *string {
+func StringRef(s string) *string {
 	if s == "" {
 		return nil
 	} else {
