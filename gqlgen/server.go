@@ -36,6 +36,7 @@ func processing() {
 }
 
 func main() {
-	// server()
-	processing()
+	// processing()
+	server()
+
 }
