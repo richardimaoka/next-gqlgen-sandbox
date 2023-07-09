@@ -8,7 +8,9 @@ import (
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/read"
 )
 
-type StepConverter struct {
+// Other packages don't use this, so unexported (lowercase) struct
+type stepConverter struct {
+	// Uppercase fields to allow json dump for testing
 	Step                  string                      `json:"step"`
 	NColumns              int                         `json:"nColumns"`
 	PrevStep              string                      `json:"prevStep,omitempty"`
@@ -17,9 +19,9 @@ type StepConverter struct {
 	ImageDecriptionColumn *read.ImageDecriptionColumn `json:"imageDecriptionColumn,omitempty"`
 }
 
-type StepConverters []StepConverter
+type StepConverters []stepConverter
 
-func (this StepConverter) ToGraphQLColumns() []*model.ColumnWrapper {
+func (this stepConverter) ToGraphQLColumns() []*model.ColumnWrapper {
 	var colWrappers []*model.ColumnWrapper
 	for i := 0; i < this.NColumns; i++ {
 		if this.BackgroundImageColumn != nil && this.BackgroundImageColumn.Column == i {
@@ -100,7 +102,7 @@ func ReadStepConverters(dirName string) (StepConverters, error) {
 			prevStep = steps[i+1].Step
 		}
 
-		conv := StepConverter{
+		conv := stepConverter{
 			Step:                  step.Step,
 			NColumns:              step.NColumns,
 			PrevStep:              prevStep,
