@@ -24,7 +24,14 @@ func (r *queryResolver) Page(ctx context.Context, tutorial string, step *string)
 		filepath = fmt.Sprintf("data/%s/state/%s.json", tutorial, *step)
 	}
 
-	panic(fmt.Errorf("not implemented: Page - page"))
+	var page *model.PageState
+	unmarshaller := func(jsonBytes []byte) error { return json.Unmarshal(jsonBytes, &page) }
+	err := internal.JsonRead(filepath, unmarshaller)
+	if err != nil {
+		return nil, fmt.Errorf("Error in Page(), %v", err)
+	}
+
+	return page, nil
 }
 
 // Columns is the resolver for the columns field.
