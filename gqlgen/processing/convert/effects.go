@@ -2,6 +2,7 @@ package convert
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/graph/model"
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/internal"
@@ -59,6 +60,16 @@ func (this StepConverters) ToGraphQLPages() []model.PageState {
 	}
 
 	return pages
+}
+
+func (this StepConverters) ClearDirectory(dirName string) error {
+	if err := os.RemoveAll(dirName + "/state"); err != nil {
+		return fmt.Errorf("ClearDirectory failed, %s", err)
+	}
+	if err := os.Mkdir(dirName+"/state", 0744); err != nil {
+		return fmt.Errorf("ClearDirectory failed, %s", err)
+	}
+	return nil
 }
 
 func (this StepConverters) WriteResults(dirName string) error {
@@ -140,6 +151,11 @@ func Process(dirName string) error {
 	if err != nil {
 		return fmt.Errorf("Process failed, %s", err)
 	}
+
+	if err := converters.ClearDirectory(dirName); err != nil {
+		return fmt.Errorf("Process failed, %s", err)
+	}
+
 	if err := converters.WriteResults(dirName); err != nil {
 		return fmt.Errorf("Process failed, %s", err)
 	}
