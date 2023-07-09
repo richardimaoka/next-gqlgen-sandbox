@@ -113,6 +113,19 @@ export type QueryPageArgs = {
   tutorial: Scalars["String"]["input"];
 };
 
+export type ColumnWrapperFragmentFragment = {
+  __typename: "ColumnWrapper";
+  column?:
+    | { __typename: "BackgroundImageColumn"; _placeholder?: string | null }
+    | ({ __typename: "ImageDescriptionColumn" } & {
+        " $fragmentRefs"?: {
+          ImageDescriptionColumnFragmentFragment: ImageDescriptionColumnFragmentFragment;
+        };
+      })
+    | { __typename: "MarkdownColumn" }
+    | null;
+} & { " $fragmentName"?: "ColumnWrapperFragmentFragment" };
+
 export type ImageCenteredFragmentFragment = {
   __typename: "ImageCentered";
   width?: number | null;
@@ -156,14 +169,14 @@ export type IndexPageQuery = {
     step?: string | null;
     nextStep?: string | null;
     prevStep?: string | null;
-    columns?: Array<{
-      __typename: "ColumnWrapper";
-      column?:
-        | { __typename: "BackgroundImageColumn" }
-        | { __typename: "ImageDescriptionColumn" }
-        | { __typename: "MarkdownColumn" }
-        | null;
-    } | null> | null;
+    columns?: Array<
+      | ({ __typename: "ColumnWrapper" } & {
+          " $fragmentRefs"?: {
+            ColumnWrapperFragmentFragment: ColumnWrapperFragmentFragment;
+          };
+        })
+      | null
+    > | null;
   } | null;
 };
 
@@ -282,6 +295,138 @@ export const ImageDescriptionColumnFragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<ImageDescriptionColumnFragmentFragment, unknown>;
+export const ColumnWrapperFragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ColumnWrapperFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "ColumnWrapper" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "column" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "ImageDescriptionColumn" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "FragmentSpread",
+                        name: {
+                          kind: "Name",
+                          value: "ImageDescriptionColumnFragment",
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "BackgroundImageColumn" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "_placeholder" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "MarkdownFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Markdown" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "contents" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ImageCenteredFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "ImageCentered" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "width" } },
+          { kind: "Field", name: { kind: "Name", value: "height" } },
+          { kind: "Field", name: { kind: "Name", value: "path" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ImageDescriptionColumnFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "ImageDescriptionColumn" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "description" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "MarkdownFragment" },
+                },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "image" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "ImageCenteredFragment" },
+                },
+              ],
+            },
+          },
+          { kind: "Field", name: { kind: "Name", value: "order" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ColumnWrapperFragmentFragment, unknown>;
 export const IndexPageDocument = {
   kind: "Document",
   definitions: [
@@ -347,17 +492,135 @@ export const IndexPageDocument = {
                     kind: "SelectionSet",
                     selections: [
                       {
-                        kind: "Field",
-                        name: { kind: "Name", value: "column" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "__typename" },
-                            },
-                          ],
+                        kind: "FragmentSpread",
+                        name: { kind: "Name", value: "ColumnWrapperFragment" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "MarkdownFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Markdown" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "contents" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ImageCenteredFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "ImageCentered" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "width" } },
+          { kind: "Field", name: { kind: "Name", value: "height" } },
+          { kind: "Field", name: { kind: "Name", value: "path" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ImageDescriptionColumnFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "ImageDescriptionColumn" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "description" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "MarkdownFragment" },
+                },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "image" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "ImageCenteredFragment" },
+                },
+              ],
+            },
+          },
+          { kind: "Field", name: { kind: "Name", value: "order" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ColumnWrapperFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "ColumnWrapper" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "column" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "ImageDescriptionColumn" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "FragmentSpread",
+                        name: {
+                          kind: "Name",
+                          value: "ImageDescriptionColumnFragment",
                         },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "BackgroundImageColumn" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "_placeholder" },
                       },
                     ],
                   },

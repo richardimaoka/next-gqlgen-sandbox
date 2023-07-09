@@ -8,6 +8,7 @@ import { graphql } from "../libs/gql";
 import { NextButton } from "@/components/NextButton";
 import { PrevButton } from "@/components/PrevButton";
 import { ParsedUrlQuery } from "querystring";
+import { ColumnWrapper } from "@/components/ColumnWrapper";
 
 const notoSansJP = Noto_Sans_JP({
   // Japanese font needs this settings, as index.d.ts doesn't allow subsets = japanese, which is probably due to the large size of japanese font
@@ -39,9 +40,7 @@ const queryDefinition = graphql(/* GraphQL */ `
       nextStep
       prevStep
       columns {
-        column {
-          __typename
-        }
+        ...ColumnWrapperFragment
       }
     }
   }
@@ -57,14 +56,19 @@ export const getServerSideProps: GetServerSideProps<
 > = async (context) => {
   const step = extractString(context.query.step);
 
-  const { data } = await client.query({
-    query: queryDefinition,
-    variables: { tutorial: "sign-in-with-google", step },
-  });
-
-  return {
-    props: data,
-  };
+  console.log("getServerSideProps", queryDefinition);
+  try {
+    const { data, error } = await client.query({
+      query: queryDefinition,
+      variables: { tutorial: "sign-in-with-google", step },
+    });
+    return {
+      props: data,
+    };
+  } catch (error) {
+    console.log("error from graphql server", error);
+    throw new Error("error from graphql server");
+  }
 };
 
 export default function Home({ page }: IndexPageQuery) {
@@ -76,11 +80,14 @@ export default function Home({ page }: IndexPageQuery) {
           gap: 16px;
         `}
       >
-        {page?.columns?.map((column, index) => (
-          <Column key={index} position="middle">
-            {index}
-          </Column>
-        ))}
+        {page?.columns?.map(
+          (column, index) =>
+            column && (
+              <Column key={index} position="middle">
+                <ColumnWrapper fragment={column} />
+              </Column>
+            )
+        )}
       </div>
       {page?.prevStep && <PrevButton href={`/?step=${page.prevStep}`} />}
       {page?.nextStep && <NextButton href={`/?step=${page.nextStep}`} />}
