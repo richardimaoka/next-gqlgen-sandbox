@@ -76,7 +76,11 @@ export default function Home({ page }: IndexPageQuery) {
           gap: 16px;
         `}
       >
-        <Column position="middle">s</Column>
+        {page?.columns?.map((column, index) => (
+          <Column key={index} position="middle">
+            {index}
+          </Column>
+        ))}
       </div>
       {page?.prevStep && <PrevButton href={`/?step=${page.prevStep}`} />}
       {page?.nextStep && <NextButton href={`/?step=${page.nextStep}`} />}
