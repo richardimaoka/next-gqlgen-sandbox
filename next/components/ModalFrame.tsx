@@ -1,3 +1,4 @@
+import { ModalPosition } from "@/libs/gql/graphql";
 import { css } from "@emotion/react";
 import { ReactNode } from "react";
 
@@ -18,7 +19,7 @@ const ModalBox = ({ message }: { message: string }) => (
 
 interface ModalFrameProps {
   children: ReactNode;
-  position: "top" | "middle" | "bottom";
+  position: ModalPosition;
   message: string;
 }
 
@@ -27,13 +28,13 @@ export const ModalFrame = ({
   position,
   message,
 }: ModalFrameProps) => {
-  const f = (p: "top" | "middle" | "bottom"): string => {
+  const f = (p: ModalPosition): string => {
     switch (p) {
-      case "top":
+      case "TOP":
         return "top: 20px;";
-      case "middle":
+      case "CENTER":
         return "top: 50%;";
-      case "bottom":
+      case "BOTTOM":
         return "bottom: 20px;";
     }
   };
