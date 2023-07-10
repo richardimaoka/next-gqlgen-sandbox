@@ -2,6 +2,7 @@ import Image from "next/image";
 import { css } from "@emotion/react";
 import { FragmentType, graphql, useFragment } from "../libs/gql";
 import { ImageDescriptionColumn } from "./ImageDescriptionColumn";
+import { BackgroundImageColumn } from "./BackgroundImageColumn";
 
 const fragmentDefinition = graphql(`
   fragment ColumnWrapperFragment on ColumnWrapper {
@@ -10,7 +11,7 @@ const fragmentDefinition = graphql(`
         ...ImageDescriptionColumnFragment
       }
       ... on BackgroundImageColumn {
-        _placeholder
+        ...BackgroundImageColumnFragment
       }
     }
   }
@@ -28,10 +29,16 @@ export const ColumnWrapper = (props: ColumnWrapperProps): JSX.Element => {
     return <></>;
   }
 
+  if (!typename) {
+    return <></>;
+  }
+
   switch (typename) {
     case "ImageDescriptionColumn":
       return <ImageDescriptionColumn fragment={fragment.column} />;
-    default:
+    case "BackgroundImageColumn":
+      return <BackgroundImageColumn fragment={fragment.column} />;
+    case "MarkdownColumn":
       return <></>;
   }
 };

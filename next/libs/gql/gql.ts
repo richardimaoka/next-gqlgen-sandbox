@@ -15,7 +15,7 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
 const documents = {
   "\n  fragment BackgroundImageColumnFragment on BackgroundImageColumn {\n    width\n    height\n    path\n    modal {\n      text\n      position\n    }\n  }\n":
     types.BackgroundImageColumnFragmentFragmentDoc,
-  "\n  fragment ColumnWrapperFragment on ColumnWrapper {\n    column {\n      ... on ImageDescriptionColumn {\n        ...ImageDescriptionColumnFragment\n      }\n      ... on BackgroundImageColumn {\n        _placeholder\n      }\n    }\n  }\n":
+  "\n  fragment ColumnWrapperFragment on ColumnWrapper {\n    column {\n      ... on ImageDescriptionColumn {\n        ...ImageDescriptionColumnFragment\n      }\n      ... on BackgroundImageColumn {\n        ...BackgroundImageColumnFragment\n      }\n    }\n  }\n":
     types.ColumnWrapperFragmentFragmentDoc,
   "\n  fragment ImageCenteredFragment on ImageCentered {\n    width\n    height\n    path\n  }\n":
     types.ImageCenteredFragmentFragmentDoc,
@@ -51,8 +51,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  fragment ColumnWrapperFragment on ColumnWrapper {\n    column {\n      ... on ImageDescriptionColumn {\n        ...ImageDescriptionColumnFragment\n      }\n      ... on BackgroundImageColumn {\n        _placeholder\n      }\n    }\n  }\n",
-): (typeof documents)["\n  fragment ColumnWrapperFragment on ColumnWrapper {\n    column {\n      ... on ImageDescriptionColumn {\n        ...ImageDescriptionColumnFragment\n      }\n      ... on BackgroundImageColumn {\n        _placeholder\n      }\n    }\n  }\n"];
+  source: "\n  fragment ColumnWrapperFragment on ColumnWrapper {\n    column {\n      ... on ImageDescriptionColumn {\n        ...ImageDescriptionColumnFragment\n      }\n      ... on BackgroundImageColumn {\n        ...BackgroundImageColumnFragment\n      }\n    }\n  }\n",
+): (typeof documents)["\n  fragment ColumnWrapperFragment on ColumnWrapper {\n    column {\n      ... on ImageDescriptionColumn {\n        ...ImageDescriptionColumnFragment\n      }\n      ... on BackgroundImageColumn {\n        ...BackgroundImageColumnFragment\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
