@@ -8,8 +8,7 @@ const fragmentDefinition = graphql(`
     height
     path
     modal {
-      text
-      position
+      ...ModalFrameFragment
     }
   }
 `);
@@ -22,14 +21,13 @@ export const BackgroundImageColumn = (
   props: BackgroundImageColumnProps
 ): JSX.Element => {
   const fragment = useFragment(fragmentDefinition, props.fragment);
-  const modal = fragment.modal;
 
   if (!fragment.path || !fragment.width || !fragment.height) {
     return <></>;
   }
 
-  return modal && modal.position && modal.text ? (
-    <ModalFrame position={modal.position} message={modal.text}>
+  return fragment.modal ? (
+    <ModalFrame fragment={fragment.modal}>
       <MobileScreenshot
         src={fragment.path}
         width={fragment.width}

@@ -118,11 +118,13 @@ export type BackgroundImageColumnFragmentFragment = {
   width?: number | null;
   height?: number | null;
   path?: string | null;
-  modal?: {
-    __typename: "Modal";
-    text?: string | null;
-    position?: ModalPosition | null;
-  } | null;
+  modal?:
+    | ({ __typename: "Modal" } & {
+        " $fragmentRefs"?: {
+          ModalFrameFragmentFragment: ModalFrameFragmentFragment;
+        };
+      })
+    | null;
 } & { " $fragmentName"?: "BackgroundImageColumnFragmentFragment" };
 
 export type ColumnWrapperFragmentFragment = {
@@ -172,6 +174,12 @@ export type MarkdownFragmentFragment = {
   __typename: "Markdown";
   contents?: string | null;
 } & { " $fragmentName"?: "MarkdownFragmentFragment" };
+
+export type ModalFrameFragmentFragment = {
+  __typename: "Modal";
+  text?: string | null;
+  position?: ModalPosition | null;
+} & { " $fragmentName"?: "ModalFrameFragmentFragment" };
 
 export type IndexPageQueryVariables = Exact<{
   tutorial: Scalars["String"]["input"];
@@ -311,6 +319,26 @@ export const ImageDescriptionColumnFragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<ImageDescriptionColumnFragmentFragment, unknown>;
+export const ModalFrameFragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ModalFrameFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Modal" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "text" } },
+          { kind: "Field", name: { kind: "Name", value: "position" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ModalFrameFragmentFragment, unknown>;
 export const BackgroundImageColumnFragmentFragmentDoc = {
   kind: "Document",
   definitions: [
@@ -333,11 +361,28 @@ export const BackgroundImageColumnFragmentFragmentDoc = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "text" } },
-                { kind: "Field", name: { kind: "Name", value: "position" } },
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "ModalFrameFragment" },
+                },
               ],
             },
           },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ModalFrameFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Modal" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "text" } },
+          { kind: "Field", name: { kind: "Name", value: "position" } },
         ],
       },
     },
@@ -438,6 +483,21 @@ export const ColumnWrapperFragmentFragmentDoc = {
     },
     {
       kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ModalFrameFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Modal" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "text" } },
+          { kind: "Field", name: { kind: "Name", value: "position" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
       name: { kind: "Name", value: "ImageDescriptionColumnFragment" },
       typeCondition: {
         kind: "NamedType",
@@ -495,8 +555,10 @@ export const ColumnWrapperFragmentFragmentDoc = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "text" } },
-                { kind: "Field", name: { kind: "Name", value: "position" } },
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "ModalFrameFragment" },
+                },
               ],
             },
           },
@@ -654,6 +716,21 @@ export const IndexPageDocument = {
     },
     {
       kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ModalFrameFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Modal" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "text" } },
+          { kind: "Field", name: { kind: "Name", value: "position" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
       name: { kind: "Name", value: "BackgroundImageColumnFragment" },
       typeCondition: {
         kind: "NamedType",
@@ -671,8 +748,10 @@ export const IndexPageDocument = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "text" } },
-                { kind: "Field", name: { kind: "Name", value: "position" } },
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "ModalFrameFragment" },
+                },
               ],
             },
           },

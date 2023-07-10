@@ -1,6 +1,19 @@
+import { FragmentType, graphql, useFragment } from "@/libs/gql";
 import { ModalPosition } from "@/libs/gql/graphql";
 import { css } from "@emotion/react";
 import { ReactNode } from "react";
+
+const fragmentDefinition = graphql(`
+  fragment ModalFrameFragment on Modal {
+    text
+    position
+  }
+`);
+
+export interface ModalFrameProps {
+  fragment: FragmentType<typeof fragmentDefinition>;
+  children: ReactNode;
+}
 
 const ModalBox = ({ message }: { message: string }) => (
   <div
@@ -17,28 +30,26 @@ const ModalBox = ({ message }: { message: string }) => (
   </div>
 );
 
-interface ModalFrameProps {
-  children: ReactNode;
-  position: ModalPosition;
-  message: string;
-}
+const positionCss = (p: ModalPosition): string => {
+  switch (p) {
+    case "TOP":
+      return "top: 20px;";
+    case "CENTER":
+      return "top: 50%;";
+    case "BOTTOM":
+      return "bottom: 20px;";
+  }
+};
 
-export const ModalFrame = ({
-  children,
-  position,
-  message,
-}: ModalFrameProps) => {
-  const f = (p: ModalPosition): string => {
-    switch (p) {
-      case "TOP":
-        return "top: 20px;";
-      case "CENTER":
-        return "top: 50%;";
-      case "BOTTOM":
-        return "bottom: 20px;";
-    }
-  };
-  const topBottomPosition = f(position);
+export const ModalFrame = (props: ModalFrameProps): JSX.Element => {
+  const fragment = useFragment(fragmentDefinition, props.fragment);
+  const topBottomPosition = fragment.position
+    ? positionCss(fragment.position)
+    : positionCss("TOP"); //default position = TOP
+
+  if (!fragment.text) {
+    return <></>;
+  }
 
   return (
     <div
@@ -56,9 +67,9 @@ export const ModalFrame = ({
           z-index: 1; /* Sit on top */
         `}
       >
-        <ModalBox message={message} />
+        <ModalBox message={fragment.text} />
       </div>
-      {children}
+      {props.children}
     </div>
   );
 };
