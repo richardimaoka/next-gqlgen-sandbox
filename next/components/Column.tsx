@@ -24,23 +24,19 @@ export const Column = ({ children, position }: ColumnProps) => {
   // 3. top and bottom spacing
   // 4. background color or image <- this is the only thing to set in the outer container element
   return (
-    <main>
-      <div
-        css={css`
-          ${v}
-          @media (max-width: 768px) {
-            width: 100vw;
-            height: 100vh;
-          }
-          width: 768px;
+    <div
+      css={css`
+        ${v}
+        @media (max-width: 768px) {
+          width: 100vw;
           height: 100vh;
-          overflow: auto;
-
-          background-color: ${dark1MainBg};
-        `}
-      >
-        {children}
-      </div>
-    </main>
+        }
+        width: 768px;
+        overflow: auto;
+        background-color: ${dark1MainBg};
+      `}
+    >
+      {children}
+    </div>
   );
 };
