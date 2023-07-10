@@ -36,7 +36,10 @@ func processing() {
 }
 
 func main() {
-	// processing()
-	server()
+	if len(os.Args) > 1 && os.Args[1] == "processing" {
+		processing()
+	} else {
+		server()
+	}
 
 }
