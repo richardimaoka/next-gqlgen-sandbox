@@ -78,6 +78,7 @@ export default function Home({ page }: IndexPageQuery) {
         css={css`
           display: flex;
           gap: 16px;
+          justify-content: center;
         `}
       >
         {page?.columns?.map(
