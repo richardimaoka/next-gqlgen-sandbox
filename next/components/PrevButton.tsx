@@ -14,8 +14,8 @@ export const PrevButton = ({ href }: PrevButtonProps) => (
         font-size: 20px;
         width: 100px;
         height: 40px;
-        background-color: rgba(255, 255, 255, 0.5);
-        color: white;
+        background-color: rgba(255, 255, 255, 0.8);
+        color: black;
         border-style: none;
       `}
     >
