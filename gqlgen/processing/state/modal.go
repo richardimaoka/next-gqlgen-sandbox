@@ -28,6 +28,11 @@ func convertModalPosition(pos ModalPosition) *model.ModalPosition {
 }
 
 func (p *Modal) ToGraphQLModal() *model.Modal {
+	// if no text, then no need to show modal
+	if p.Text == "" {
+		return nil
+	}
+
 	// copy to avoid mutation effect afterwards
 	text := internal.StringRef(p.Text)
 	position := convertModalPosition(p.Position) //p.Position is passed-by-copy, to avoid mutation effect afterwards
