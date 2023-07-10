@@ -113,6 +113,18 @@ export type QueryPageArgs = {
   tutorial: Scalars["String"]["input"];
 };
 
+export type BackgroundImageColumnFragmentFragment = {
+  __typename: "BackgroundImageColumn";
+  width?: number | null;
+  height?: number | null;
+  path?: string | null;
+  modal?: {
+    __typename: "Modal";
+    text?: string | null;
+    position?: ModalPosition | null;
+  } | null;
+} & { " $fragmentName"?: "BackgroundImageColumnFragmentFragment" };
+
 export type ColumnWrapperFragmentFragment = {
   __typename: "ColumnWrapper";
   column?:
@@ -180,6 +192,38 @@ export type IndexPageQuery = {
   } | null;
 };
 
+export const BackgroundImageColumnFragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "BackgroundImageColumnFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "BackgroundImageColumn" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "width" } },
+          { kind: "Field", name: { kind: "Name", value: "height" } },
+          { kind: "Field", name: { kind: "Name", value: "path" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "modal" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "text" } },
+                { kind: "Field", name: { kind: "Name", value: "position" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<BackgroundImageColumnFragmentFragment, unknown>;
 export const MarkdownFragmentFragmentDoc = {
   kind: "Document",
   definitions: [

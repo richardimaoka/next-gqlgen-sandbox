@@ -13,6 +13,8 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+  "\n  fragment BackgroundImageColumnFragment on BackgroundImageColumn {\n    width\n    height\n    path\n    modal {\n      text\n      position\n    }\n  }\n":
+    types.BackgroundImageColumnFragmentFragmentDoc,
   "\n  fragment ColumnWrapperFragment on ColumnWrapper {\n    column {\n      ... on ImageDescriptionColumn {\n        ...ImageDescriptionColumnFragment\n      }\n      ... on BackgroundImageColumn {\n        _placeholder\n      }\n    }\n  }\n":
     types.ColumnWrapperFragmentFragmentDoc,
   "\n  fragment ImageCenteredFragment on ImageCentered {\n    width\n    height\n    path\n  }\n":
@@ -39,6 +41,12 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  fragment BackgroundImageColumnFragment on BackgroundImageColumn {\n    width\n    height\n    path\n    modal {\n      text\n      position\n    }\n  }\n",
+): (typeof documents)["\n  fragment BackgroundImageColumnFragment on BackgroundImageColumn {\n    width\n    height\n    path\n    modal {\n      text\n      position\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
