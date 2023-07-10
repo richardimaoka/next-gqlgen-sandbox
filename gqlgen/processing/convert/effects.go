@@ -18,6 +18,7 @@ type stepConverter struct {
 	NextStep               string                       `json:"nextStep,omitempty"`
 	BackgroundImageColumn  *read.BackgroundImageColumn  `json:"backgroundImageColumn,omitempty"`
 	ImageDescriptionColumn *read.ImageDescriptionColumn `json:"imageDescriptionColumn,omitempty"`
+	MarkdownColumn         *read.MarkdownColumn         `json:"markdownColumn,omitempty"`
 }
 
 type StepConverters []stepConverter
@@ -34,6 +35,12 @@ func (this stepConverter) ToGraphQLColumns() []*model.ColumnWrapper {
 		if this.ImageDescriptionColumn != nil && this.ImageDescriptionColumn.Column == i {
 			state := this.ImageDescriptionColumn.ToStateImgDescColumn()
 			column := state.ToGraphQLImgDescCol()
+			colWrappers = append(colWrappers, &model.ColumnWrapper{Column: column})
+		}
+
+		if this.MarkdownColumn != nil && this.MarkdownColumn.Column == i {
+			state := this.MarkdownColumn.ToStateMarkdownColumn()
+			column := state.ToGraphQLMarkdownColumn()
 			colWrappers = append(colWrappers, &model.ColumnWrapper{Column: column})
 		}
 	}
@@ -103,6 +110,11 @@ func ReadStepConverters(dirName string) (StepConverters, error) {
 		return nil, fmt.Errorf("InitialRead failed, %s", err)
 	}
 
+	markdownColumns, err := read.ReadMarkdownColumns(dirName + "/md_columns.json")
+	if err != nil {
+		return nil, fmt.Errorf("InitialRead failed, %s", err)
+	}
+
 	//--------------------------------------------------------
 	// 2. construct data for each step
 	//--------------------------------------------------------
@@ -110,6 +122,7 @@ func ReadStepConverters(dirName string) (StepConverters, error) {
 	for i, step := range steps {
 		bgCol := backgroundImageColumns.FindBySeqNo(step.SeqNo)
 		imgCol := imageDescriptionColumns.FindBySeqNo(step.SeqNo)
+		mdCol := markdownColumns.FindBySeqNo(step.SeqNo)
 
 		var currentStep string
 		if i == 0 {
@@ -139,6 +152,7 @@ func ReadStepConverters(dirName string) (StepConverters, error) {
 			NColumns:               step.NColumns,
 			BackgroundImageColumn:  bgCol,
 			ImageDescriptionColumn: imgCol,
+			MarkdownColumn:         mdCol,
 		}
 		converters = append(converters, conv)
 	}
