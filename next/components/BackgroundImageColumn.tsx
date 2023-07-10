@@ -8,6 +8,7 @@ const fragmentDefinition = graphql(`
     height
     path
     modal {
+      text
       ...ModalFrameFragment
     }
   }
@@ -26,7 +27,7 @@ export const BackgroundImageColumn = (
     return <></>;
   }
 
-  return fragment.modal ? (
+  return fragment.modal && fragment.modal.text ? (
     <ModalFrame fragment={fragment.modal}>
       <MobileScreenshot
         src={fragment.path}

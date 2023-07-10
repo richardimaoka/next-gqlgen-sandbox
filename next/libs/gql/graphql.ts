@@ -119,7 +119,7 @@ export type BackgroundImageColumnFragmentFragment = {
   height?: number | null;
   path?: string | null;
   modal?:
-    | ({ __typename: "Modal" } & {
+    | ({ __typename: "Modal"; text?: string | null } & {
         " $fragmentRefs"?: {
           ModalFrameFragmentFragment: ModalFrameFragmentFragment;
         };
@@ -376,6 +376,7 @@ export const BackgroundImageColumnFragmentFragmentDoc = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
+                { kind: "Field", name: { kind: "Name", value: "text" } },
                 {
                   kind: "FragmentSpread",
                   name: { kind: "Name", value: "ModalFrameFragment" },
@@ -631,6 +632,7 @@ export const ColumnWrapperFragmentFragmentDoc = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
+                { kind: "Field", name: { kind: "Name", value: "text" } },
                 {
                   kind: "FragmentSpread",
                   name: { kind: "Name", value: "ModalFrameFragment" },
@@ -850,6 +852,7 @@ export const IndexPageDocument = {
             selectionSet: {
               kind: "SelectionSet",
               selections: [
+                { kind: "Field", name: { kind: "Name", value: "text" } },
                 {
                   kind: "FragmentSpread",
                   name: { kind: "Name", value: "ModalFrameFragment" },
