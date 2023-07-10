@@ -15,7 +15,7 @@ interface PProps {
 const P = (props: PProps) => (
   <p
     css={css`
-      text-align: center;
+      /* text-align: center; */
     `}
   >
     {props.children}
@@ -90,9 +90,15 @@ export const MarkdownView = (props: MarkdownViewProps): JSX.Element => {
       color: ${white};
     }
 
-    ul > li {
+    ol,
+    ul {
+      margin: 16px 0px;
+      padding-left: 24px;
+      color: ${white};
+    }
+
+    li {
       font-size: 14px;
-      margin: 4px 0px;
       color: ${white};
     }
 
