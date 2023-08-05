@@ -3,7 +3,7 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 const config: CodegenConfig = {
   overwrite: true,
   schema: "../gqlgen/graph/schema.graphqls",
-  documents: ["pages/**/*.tsx", "components/**/*.tsx"],
+  documents: ["app/**/*.tsx"],
   generates: {
     "libs/gql": {
       preset: "client",
@@ -16,11 +16,7 @@ const config: CodegenConfig = {
       },
     },
   },
-  watch: [
-    "pages/**/*.tsx",
-    "components/**/*.tsx",
-    "../gqlgen/graphq/schema.gql",
-  ],
+  watch: ["app/**/*.tsx", "../gqlgen/graphq/schema.gql"],
   hooks: { afterOneFileWrite: ["npx prettier --write"] },
 };
 
