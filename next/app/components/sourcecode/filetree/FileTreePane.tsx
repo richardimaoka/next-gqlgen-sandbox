@@ -1,11 +1,11 @@
 "use client";
 
-import { source_code_pro } from "@/app/components/fonts/fonts";
 import { useState } from "react";
 import { FileTreeHeader } from "./FileTreeHeader";
 import styles from "./style.module.css";
 
 import { FragmentType, graphql, useFragment } from "@/libs/gql";
+import { FileTreeComponent } from "./FileTreeComponent";
 
 const fragmentDefinition = graphql(`
   fragment FileTreePane_Fragment on SourceCode {
@@ -22,12 +22,12 @@ export interface FileTreePaneProps {
 
 export const FileTreePane = (props: FileTreePaneProps): JSX.Element => {
   const fragment = useFragment(fragmentDefinition, props.fragment);
-
   const [isFolded, setIsFolded] = useState(false);
-  const style = isFolded ? styles.pane : styles.pane + " " + styles.expanded;
-  console.log("FileTreePane on the client", fragment);
+
   return (
-    <div className={style + " " + source_code_pro.className}>
+    <div
+      className={`${styles.pane} ${isFolded ? styles.folded : styles.expanded}`}
+    >
       <FileTreeHeader
         fragment={fragment}
         isFolded={isFolded}
@@ -35,6 +35,7 @@ export const FileTreePane = (props: FileTreePaneProps): JSX.Element => {
           setIsFolded(!isFolded);
         }}
       />
+      <FileTreeComponent isFolded={isFolded} fragment={fragment} step={props.step} />
     </div>
   );
 };
