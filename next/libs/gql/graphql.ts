@@ -267,6 +267,24 @@ export type FileTreePane_FragmentFragment = ({ __typename: "SourceCode" } & {
   };
 }) & { " $fragmentName"?: "FileTreePane_FragmentFragment" };
 
+export type FileContentPane_FragmentFragment = ({ __typename: "OpenFile" } & {
+  " $fragmentRefs"?: {
+    FileNameTabBar_FragmentFragment: FileNameTabBar_FragmentFragment;
+    FileContentViewer_FragmentFragment: FileContentViewer_FragmentFragment;
+  };
+}) & { " $fragmentName"?: "FileContentPane_FragmentFragment" };
+
+export type FileContentViewer_FragmentFragment = {
+  __typename: "OpenFile";
+  content?: string | null;
+  language?: string | null;
+  highlight?: Array<{
+    __typename: "FileHighlight";
+    fromLine?: number | null;
+    toLine?: number | null;
+  } | null> | null;
+} & { " $fragmentName"?: "FileContentViewer_FragmentFragment" };
+
 export type FileNameTab_FragmentFragment = {
   __typename: "OpenFile";
   fileName?: string | null;
@@ -278,12 +296,23 @@ export type FileNameTabBar_FragmentFragment = ({ __typename: "OpenFile" } & {
   };
 }) & { " $fragmentName"?: "FileNameTabBar_FragmentFragment" };
 
-export type PageQueryQueryVariables = Exact<{ [key: string]: never }>;
+export type PageQueryQueryVariables = Exact<{
+  openFilePath: Scalars["String"]["input"];
+}>;
 
 export type PageQueryQuery = {
   __typename: "Query";
   sourceCode?:
-    | ({ __typename: "SourceCode" } & {
+    | ({
+        __typename: "SourceCode";
+        openFile?:
+          | ({ __typename: "OpenFile" } & {
+              " $fragmentRefs"?: {
+                FileContentPane_FragmentFragment: FileContentPane_FragmentFragment;
+              };
+            })
+          | null;
+      } & {
         " $fragmentRefs"?: {
           FileTreePane_FragmentFragment: FileTreePane_FragmentFragment;
         };
@@ -596,6 +625,120 @@ export const FileNameTabBar_FragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<FileNameTabBar_FragmentFragment, unknown>;
+export const FileContentViewer_FragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileContentViewer_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "OpenFile" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "content" } },
+          { kind: "Field", name: { kind: "Name", value: "language" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "highlight" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "fromLine" } },
+                { kind: "Field", name: { kind: "Name", value: "toLine" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<FileContentViewer_FragmentFragment, unknown>;
+export const FileContentPane_FragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileContentPane_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "OpenFile" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "FragmentSpread",
+            name: { kind: "Name", value: "FileNameTabBar_Fragment" },
+          },
+          {
+            kind: "FragmentSpread",
+            name: { kind: "Name", value: "FileContentViewer_Fragment" },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileNameTab_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "OpenFile" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "fileName" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileNameTabBar_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "OpenFile" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "FragmentSpread",
+            name: { kind: "Name", value: "FileNameTab_Fragment" },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileContentViewer_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "OpenFile" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "content" } },
+          { kind: "Field", name: { kind: "Name", value: "language" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "highlight" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "fromLine" } },
+                { kind: "Field", name: { kind: "Name", value: "toLine" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<FileContentPane_FragmentFragment, unknown>;
 export const PageQueryDocument = {
   kind: "Document",
   definitions: [
@@ -603,6 +746,22 @@ export const PageQueryDocument = {
       kind: "OperationDefinition",
       operation: "query",
       name: { kind: "Name", value: "PageQuery" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "openFilePath" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
       selectionSet: {
         kind: "SelectionSet",
         selections: [
@@ -615,6 +774,32 @@ export const PageQueryDocument = {
                 {
                   kind: "FragmentSpread",
                   name: { kind: "Name", value: "FileTreePane_Fragment" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "openFile" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "filePath" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "openFilePath" },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "FragmentSpread",
+                        name: {
+                          kind: "Name",
+                          value: "FileContentPane_Fragment",
+                        },
+                      },
+                    ],
+                  },
                 },
               ],
             },
@@ -701,6 +886,63 @@ export const PageQueryDocument = {
     },
     {
       kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileNameTab_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "OpenFile" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "fileName" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileNameTabBar_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "OpenFile" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "FragmentSpread",
+            name: { kind: "Name", value: "FileNameTab_Fragment" },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileContentViewer_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "OpenFile" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "content" } },
+          { kind: "Field", name: { kind: "Name", value: "language" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "highlight" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "fromLine" } },
+                { kind: "Field", name: { kind: "Name", value: "toLine" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
       name: { kind: "Name", value: "FileTreePane_Fragment" },
       typeCondition: {
         kind: "NamedType",
@@ -716,6 +958,27 @@ export const PageQueryDocument = {
           {
             kind: "FragmentSpread",
             name: { kind: "Name", value: "FileTreeComponent_Fragment" },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileContentPane_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "OpenFile" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "FragmentSpread",
+            name: { kind: "Name", value: "FileNameTabBar_Fragment" },
+          },
+          {
+            kind: "FragmentSpread",
+            name: { kind: "Name", value: "FileContentViewer_Fragment" },
           },
         ],
       },

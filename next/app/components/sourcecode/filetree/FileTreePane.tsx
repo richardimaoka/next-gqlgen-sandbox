@@ -35,7 +35,11 @@ export const FileTreePane = (props: FileTreePaneProps): JSX.Element => {
           setIsFolded(!isFolded);
         }}
       />
-      <FileTreeComponent isFolded={isFolded} fragment={fragment} step={props.step} />
+      <FileTreeComponent
+        isFolded={isFolded}
+        fragment={fragment}
+        step={props.step}
+      />
     </div>
   );
 };

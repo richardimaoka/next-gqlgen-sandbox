@@ -66,27 +66,16 @@ func (r *queryResolver) SourceCode(ctx context.Context) (*model.SourceCode, erro
 
 // OpenFile is the resolver for the openFile field.
 func (r *sourceCodeResolver) OpenFile(ctx context.Context, obj *model.SourceCode, filePath *string) (*model.OpenFile, error) {
-	var dirName = fmt.Sprintf("data/%s/state", obj.Tutorial)
-	var initialStep = "_initial"
-
-	var filename string
-	if obj.Step == "" {
-		filename = fmt.Sprintf(dirName+"/%s.json", initialStep)
-	} else {
-		filename = fmt.Sprintf(dirName+"/%s.json", obj.Step)
-	}
-
-	log.Printf("OpenFile() reading data from %s", filename)
-
+	filename := "data/sourcecode.json"
 	data, err := os.ReadFile(filename)
 	if err != nil {
 		return nil, err
 	}
 
-	var page model.Page
-	err = json.Unmarshal(data, &page)
+	var sourceCode *model.SourceCode
+	err = json.Unmarshal(data, &sourceCode)
 	if err != nil {
-		return nil, fmt.Errorf("internal server error - failed to unmarshal page from %s", filename)
+		return nil, fmt.Errorf("internal server error - failed to unmarshal source code from %s", filename)
 	}
 
 	var openFilePath string
@@ -100,23 +89,6 @@ func (r *sourceCodeResolver) OpenFile(ctx context.Context, obj *model.SourceCode
 		// return nil openFile, instead of error, so that the entire page can still render
 		// TODO: enable default open file returning, once SourceCode has defaultOpenFilePath set
 		return nil, nil
-	}
-
-	var sourceCode *model.SourceCode
-	for _, col := range page.Columns {
-		if col.Name != nil && *col.Name == "src" {
-			scCol, ok := col.Column.(*model.SourceCodeColumn)
-			if !ok {
-				log.Printf("OpenFile() failed to cast column to SourceCodeColumn")
-				return nil, fmt.Errorf("internal server error")
-			}
-			sourceCode = scCol.SourceCode
-		}
-	}
-
-	if sourceCode == nil {
-		log.Printf("source code is nil")
-		return nil, fmt.Errorf("internal server error")
 	}
 
 	openFile, ok := sourceCode.FileContents[openFilePath]

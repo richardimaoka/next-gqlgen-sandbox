@@ -82,7 +82,7 @@
   height: 8px;
   background-color: #252526; /* or add it to the track */
 }
-.scroll ::-webkit-scrollbar-thumb {
+.scroll::-webkit-scrollbar-thumb {
   background: #37373d;
   border-radius: 8px;
 }
