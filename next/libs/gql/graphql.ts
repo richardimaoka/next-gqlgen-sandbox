@@ -225,6 +225,11 @@ export type TerminalOutput = {
   output?: Maybe<Scalars["String"]["output"]>;
 };
 
+export type ColumnTab_FragmentFragment = {
+  __typename: "ColumnWrapper";
+  name?: string | null;
+} & { " $fragmentName"?: "ColumnTab_FragmentFragment" };
+
 export type FileNodeComponent_FragmentFragment = ({
   __typename: "FileNode";
   nodeType?: FileNodeType | null;
@@ -297,29 +302,42 @@ export type FileNameTabBar_FragmentFragment = ({ __typename: "OpenFile" } & {
 }) & { " $fragmentName"?: "FileNameTabBar_FragmentFragment" };
 
 export type PageQueryQueryVariables = Exact<{
-  openFilePath: Scalars["String"]["input"];
+  tutorial: Scalars["String"]["input"];
+  step?: InputMaybe<Scalars["String"]["input"]>;
 }>;
 
 export type PageQueryQuery = {
   __typename: "Query";
-  sourceCode?:
-    | ({
-        __typename: "SourceCode";
-        openFile?:
-          | ({ __typename: "OpenFile" } & {
-              " $fragmentRefs"?: {
-                FileContentPane_FragmentFragment: FileContentPane_FragmentFragment;
-              };
-            })
-          | null;
-      } & {
-        " $fragmentRefs"?: {
-          FileTreePane_FragmentFragment: FileTreePane_FragmentFragment;
-        };
-      })
-    | null;
+  page?: {
+    __typename: "Page";
+    columns?: Array<
+      | ({ __typename: "ColumnWrapper" } & {
+          " $fragmentRefs"?: {
+            ColumnTab_FragmentFragment: ColumnTab_FragmentFragment;
+          };
+        })
+      | null
+    > | null;
+  } | null;
 };
 
+export const ColumnTab_FragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ColumnTab_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "ColumnWrapper" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [{ kind: "Field", name: { kind: "Name", value: "name" } }],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ColumnTab_FragmentFragment, unknown>;
 export const FileTreeHeader_FragmentFragmentDoc = {
   kind: "Document",
   definitions: [
@@ -751,7 +769,7 @@ export const PageQueryDocument = {
           kind: "VariableDefinition",
           variable: {
             kind: "Variable",
-            name: { kind: "Name", value: "openFilePath" },
+            name: { kind: "Name", value: "tutorial" },
           },
           type: {
             kind: "NonNullType",
@@ -761,42 +779,48 @@ export const PageQueryDocument = {
             },
           },
         },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "step" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
+        },
       ],
       selectionSet: {
         kind: "SelectionSet",
         selections: [
           {
             kind: "Field",
-            name: { kind: "Name", value: "sourceCode" },
+            name: { kind: "Name", value: "page" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "tutorial" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "tutorial" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "step" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "step" },
+                },
+              },
+            ],
             selectionSet: {
               kind: "SelectionSet",
               selections: [
                 {
-                  kind: "FragmentSpread",
-                  name: { kind: "Name", value: "FileTreePane_Fragment" },
-                },
-                {
                   kind: "Field",
-                  name: { kind: "Name", value: "openFile" },
-                  arguments: [
-                    {
-                      kind: "Argument",
-                      name: { kind: "Name", value: "filePath" },
-                      value: {
-                        kind: "Variable",
-                        name: { kind: "Name", value: "openFilePath" },
-                      },
-                    },
-                  ],
+                  name: { kind: "Name", value: "columns" },
                   selectionSet: {
                     kind: "SelectionSet",
                     selections: [
                       {
                         kind: "FragmentSpread",
-                        name: {
-                          kind: "Name",
-                          value: "FileContentPane_Fragment",
-                        },
+                        name: { kind: "Name", value: "ColumnTab_Fragment" },
                       },
                     ],
                   },
@@ -809,178 +833,14 @@ export const PageQueryDocument = {
     },
     {
       kind: "FragmentDefinition",
-      name: { kind: "Name", value: "FileTreeHeader_Fragment" },
+      name: { kind: "Name", value: "ColumnTab_Fragment" },
       typeCondition: {
         kind: "NamedType",
-        name: { kind: "Name", value: "SourceCode" },
+        name: { kind: "Name", value: "ColumnWrapper" },
       },
       selectionSet: {
         kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "projectDir" } },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "FileNodeIcon_Fragment" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "FileNode" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "nodeType" } },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "FileNodeComponent_Fragment" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "FileNode" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "FragmentSpread",
-            name: { kind: "Name", value: "FileNodeIcon_Fragment" },
-          },
-          { kind: "Field", name: { kind: "Name", value: "nodeType" } },
-          { kind: "Field", name: { kind: "Name", value: "name" } },
-          { kind: "Field", name: { kind: "Name", value: "filePath" } },
-          { kind: "Field", name: { kind: "Name", value: "offset" } },
-          { kind: "Field", name: { kind: "Name", value: "isUpdated" } },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "FileTreeComponent_Fragment" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "SourceCode" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "fileTree" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "filePath" } },
-                {
-                  kind: "FragmentSpread",
-                  name: { kind: "Name", value: "FileNodeComponent_Fragment" },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "FileNameTab_Fragment" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "OpenFile" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "fileName" } },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "FileNameTabBar_Fragment" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "OpenFile" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "FragmentSpread",
-            name: { kind: "Name", value: "FileNameTab_Fragment" },
-          },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "FileContentViewer_Fragment" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "OpenFile" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "content" } },
-          { kind: "Field", name: { kind: "Name", value: "language" } },
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "highlight" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "fromLine" } },
-                { kind: "Field", name: { kind: "Name", value: "toLine" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "FileTreePane_Fragment" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "SourceCode" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "FragmentSpread",
-            name: { kind: "Name", value: "FileTreeHeader_Fragment" },
-          },
-          {
-            kind: "FragmentSpread",
-            name: { kind: "Name", value: "FileTreeComponent_Fragment" },
-          },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "FileContentPane_Fragment" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "OpenFile" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "FragmentSpread",
-            name: { kind: "Name", value: "FileNameTabBar_Fragment" },
-          },
-          {
-            kind: "FragmentSpread",
-            name: { kind: "Name", value: "FileContentViewer_Fragment" },
-          },
-        ],
+        selections: [{ kind: "Field", name: { kind: "Name", value: "name" } }],
       },
     },
   ],

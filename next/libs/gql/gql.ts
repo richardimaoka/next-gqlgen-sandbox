@@ -13,6 +13,8 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+  "\n  fragment ColumnTab_Fragment on ColumnWrapper {\n    name\n  }\n":
+    types.ColumnTab_FragmentFragmentDoc,
   "\n  fragment FileNodeComponent_Fragment on FileNode {\n    ...FileNodeIcon_Fragment\n    nodeType\n    name\n    filePath\n    offset\n    isUpdated\n  }\n":
     types.FileNodeComponent_FragmentFragmentDoc,
   "\n  fragment FileNodeIcon_Fragment on FileNode {\n    nodeType\n  }\n":
@@ -31,7 +33,7 @@ const documents = {
     types.FileNameTab_FragmentFragmentDoc,
   "\n  fragment FileNameTabBar_Fragment on OpenFile {\n    ...FileNameTab_Fragment\n  }\n":
     types.FileNameTabBar_FragmentFragmentDoc,
-  "\n  query PageQuery($openFilePath: String!) {\n    sourceCode {\n      ...FileTreePane_Fragment\n      openFile(filePath: $openFilePath) {\n        ...FileContentPane_Fragment\n      }\n    }\n  }\n":
+  "\n  query PageQuery($tutorial: String!, $step: String) {\n    page(tutorial: $tutorial, step: $step) {\n      columns {\n        ...ColumnTab_Fragment\n      }\n    }\n  }\n":
     types.PageQueryDocument,
 };
 
@@ -49,6 +51,12 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  fragment ColumnTab_Fragment on ColumnWrapper {\n    name\n  }\n",
+): (typeof documents)["\n  fragment ColumnTab_Fragment on ColumnWrapper {\n    name\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -107,8 +115,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  query PageQuery($openFilePath: String!) {\n    sourceCode {\n      ...FileTreePane_Fragment\n      openFile(filePath: $openFilePath) {\n        ...FileContentPane_Fragment\n      }\n    }\n  }\n",
-): (typeof documents)["\n  query PageQuery($openFilePath: String!) {\n    sourceCode {\n      ...FileTreePane_Fragment\n      openFile(filePath: $openFilePath) {\n        ...FileContentPane_Fragment\n      }\n    }\n  }\n"];
+  source: "\n  query PageQuery($tutorial: String!, $step: String) {\n    page(tutorial: $tutorial, step: $step) {\n      columns {\n        ...ColumnTab_Fragment\n      }\n    }\n  }\n",
+): (typeof documents)["\n  query PageQuery($tutorial: String!, $step: String) {\n    page(tutorial: $tutorial, step: $step) {\n      columns {\n        ...ColumnTab_Fragment\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
