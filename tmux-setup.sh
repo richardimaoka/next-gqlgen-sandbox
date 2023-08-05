@@ -21,6 +21,6 @@ tmux send-keys -t "$SESSION:0.3" '(cd next && npm run codegen)' C-m
 # open editors
 tmux split-window -v -t "$SESSION"
 tmux select-layout even-vertical   # to avoid 'no space for new pane'
-tmux send-keys -t "$SESSION:0.7" '(code gqlgen && code next)' C-m
+tmux send-keys -t "$SESSION:0.4" '(code gqlgen && code next)' C-m
 
 tmux attach -t "$SESSION"
