@@ -1,0 +1,13 @@
+.icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-primary-text);
+}
+
+.icon svg {
+  font-size: 16px;
+}
+
+.folder {
+  color: #fcd462;
+}
