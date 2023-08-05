@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { source_code_pro } from "@/app/components/fonts/fonts";
 import { FileTreeComponent } from "./FileTreeComponent";
