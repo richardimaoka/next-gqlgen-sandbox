@@ -17,7 +17,6 @@ export const FileTreePane = (): JSX.Element => {
           setIsFolded(!isFolded);
         }}
       />
-      <FileTreeComponent isFolded={isFolded} />
     </div>
   );
 };

@@ -5,6 +5,8 @@
 
   display: flex;
   flex-direction: column;
+
+  /* flex child = .header, .tree */
 }
 
 .pane.expanded {
@@ -12,6 +14,8 @@
 }
 
 .header {
+  /* flex parent = .pane */
+
   display: flex;
   justify-content: space-between;
   background-color: var(--color-menu);
@@ -28,7 +32,8 @@
 }
 
 .tree {
-  flex-grow: 1;
+  /* flex parent = .pane */
+  flex-grow: 1; /*grow in column direction*/
 }
 
 .filenode {

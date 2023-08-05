@@ -1,8 +1,8 @@
-import { FragmentType, graphql, useFragment } from "@/libs/gql";
-
 import { FileNodeIcon } from "./FileNodeIcon";
 import Link from "next/link";
 import styles from "./style.module.css";
+
+import { FragmentType, graphql, useFragment } from "@/libs/gql";
 
 const fragmentDefinition = graphql(`
   fragment FileNodeComponent_Fragment on FileNode {

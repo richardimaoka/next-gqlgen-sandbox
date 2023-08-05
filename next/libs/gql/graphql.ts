@@ -241,6 +241,18 @@ export type FileNodeIcon_FragmentFragment = {
   nodeType?: FileNodeType | null;
 } & { " $fragmentName"?: "FileNodeIcon_FragmentFragment" };
 
+export type FileTreeComponentProps_FragmentFragment = {
+  __typename: "SourceCode";
+  fileTree?: Array<
+    | ({ __typename: "FileNode"; filePath?: string | null } & {
+        " $fragmentRefs"?: {
+          FileNodeComponent_FragmentFragment: FileNodeComponent_FragmentFragment;
+        };
+      })
+    | null
+  > | null;
+} & { " $fragmentName"?: "FileTreeComponentProps_FragmentFragment" };
+
 export const FileNodeIcon_FragmentFragmentDoc = {
   kind: "Document",
   definitions: [
@@ -301,3 +313,71 @@ export const FileNodeComponent_FragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<FileNodeComponent_FragmentFragment, unknown>;
+export const FileTreeComponentProps_FragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileTreeComponentProps_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "SourceCode" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "fileTree" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "filePath" } },
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "FileNodeComponent_Fragment" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileNodeIcon_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "FileNode" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "nodeType" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileNodeComponent_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "FileNode" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "FragmentSpread",
+            name: { kind: "Name", value: "FileNodeIcon_Fragment" },
+          },
+          { kind: "Field", name: { kind: "Name", value: "nodeType" } },
+          { kind: "Field", name: { kind: "Name", value: "name" } },
+          { kind: "Field", name: { kind: "Name", value: "filePath" } },
+          { kind: "Field", name: { kind: "Name", value: "offset" } },
+          { kind: "Field", name: { kind: "Name", value: "isUpdated" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<FileTreeComponentProps_FragmentFragment, unknown>;

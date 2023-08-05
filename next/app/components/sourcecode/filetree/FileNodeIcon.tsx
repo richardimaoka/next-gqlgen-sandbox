@@ -1,6 +1,7 @@
-import { FragmentType, graphql, useFragment } from "@/libs/gql";
 import { DirectoryIcon } from "@/app/components/icons/DirectoryIcon";
 import { FileIcon } from "@/app/components/icons/FileIcon";
+
+import { FragmentType, graphql, useFragment } from "@/libs/gql";
 
 const fragmentDefinition = graphql(`
   fragment FileNodeIcon_Fragment on FileNode {

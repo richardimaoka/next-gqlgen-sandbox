@@ -1,33 +1,46 @@
+import { nonNullArray } from "@/libs/gql/nonNullArray";
 import { FileNodeComponent } from "./FileNodeComponent";
 import styles from "./style.module.css";
 
+import { FragmentType, graphql, useFragment } from "@/libs/gql";
+
+const fragmentDefinition = graphql(`
+  fragment FileTreeComponentProps_Fragment on SourceCode {
+    fileTree {
+      filePath
+      ...FileNodeComponent_Fragment
+    }
+  }
+`);
+
 export interface FileTreeComponentProps {
+  fragment: FragmentType<typeof fragmentDefinition>;
   isFolded: boolean;
+  step: string;
 }
 
-export const FileTreeComponent = ({
-  isFolded,
-}: FileTreeComponentProps): JSX.Element => {
-  const fileTree = [
-    { nodeType: "FILE", filePath: ".gitignore" },
-    { nodeType: "FILE", filePath: "index.html" },
-    { nodeType: "FILE", filePath: "package-lock.json" },
-    { nodeType: "DIRECTORY", filePath: "package.json" },
-  ];
+export const FileTreeComponent = (
+  props: FileTreeComponentProps
+): JSX.Element => {
+  const fragment = useFragment(fragmentDefinition, props.fragment);
 
-  return isFolded ? (
-    <div className={styles.tree} />
-  ) : (
+  if (!fragment.fileTree) {
+    return <div className={styles.tree} />;
+  }
+
+  if (props.isFolded) {
+    return <div className={styles.tree} />;
+  }
+
+  const files = nonNullArray(fragment.fileTree);
+
+  return (
     <div className={styles.tree}>
-      {fileTree.map((file) => (
+      {files.map((file, index) => (
         <FileNodeComponent
-          key={file.filePath}
-          nodeType={file.nodeType as "FILE" | "DIRECTORY"}
-          name={file.filePath}
-          filePath={file.filePath}
-          offset={0}
-          isUpdated={false}
-          step="1"
+          key={file.filePath ? file.filePath : index}
+          fragment={file}
+          step={props.step}
         />
       ))}
     </div>
