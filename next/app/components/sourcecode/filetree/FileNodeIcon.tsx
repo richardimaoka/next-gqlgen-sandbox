@@ -1,11 +1,25 @@
+import { FragmentType, graphql, useFragment } from "@/libs/gql";
 import { DirectoryIcon } from "@/app/components/icons/DirectoryIcon";
 import { FileIcon } from "@/app/components/icons/FileIcon";
 
+const fragmentDefinition = graphql(`
+  fragment FileNodeIcon_Fragment on FileNode {
+    nodeType
+  }
+`);
+
 export interface FileNodeIconProps {
-  nodeType: "FILE" | "DIRECTORY";
+  fragment: FragmentType<typeof fragmentDefinition>;
 }
 
-export const FileNodeIcon = ({ nodeType }: FileNodeIconProps): JSX.Element => {
+export const FileNodeIcon = (props: FileNodeIconProps): JSX.Element => {
+  const fragment = useFragment(fragmentDefinition, props.fragment);
+  const nodeType = fragment.nodeType;
+
+  if (!nodeType) {
+    return <></>;
+  }
+
   switch (nodeType) {
     case "FILE":
       return <FileIcon />;
