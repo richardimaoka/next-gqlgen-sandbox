@@ -17,8 +17,12 @@ const documents = {
     types.FileNodeComponent_FragmentFragmentDoc,
   "\n  fragment FileNodeIcon_Fragment on FileNode {\n    nodeType\n  }\n":
     types.FileNodeIcon_FragmentFragmentDoc,
-  "\n  fragment FileTreeComponentProps_Fragment on SourceCode {\n    fileTree {\n      filePath\n      ...FileNodeComponent_Fragment\n    }\n  }\n":
-    types.FileTreeComponentProps_FragmentFragmentDoc,
+  "\n  fragment FileTreeComponent_Fragment on SourceCode {\n    fileTree {\n      filePath\n      ...FileNodeComponent_Fragment\n    }\n  }\n":
+    types.FileTreeComponent_FragmentFragmentDoc,
+  "\n  fragment FileTreeHeader_Fragment on SourceCode {\n    projectDir\n  }\n":
+    types.FileTreeHeader_FragmentFragmentDoc,
+  "\n  fragment FileTreePane_Fragment on SourceCode {\n    ...FileTreeHeader_Fragment\n    ...FileTreeComponent_Fragment\n  }\n":
+    types.FileTreePane_FragmentFragmentDoc,
 };
 
 /**
@@ -51,8 +55,20 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  fragment FileTreeComponentProps_Fragment on SourceCode {\n    fileTree {\n      filePath\n      ...FileNodeComponent_Fragment\n    }\n  }\n",
-): (typeof documents)["\n  fragment FileTreeComponentProps_Fragment on SourceCode {\n    fileTree {\n      filePath\n      ...FileNodeComponent_Fragment\n    }\n  }\n"];
+  source: "\n  fragment FileTreeComponent_Fragment on SourceCode {\n    fileTree {\n      filePath\n      ...FileNodeComponent_Fragment\n    }\n  }\n",
+): (typeof documents)["\n  fragment FileTreeComponent_Fragment on SourceCode {\n    fileTree {\n      filePath\n      ...FileNodeComponent_Fragment\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  fragment FileTreeHeader_Fragment on SourceCode {\n    projectDir\n  }\n",
+): (typeof documents)["\n  fragment FileTreeHeader_Fragment on SourceCode {\n    projectDir\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  fragment FileTreePane_Fragment on SourceCode {\n    ...FileTreeHeader_Fragment\n    ...FileTreeComponent_Fragment\n  }\n",
+): (typeof documents)["\n  fragment FileTreePane_Fragment on SourceCode {\n    ...FileTreeHeader_Fragment\n    ...FileTreeComponent_Fragment\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
