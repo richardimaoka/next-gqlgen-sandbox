@@ -2,28 +2,195 @@
 #
 # https://gqlgen.com/getting-started/
 
-## Markdown
+###################################################
+# Top level types
+###################################################
+
+type Query {
+  # without passing step argument, you get the first step state
+  pageState(step: String): PageState
+
+  # without passing step argument, you get the first step page
+  page(tutorial: String!, step: String): Page
+}
+
+###################################################
+# Page state related object types
+###################################################
+
+type NextAction {
+  terminalName: String
+  terminalCommand: TerminalCommand
+  markdown: MarkdownOld
+}
+
+type PageState {
+  step: String
+  nextStep: String
+  prevStep: String
+  sourceCode: SourceCode
+  terminals: [Terminal]
+  markdown: MarkdownOld
+  nextAction: NextAction
+}
+
+type Page {
+  step: String
+  nextStep: String
+  prevStep: String
+  columns: [ColumnWrapper]
+  modal: Modal
+  focusColumn: String
+}
+
+###################################################
+# Columns
+###################################################
+
+# wrap around Column, which is friendly for frontend pattern-matching
+type ColumnWrapper {
+  index: Int
+  column: Column
+  name: String
+}
+
+interface Column {
+  _placeholder: String
+}
+
+enum ColumnVerticalPosition {
+  TOP
+  CENTER
+  BOTTOM
+}
+
+enum ImageDescriptionOrder {
+  IMAGE_THEN_DESCRIPTION
+  DESCRIPTION_THEN_IMAGE
+}
+
+type ImageDescriptionColumn implements Column {
+  _placeholder: String
+  description: Markdown
+  image: ImageCentered
+  order: ImageDescriptionOrder
+  contentsPosition: ColumnVerticalPosition
+}
+
+type BackgroundImageColumn implements Column {
+  _placeholder: String
+  width: Int
+  height: Int
+  path: String
+  url: String
+  modal: Modal
+}
+
+type MarkdownColumn implements Column {
+  _placeholder: String
+  description: Markdown
+  contentsPosition: ColumnVerticalPosition
+}
+
+type SourceCodeColumn implements Column {
+  _placeholder: String
+  sourceCode: SourceCode
+}
+
+type TerminalColumn implements Column {
+  _placeholder: String
+  terminal: Terminal
+}
+
+###################################################
+# Terminal related object types
+###################################################
+
+# TerminalElement
+union TerminalElement = TerminalCommand | TerminalOutput
+
+type TerminalCommand {
+  beforeExecution: Boolean
+  command: String
+}
+
+type TerminalOutput {
+  output: String
+}
+
+# TerminalNode wraps around TerminalElement, which is friendly for frontend pattern-matching
+type TerminalNode {
+  content: TerminalElement
+}
+
+type Terminal {
+  step: String
+  name: String
+  currentDirectory: String
+  nodes: [TerminalNode] # To make frontend pattern-matching easier, we return a list of concrete object types, instead of list of unions
+}
+
+###################################################
+# Source code related object types
+###################################################
+
+enum FileNodeType {
+  FILE
+  DIRECTORY
+}
+
+type FileNode {
+  nodeType: FileNodeType
+  name: String
+  filePath: String
+  offset: Int
+  isUpdated: Boolean
+}
+
+type FileHighlight {
+  fromLine: Int
+  toLine: Int
+}
+
+type OpenFile {
+  filePath: String
+  fileName: String
+  content: String
+  isFullContent: Boolean
+  language: String
+  highlight: [FileHighlight]
+  size: Float
+}
+
+type SourceCode {
+  step: String
+  fileTree: [FileNode]
+  openFile(filePath: String): OpenFile
+}
+
+###################################################
+# Markdown related object types
+###################################################
 
 enum MarkdownAlignment {
   LEFT
   CENTER
 }
 
+type MarkdownOld {
+  step: String
+  contents: String
+}
+
 type Markdown {
+  step: String
   contents: String
   alignment: MarkdownAlignment
 }
 
-## Image
-
-type ImageCentered {
-  width: Int
-  height: Int
-  path: String
-  url: String
-}
-
-## Modal
+###################################################
+# Modal related object types
+###################################################
 
 enum ModalPosition {
   TOP
@@ -36,61 +203,13 @@ type Modal {
   position: ModalPosition
 }
 
-## Column data
+###################################################
+# Image-centered related object types
+###################################################
 
-enum ImageDescriptionOrder {
-  IMAGE_THEN_DESCRIPTION
-  DESCRIPTION_THEN_IMAGE
-}
-
-## Columns
-
-interface Column {
-  _placeholder: String
-}
-
-type BackgroundImageColumn implements Column {
-  _placeholder: String
+type ImageCentered {
   width: Int
   height: Int
   path: String
   url: String
-  modal: Modal
-}
-
-type ImageDescriptionColumn implements Column {
-  _placeholder: String
-  description: Markdown
-  image: ImageCentered
-  order: ImageDescriptionOrder
-}
-
-type MarkdownColumn implements Column {
-  _placeholder: String
-  description: Markdown
-}
-
-# wrap around Column, which is friendly for frontend pattern-matching
-type ColumnWrapper {
-  index: Int
-  column: Column
-}
-
-# page state
-
-type PageState {
-  step: String
-  nextStep: String
-  prevStep: String
-  columns: [ColumnWrapper]
-}
-
-type Query {
-  # without passing step argument, you get the first step page
-  page(tutorial: String!, step: String): PageState
-
-  columns: [ColumnWrapper]
-  imageDescriptionColumn: ImageDescriptionColumn
-  markdownColumn: MarkdownColumn
-  backgroundImageColumn: BackgroundImageColumn
 }

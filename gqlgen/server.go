@@ -8,10 +8,9 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/graph"
-	"github.com/richardimaoka/next-gqlgen-sandbox/gqlgen/processing/convert"
 )
 
-const defaultPort = "8080"
+const defaultPort = "8090"
 
 func server() {
 	port := os.Getenv("PORT")
@@ -28,18 +27,6 @@ func server() {
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
-func processing() {
-	err := convert.Process("data/sign-in-with-google")
-	if err != nil {
-		panic(err)
-	}
-}
-
 func main() {
-	if len(os.Args) > 1 && os.Args[1] == "processing" {
-		processing()
-	} else {
-		server()
-	}
-
+	server()
 }
