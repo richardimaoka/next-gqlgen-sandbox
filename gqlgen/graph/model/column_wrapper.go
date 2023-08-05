@@ -16,7 +16,17 @@ func (t *ColumnWrapper) UnmarshalJSON(b []byte) error {
 
 	columnObj, ok := obj["column"]
 	if !ok {
-		return fmt.Errorf(`failed in ColumnWrapper UnmarshalJSON(), "column" field does not exist, %w`, err)
+		return fmt.Errorf(`failed in ColumnWrapper UnmarshalJSON(), "column" field does not exist`)
+	}
+
+	name, ok := obj["name"]
+	if !ok {
+		return fmt.Errorf(`failed in ColumnWrapper UnmarshalJSON(), "name" field does not exist`)
+	}
+
+	nameStr, ok := name.(string)
+	if !ok {
+		return fmt.Errorf(`failed in ColumnWrapper UnmarshalJSON(), "name" field = %v is not string`, name)
 	}
 
 	bytes, err := json.Marshal(columnObj)
@@ -28,7 +38,9 @@ func (t *ColumnWrapper) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return fmt.Errorf("failed in ColumnWrapper UnmarshalJSON() while unmarshaling the column object, %w", err)
 	}
+
 	t.Column = column
+	t.Name = &nameStr
 
 	return nil
 }
@@ -62,7 +74,21 @@ func columnFromBytes(bytes []byte) (Column, error) {
 		}
 		return &col, nil
 
+	case "TerminalColumn":
+		var col TerminalColumn
+		if err := json.Unmarshal(bytes, &col); err != nil {
+			return nil, err
+		}
+		return &col, nil
+
+	case "SourceCodeColumn":
+		var col SourceCodeColumn
+		if err := json.Unmarshal(bytes, &col); err != nil {
+			return nil, err
+		}
+		return &col, nil
+
 	default:
-		return nil, fmt.Errorf("\"%s\" = %s is not a valid Column type", fromField, typename)
+		return nil, fmt.Errorf("\"%s\" = %s is not a valid Column type. If it should be valid, define it in column_wrapper.go", fromField, typename)
 	}
 }
