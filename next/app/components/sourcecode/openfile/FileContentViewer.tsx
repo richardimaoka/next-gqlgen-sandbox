@@ -76,7 +76,7 @@ export const FileContentViewer = (
       //
       // 2. Why set className="language-xxxx" to <code> (`ref` points to <code>), not <pre>? See https://prismjs.com/#basic-usage
       ref.current.className = prismLanguage ? prismLanguage : "";
-      console.log(ref.current);
+
       Prism.highlightElement(ref.current);
     }
   }, [fragment, prismLanguage]);
