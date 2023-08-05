@@ -14,19 +14,18 @@ export interface FileNodeIconProps {
 
 export const FileNodeIcon = (props: FileNodeIconProps): JSX.Element => {
   const fragment = useFragment(fragmentDefinition, props.fragment);
-  const nodeType = fragment.nodeType;
 
-  if (!nodeType) {
+  if (!fragment.nodeType) {
     return <></>;
   }
 
-  switch (nodeType) {
+  switch (fragment.nodeType) {
     case "FILE":
       return <FileIcon />;
     case "DIRECTORY":
       return <DirectoryIcon />;
     default:
-      const _exhaustiveCheck: never = nodeType;
+      const _exhaustiveCheck: never = fragment.nodeType;
       return _exhaustiveCheck;
   }
 };

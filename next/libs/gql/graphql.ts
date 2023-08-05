@@ -223,6 +223,19 @@ export type TerminalOutput = {
   output?: Maybe<Scalars["String"]["output"]>;
 };
 
+export type FileNodeComponent_FragmentFragment = ({
+  __typename: "FileNode";
+  nodeType?: FileNodeType | null;
+  name?: string | null;
+  filePath?: string | null;
+  offset?: number | null;
+  isUpdated?: boolean | null;
+} & {
+  " $fragmentRefs"?: {
+    FileNodeIcon_FragmentFragment: FileNodeIcon_FragmentFragment;
+  };
+}) & { " $fragmentName"?: "FileNodeComponent_FragmentFragment" };
+
 export type FileNodeIcon_FragmentFragment = {
   __typename: "FileNode";
   nodeType?: FileNodeType | null;
@@ -247,3 +260,44 @@ export const FileNodeIcon_FragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<FileNodeIcon_FragmentFragment, unknown>;
+export const FileNodeComponent_FragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileNodeComponent_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "FileNode" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "FragmentSpread",
+            name: { kind: "Name", value: "FileNodeIcon_Fragment" },
+          },
+          { kind: "Field", name: { kind: "Name", value: "nodeType" } },
+          { kind: "Field", name: { kind: "Name", value: "name" } },
+          { kind: "Field", name: { kind: "Name", value: "filePath" } },
+          { kind: "Field", name: { kind: "Name", value: "offset" } },
+          { kind: "Field", name: { kind: "Name", value: "isUpdated" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileNodeIcon_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "FileNode" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "nodeType" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<FileNodeComponent_FragmentFragment, unknown>;
