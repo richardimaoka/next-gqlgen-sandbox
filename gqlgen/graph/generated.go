@@ -146,8 +146,9 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
-		Page      func(childComplexity int, tutorial string, step *string) int
-		PageState func(childComplexity int, step *string) int
+		Page       func(childComplexity int, tutorial string, step *string) int
+		PageState  func(childComplexity int, step *string) int
+		SourceCode func(childComplexity int) int
 	}
 
 	SourceCode struct {
@@ -191,6 +192,7 @@ type ComplexityRoot struct {
 type QueryResolver interface {
 	PageState(ctx context.Context, step *string) (*model.PageState, error)
 	Page(ctx context.Context, tutorial string, step *string) (*model.Page, error)
+	SourceCode(ctx context.Context) (*model.SourceCode, error)
 }
 type SourceCodeResolver interface {
 	OpenFile(ctx context.Context, obj *model.SourceCode, filePath *string) (*model.OpenFile, error)
@@ -640,6 +642,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Query.PageState(childComplexity, args["step"].(*string)), true
+
+	case "Query.sourceCode":
+		if e.complexity.Query.SourceCode == nil {
+			break
+		}
+
+		return e.complexity.Query.SourceCode(childComplexity), true
 
 	case "SourceCode.fileTree":
 		if e.complexity.SourceCode.FileTree == nil {
@@ -3579,6 +3588,57 @@ func (ec *executionContext) fieldContext_Query_page(ctx context.Context, field g
 	if fc.Args, err = ec.field_Query_page_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return fc, err
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_sourceCode(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_sourceCode(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().SourceCode(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.SourceCode)
+	fc.Result = res
+	return ec.marshalOSourceCode2ᚖgithubᚗcomᚋrichardimaokaᚋnextᚑgqlgenᚑsandboxᚋgqlgenᚋgraphᚋmodelᚐSourceCode(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_sourceCode(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "step":
+				return ec.fieldContext_SourceCode_step(ctx, field)
+			case "projectDir":
+				return ec.fieldContext_SourceCode_projectDir(ctx, field)
+			case "fileTree":
+				return ec.fieldContext_SourceCode_fileTree(ctx, field)
+			case "openFile":
+				return ec.fieldContext_SourceCode_openFile(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type SourceCode", field.Name)
+		},
 	}
 	return fc, nil
 }
@@ -6919,6 +6979,25 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 					}
 				}()
 				res = ec._Query_page(ctx, field)
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx,
+					func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return rrm(innerCtx) })
+		case "sourceCode":
+			field := field
+
+			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_sourceCode(ctx, field)
 				return res
 			}
 

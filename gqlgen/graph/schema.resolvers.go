@@ -48,6 +48,22 @@ func (r *queryResolver) Page(ctx context.Context, tutorial string, step *string)
 	return &page, nil
 }
 
+// SourceCode is the resolver for the sourceCode field.
+func (r *queryResolver) SourceCode(ctx context.Context) (*model.SourceCode, error) {
+	data, err := os.ReadFile("data/sourcecode.json")
+	if err != nil {
+		return nil, err
+	}
+
+	var sourceCode model.SourceCode
+	err = json.Unmarshal(data, &sourceCode)
+	if err != nil {
+		return nil, fmt.Errorf("internal server error - failed to unmarshal page from %s", err)
+	}
+
+	return &sourceCode, nil
+}
+
 // OpenFile is the resolver for the openFile field.
 func (r *sourceCodeResolver) OpenFile(ctx context.Context, obj *model.SourceCode, filePath *string) (*model.OpenFile, error) {
 	var dirName = fmt.Sprintf("data/%s/state", obj.Tutorial)

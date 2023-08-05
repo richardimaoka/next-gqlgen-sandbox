@@ -1,11 +1,28 @@
-"use client";
-
 import { FileTreePane } from "@/app/components/sourcecode/filetree/FileTreePane";
+import { getClient } from "@/libs/gql/apolloClient";
+import { graphql } from "@/libs/gql";
+import RouterMounting from "./RouterMounting";
 
-export default function Home() {
+const queryDefinition = graphql(/* GraphQL */ `
+  query PageQuery {
+    sourceCode {
+      ...FileTreePane_Fragment
+    }
+  }
+`);
+
+export default async function Home() {
+  const { data } = await getClient().query({
+    query: queryDefinition,
+  });
+
   return (
-    <main>
-      <FileTreePane />
-    </main>
+    <RouterMounting>
+      <main>
+        {data.sourceCode && (
+          <FileTreePane fragment={data.sourceCode} step="_initial" />
+        )}
+      </main>
+    </RouterMounting>
   );
 }
