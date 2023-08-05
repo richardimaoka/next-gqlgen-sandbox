@@ -5,7 +5,7 @@ const config: CodegenConfig = {
   schema: "../gqlgen/graph/schema.graphqls",
   documents: ["app/**/*.tsx"],
   generates: {
-    "libs/gql": {
+    "libs/gql/": {
       preset: "client",
       plugins: [],
       config: {
