@@ -26,9 +26,9 @@ export default async function Home() {
   return (
     <RouterMounting>
       <main>
-        {/* {data.sourceCode && (
+        {data.sourceCode && (
           <FileTreePane fragment={data.sourceCode} step="_initial" />
-        )} */}
+        )}
         {data?.sourceCode?.openFile && (
           <FileContentPane fragment={data.sourceCode.openFile} />
         )}

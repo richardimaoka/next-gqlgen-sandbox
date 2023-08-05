@@ -4,6 +4,12 @@
   display: flex;
   flex-direction: column;
 
+  background-color: var(--color-sourcecode-surface-filetree);
+
+  /* overlay */
+  position: fixed;
+  z-index: 100;
+
   /* flex child = .header, .tree */
 }
 
@@ -13,7 +19,7 @@
 }
 
 .pane.folded {
-  width: fit-content;
+  width: 24px; /* (icon 16px) + 2x(padding 4px) */
 }
 
 .header {
