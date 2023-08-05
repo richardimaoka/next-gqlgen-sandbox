@@ -5,3 +5,7 @@
   background-color: var(--color-sourcecode-surface-tab);
   color: var(--color-primary-text);
 }
+
+.tabs {
+  background-color: var(--color-menu)
+}

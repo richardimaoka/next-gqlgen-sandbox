@@ -272,6 +272,12 @@ export type FileNameTab_FragmentFragment = {
   fileName?: string | null;
 } & { " $fragmentName"?: "FileNameTab_FragmentFragment" };
 
+export type FileNameTabBar_FragmentFragment = ({ __typename: "OpenFile" } & {
+  " $fragmentRefs"?: {
+    FileNameTab_FragmentFragment: FileNameTab_FragmentFragment;
+  };
+}) & { " $fragmentName"?: "FileNameTabBar_FragmentFragment" };
+
 export type PageQueryQueryVariables = Exact<{ [key: string]: never }>;
 
 export type PageQueryQuery = {
@@ -554,6 +560,42 @@ export const FileNameTab_FragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<FileNameTab_FragmentFragment, unknown>;
+export const FileNameTabBar_FragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileNameTabBar_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "OpenFile" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "FragmentSpread",
+            name: { kind: "Name", value: "FileNameTab_Fragment" },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileNameTab_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "OpenFile" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "fileName" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<FileNameTabBar_FragmentFragment, unknown>;
 export const PageQueryDocument = {
   kind: "Document",
   definitions: [
