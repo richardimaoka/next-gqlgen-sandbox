@@ -1,5 +1,11 @@
-import styles from "./page.module.css";
+"use client";
+
+import { FileTreePane } from "@/app/components/sourcecode/filetree/FileTreePane";
 
 export default function Home() {
-  return <main className={styles.main}></main>;
+  return (
+    <main>
+      <FileTreePane />
+    </main>
+  );
 }
