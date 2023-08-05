@@ -230,6 +230,18 @@ export type ColumnTab_FragmentFragment = {
   name?: string | null;
 } & { " $fragmentName"?: "ColumnTab_FragmentFragment" };
 
+export type ColumnTabs_FragmentFragment = {
+  __typename: "Page";
+  columns?: Array<
+    | ({ __typename: "ColumnWrapper"; name?: string | null } & {
+        " $fragmentRefs"?: {
+          ColumnTab_FragmentFragment: ColumnTab_FragmentFragment;
+        };
+      })
+    | null
+  > | null;
+} & { " $fragmentName"?: "ColumnTabs_FragmentFragment" };
+
 export type FileNodeComponent_FragmentFragment = ({
   __typename: "FileNode";
   nodeType?: FileNodeType | null;
@@ -308,17 +320,13 @@ export type PageQueryQueryVariables = Exact<{
 
 export type PageQueryQuery = {
   __typename: "Query";
-  page?: {
-    __typename: "Page";
-    columns?: Array<
-      | ({ __typename: "ColumnWrapper" } & {
-          " $fragmentRefs"?: {
-            ColumnTab_FragmentFragment: ColumnTab_FragmentFragment;
-          };
-        })
-      | null
-    > | null;
-  } | null;
+  page?:
+    | ({ __typename: "Page" } & {
+        " $fragmentRefs"?: {
+          ColumnTabs_FragmentFragment: ColumnTabs_FragmentFragment;
+        };
+      })
+    | null;
 };
 
 export const ColumnTab_FragmentFragmentDoc = {
@@ -338,6 +346,50 @@ export const ColumnTab_FragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<ColumnTab_FragmentFragment, unknown>;
+export const ColumnTabs_FragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ColumnTabs_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Page" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "columns" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "ColumnTab_Fragment" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ColumnTab_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "ColumnWrapper" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [{ kind: "Field", name: { kind: "Name", value: "name" } }],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ColumnTabs_FragmentFragment, unknown>;
 export const FileTreeHeader_FragmentFragmentDoc = {
   kind: "Document",
   definitions: [
@@ -813,17 +865,8 @@ export const PageQueryDocument = {
               kind: "SelectionSet",
               selections: [
                 {
-                  kind: "Field",
-                  name: { kind: "Name", value: "columns" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      {
-                        kind: "FragmentSpread",
-                        name: { kind: "Name", value: "ColumnTab_Fragment" },
-                      },
-                    ],
-                  },
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "ColumnTabs_Fragment" },
                 },
               ],
             },
@@ -841,6 +884,33 @@ export const PageQueryDocument = {
       selectionSet: {
         kind: "SelectionSet",
         selections: [{ kind: "Field", name: { kind: "Name", value: "name" } }],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ColumnTabs_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Page" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "columns" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "ColumnTab_Fragment" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+              ],
+            },
+          },
+        ],
       },
     },
   ],

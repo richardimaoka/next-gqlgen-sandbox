@@ -1,16 +1,12 @@
-import { FileTreePane } from "@/app/components/sourcecode/filetree/FileTreePane";
 import { graphql } from "@/libs/gql";
 import { getClient } from "@/libs/gql/apolloClient";
 import RouterMounting from "./RouterMounting";
-import { FileContentPane } from "./components/sourcecode/openfile/FileContentPane";
-import { ColumnTab } from "./components/column/ColumnTab";
+import { ColumnTabs } from "./components/column/ColumnTabs";
 
 const queryDefinition = graphql(/* GraphQL */ `
   query PageQuery($tutorial: String!, $step: String) {
     page(tutorial: $tutorial, step: $step) {
-      columns {
-        ...ColumnTab_Fragment
-      }
+      ...ColumnTabs_Fragment
     }
   }
 `);
@@ -28,9 +24,7 @@ export default async function Home() {
   return (
     <RouterMounting>
       <main>
-        {data?.page?.columns && data.page.columns[0] && (
-          <ColumnTab isSelected={false} fragment={data.page?.columns[0]} />
-        )}
+        {data?.page && <ColumnTabs fragment={data.page} selectColumn={"src"} />}
       </main>
     </RouterMounting>
   );
