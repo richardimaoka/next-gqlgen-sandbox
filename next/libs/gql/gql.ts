@@ -23,6 +23,8 @@ const documents = {
     types.FileTreeHeader_FragmentFragmentDoc,
   "\n  fragment FileTreePane_Fragment on SourceCode {\n    ...FileTreeHeader_Fragment\n    ...FileTreeComponent_Fragment\n  }\n":
     types.FileTreePane_FragmentFragmentDoc,
+  "\n  fragment FileNameTab_Fragment on OpenFile {\n    fileName\n  }\n":
+    types.FileNameTab_FragmentFragmentDoc,
   "\n  query PageQuery {\n    sourceCode {\n      ...FileTreePane_Fragment\n    }\n  }\n":
     types.PageQueryDocument,
 };
@@ -71,6 +73,12 @@ export function graphql(
 export function graphql(
   source: "\n  fragment FileTreePane_Fragment on SourceCode {\n    ...FileTreeHeader_Fragment\n    ...FileTreeComponent_Fragment\n  }\n",
 ): (typeof documents)["\n  fragment FileTreePane_Fragment on SourceCode {\n    ...FileTreeHeader_Fragment\n    ...FileTreeComponent_Fragment\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  fragment FileNameTab_Fragment on OpenFile {\n    fileName\n  }\n",
+): (typeof documents)["\n  fragment FileNameTab_Fragment on OpenFile {\n    fileName\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

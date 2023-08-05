@@ -267,6 +267,11 @@ export type FileTreePane_FragmentFragment = ({ __typename: "SourceCode" } & {
   };
 }) & { " $fragmentName"?: "FileTreePane_FragmentFragment" };
 
+export type FileNameTab_FragmentFragment = {
+  __typename: "OpenFile";
+  fileName?: string | null;
+} & { " $fragmentName"?: "FileNameTab_FragmentFragment" };
+
 export type PageQueryQueryVariables = Exact<{ [key: string]: never }>;
 
 export type PageQueryQuery = {
@@ -530,6 +535,25 @@ export const FileTreePane_FragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<FileTreePane_FragmentFragment, unknown>;
+export const FileNameTab_FragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "FileNameTab_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "OpenFile" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "fileName" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<FileNameTab_FragmentFragment, unknown>;
 export const PageQueryDocument = {
   kind: "Document",
   definitions: [
