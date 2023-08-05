@@ -164,6 +164,7 @@ type OpenFile {
 
 type SourceCode {
   step: String
+  projectDir: String
   fileTree: [FileNode]
   openFile(filePath: String): OpenFile
 }

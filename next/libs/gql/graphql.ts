@@ -178,6 +178,7 @@ export type SourceCode = {
   __typename: "SourceCode";
   fileTree?: Maybe<Array<Maybe<FileNode>>>;
   openFile?: Maybe<OpenFile>;
+  projectDir?: Maybe<Scalars["String"]["output"]>;
   step?: Maybe<Scalars["String"]["output"]>;
 };
 

@@ -151,9 +151,10 @@ type ComplexityRoot struct {
 	}
 
 	SourceCode struct {
-		FileTree func(childComplexity int) int
-		OpenFile func(childComplexity int, filePath *string) int
-		Step     func(childComplexity int) int
+		FileTree   func(childComplexity int) int
+		OpenFile   func(childComplexity int, filePath *string) int
+		ProjectDir func(childComplexity int) int
+		Step       func(childComplexity int) int
 	}
 
 	SourceCodeColumn struct {
@@ -192,6 +193,8 @@ type QueryResolver interface {
 	Page(ctx context.Context, tutorial string, step *string) (*model.Page, error)
 }
 type SourceCodeResolver interface {
+	ProjectDir(ctx context.Context, obj *model.SourceCode) (*string, error)
+
 	OpenFile(ctx context.Context, obj *model.SourceCode, filePath *string) (*model.OpenFile, error)
 }
 
@@ -658,6 +661,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.SourceCode.OpenFile(childComplexity, args["filePath"].(*string)), true
+
+	case "SourceCode.projectDir":
+		if e.complexity.SourceCode.ProjectDir == nil {
+			break
+		}
+
+		return e.complexity.SourceCode.ProjectDir(childComplexity), true
 
 	case "SourceCode.step":
 		if e.complexity.SourceCode.Step == nil {
@@ -3281,6 +3291,8 @@ func (ec *executionContext) fieldContext_PageState_sourceCode(ctx context.Contex
 			switch field.Name {
 			case "step":
 				return ec.fieldContext_SourceCode_step(ctx, field)
+			case "projectDir":
+				return ec.fieldContext_SourceCode_projectDir(ctx, field)
 			case "fileTree":
 				return ec.fieldContext_SourceCode_fileTree(ctx, field)
 			case "openFile":
@@ -3743,6 +3755,47 @@ func (ec *executionContext) fieldContext_SourceCode_step(ctx context.Context, fi
 	return fc, nil
 }
 
+func (ec *executionContext) _SourceCode_projectDir(ctx context.Context, field graphql.CollectedField, obj *model.SourceCode) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_SourceCode_projectDir(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.SourceCode().ProjectDir(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_SourceCode_projectDir(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "SourceCode",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _SourceCode_fileTree(ctx context.Context, field graphql.CollectedField, obj *model.SourceCode) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_SourceCode_fileTree(ctx, field)
 	if err != nil {
@@ -3943,6 +3996,8 @@ func (ec *executionContext) fieldContext_SourceCodeColumn_sourceCode(ctx context
 			switch field.Name {
 			case "step":
 				return ec.fieldContext_SourceCode_step(ctx, field)
+			case "projectDir":
+				return ec.fieldContext_SourceCode_projectDir(ctx, field)
 			case "fileTree":
 				return ec.fieldContext_SourceCode_fileTree(ctx, field)
 			case "openFile":
@@ -6919,6 +6974,39 @@ func (ec *executionContext) _SourceCode(ctx context.Context, sel ast.SelectionSe
 			out.Values[i] = graphql.MarshalString("SourceCode")
 		case "step":
 			out.Values[i] = ec._SourceCode_step(ctx, field, obj)
+		case "projectDir":
+			field := field
+
+			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._SourceCode_projectDir(ctx, field, obj)
+				return res
+			}
+
+			if field.Deferrable != nil {
+				dfs, ok := deferred[field.Deferrable.Label]
+				di := 0
+				if ok {
+					dfs.AddField(field)
+					di = len(dfs.Values) - 1
+				} else {
+					dfs = graphql.NewFieldSet([]graphql.CollectedField{field})
+					deferred[field.Deferrable.Label] = dfs
+				}
+				dfs.Concurrently(di, func(ctx context.Context) graphql.Marshaler {
+					return innerFunc(ctx, dfs)
+				})
+
+				// don't run the out.Concurrently() call below
+				out.Values[i] = graphql.Null
+				continue
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
 		case "fileTree":
 			out.Values[i] = ec._SourceCode_fileTree(ctx, field, obj)
 		case "openFile":
