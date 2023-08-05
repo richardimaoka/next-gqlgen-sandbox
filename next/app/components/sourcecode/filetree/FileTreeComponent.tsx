@@ -1,4 +1,4 @@
-import { nonNullArray } from "@/libs/gql/nonNullArray";
+import { nonNullArray } from "@/libs/nonNullArray";
 import { FileNodeComponent } from "./FileNodeComponent";
 import styles from "./style.module.css";
 
