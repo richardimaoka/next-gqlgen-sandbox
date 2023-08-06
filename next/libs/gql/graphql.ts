@@ -39,6 +39,11 @@ export type BackgroundImageColumn = Column & {
   width?: Maybe<Scalars["Int"]["output"]>;
 };
 
+export type BrowserColumn = Column & {
+  __typename: "BrowserColumn";
+  _placeholder?: Maybe<Scalars["String"]["output"]>;
+};
+
 export type Column = {
   _placeholder?: Maybe<Scalars["String"]["output"]>;
 };
@@ -236,6 +241,7 @@ export type ColumnTab_FragmentFragment = {
   name?: string | null;
   column?:
     | { __typename: "BackgroundImageColumn" }
+    | { __typename: "BrowserColumn" }
     | { __typename: "ImageDescriptionColumn" }
     | { __typename: "MarkdownColumn" }
     | { __typename: "SourceCodeColumn" }

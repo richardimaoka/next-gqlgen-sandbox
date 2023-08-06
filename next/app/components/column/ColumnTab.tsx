@@ -39,6 +39,8 @@ export const ColumnTab = (props: ColumnTabProps): JSX.Element => {
         return <FileLinesIcon />;
       case "MarkdownColumn":
         return <FileLinesIcon />;
+      case "BrowserColumn":
+        return <ChromeIcon />;
     }
   };
 

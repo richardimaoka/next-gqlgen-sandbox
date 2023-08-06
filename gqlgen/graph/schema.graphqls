@@ -104,6 +104,10 @@ type TerminalColumn implements Column {
   terminal: Terminal
 }
 
+type BrowserColumn implements Column {
+  _placeholder: String
+}
+
 ###################################################
 # Terminal related object types
 ###################################################
