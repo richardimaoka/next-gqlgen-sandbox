@@ -5,7 +5,7 @@ import styles from "./style.module.css";
 export const TerminalIcon = (): JSX.Element => {
   return (
     <div className={styles.icon}>
-      <FontAwesomeIcon icon={faTerminal} />
+      <FontAwesomeIcon fixedWidth icon={faTerminal} />
     </div>
   );
 };

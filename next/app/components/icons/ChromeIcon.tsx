@@ -5,7 +5,7 @@ import styles from "./style.module.css";
 export const ChromeIcon = (): JSX.Element => {
   return (
     <div className={styles.icon}>
-      <FontAwesomeIcon icon={faChrome} />
+      <FontAwesomeIcon fixedWidth icon={faChrome} />
     </div>
   );
 };

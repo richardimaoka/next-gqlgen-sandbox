@@ -5,7 +5,7 @@ import styles from "./style.module.css";
 export const FileLinesIcon = (): JSX.Element => {
   return (
     <div className={styles.icon}>
-      <FontAwesomeIcon icon={faFileLines} />
+      <FontAwesomeIcon fixedWidth icon={faFileLines} />
     </div>
   );
 };
