@@ -34,7 +34,10 @@ export const VisibleColumn = (props: VisibleColumnProps) => {
   return (
     <div className={styles.visiblecolumn}>
       <ColumnHeader fragment={fragment} selectColumn={props.selectColumn} />
-      {visibleColumn && <ColumnWrapperComponent fragment={visibleColumn} />}
+      <div className={styles.wrapper}>
+        {/* above <div> + .wrapper style is necessary to control the height of visible column = 100svh */}
+        {visibleColumn && <ColumnWrapperComponent fragment={visibleColumn} />}
+      </div>
     </div>
   );
 };

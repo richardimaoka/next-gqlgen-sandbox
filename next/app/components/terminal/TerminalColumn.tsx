@@ -17,9 +17,9 @@ interface TerminalColumnProps {
 export const TerminalColumn = (props: TerminalColumnProps) => {
   const fragment = useFragment(fragmentDefinition, props.fragment);
 
-  return (
-    <div>
-      {fragment.terminal && <TerminalComponent fragment={fragment.terminal} />}
-    </div>
-  );
+  if (!fragment.terminal) {
+    return <></>;
+  }
+
+  return <TerminalComponent fragment={fragment.terminal} />;
 };

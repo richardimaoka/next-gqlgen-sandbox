@@ -1,5 +1,6 @@
 import { CurrentDirectory } from "./CurrentDirectory";
 import { TerminalContentsComponent } from "./TerminalContentsComponent";
+import styles from "./style.module.css";
 
 import { FragmentType, graphql, useFragment } from "@/libs/gql";
 
@@ -18,7 +19,7 @@ export const TerminalComponent = (props: TerminalComponentProps) => {
   const fragment = useFragment(fragmentDefinition, props.fragment);
 
   return (
-    <div>
+    <div className={styles.terminal}>
       <CurrentDirectory fragment={fragment} />
       <TerminalContentsComponent fragment={fragment} />
     </div>

@@ -1,5 +1,5 @@
 import { nonNullArray } from "@/libs/nonNullArray";
-import styles from "./terminal.module.css";
+import styles from "./style.module.css";
 
 import { FragmentType, graphql, useFragment } from "@/libs/gql";
 import { TerminalNodeComponent } from "./TerminalNodeComponent";
@@ -27,7 +27,7 @@ export const TerminalContentsComponent = (
   const nodes = nonNullArray(fragment.nodes);
 
   return (
-    <div>
+    <div className={styles.contents}>
       {nodes.map((node, index) => (
         <TerminalNodeComponent key={index} fragment={node} />
       ))}

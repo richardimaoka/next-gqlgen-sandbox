@@ -2,13 +2,21 @@
   .visiblecolumn {
     width: 100%;
     height: 100svh;
+
+    /* make sure hights of flex children add up to 100svh */
+    display: flex;
+    flex-direction: column;
   }
 }
+
 @media (min-width: 769px) {
   .visiblecolumn {
     width: 768px;
     height: 100svh;
-    /* overflow: hidden; */
+
+    /* make sure hights of flex children add up to 100svh */
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -71,4 +79,9 @@
   .tab > .smartphone {
     display: none;
   }
+}
+
+.wrapper {
+  /* make sure hights of flex children add up to parent(.visiblecolumn) hight */
+  overflow-y: hidden;
 }
