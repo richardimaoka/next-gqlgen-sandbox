@@ -385,6 +385,11 @@ export type FileNameTabBar_FragmentFragment = ({ __typename: "OpenFile" } & {
   };
 }) & { " $fragmentName"?: "FileNameTabBar_FragmentFragment" };
 
+export type TerminalCurrentDirectory_FragmentFragment = {
+  __typename: "Terminal";
+  currentDirectory?: string | null;
+} & { " $fragmentName"?: "TerminalCurrentDirectory_FragmentFragment" };
+
 export type TerminalCommand_FragmentFragment = {
   __typename: "TerminalCommand";
   command?: string | null;
@@ -1905,6 +1910,28 @@ export const VisibleColumn_FragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<VisibleColumn_FragmentFragment, unknown>;
+export const TerminalCurrentDirectory_FragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "TerminalCurrentDirectory_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Terminal" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "currentDirectory" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  TerminalCurrentDirectory_FragmentFragment,
+  unknown
+>;
 export const TerminalCommand_FragmentFragmentDoc = {
   kind: "Document",
   definitions: [

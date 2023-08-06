@@ -26,7 +26,7 @@ export const VisibleColumn = (props: VisibleColumnProps) => {
     return <div></div>;
   }
   const columns = nonNullArray(fragment.columns);
-  const visibleColumn = columns.find((column) => column.name === "Source Code");
+  const visibleColumn = columns.find((column) => column.name === "Terminal");
 
   return (
     <div>

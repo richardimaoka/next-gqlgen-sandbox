@@ -43,6 +43,8 @@ const documents = {
     types.FileNameTab_FragmentFragmentDoc,
   "\n  fragment FileNameTabBar_Fragment on OpenFile {\n    ...FileNameTab_Fragment\n  }\n":
     types.FileNameTabBar_FragmentFragmentDoc,
+  "\n  fragment TerminalCurrentDirectory_Fragment on Terminal {\n    currentDirectory\n  }\n":
+    types.TerminalCurrentDirectory_FragmentFragmentDoc,
   "\n  fragment TerminalCommand_Fragment on TerminalCommand {\n    command\n    beforeExecution\n  }\n":
     types.TerminalCommand_FragmentFragmentDoc,
   "\n  fragment TerminalContentsComponent_Fragment on Terminal {\n    nodes {\n      ...TerminalNodeComponent_Fragment\n    }\n  }\n":
@@ -159,6 +161,12 @@ export function graphql(
 export function graphql(
   source: "\n  fragment FileNameTabBar_Fragment on OpenFile {\n    ...FileNameTab_Fragment\n  }\n",
 ): (typeof documents)["\n  fragment FileNameTabBar_Fragment on OpenFile {\n    ...FileNameTab_Fragment\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  fragment TerminalCurrentDirectory_Fragment on Terminal {\n    currentDirectory\n  }\n",
+): (typeof documents)["\n  fragment TerminalCurrentDirectory_Fragment on Terminal {\n    currentDirectory\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

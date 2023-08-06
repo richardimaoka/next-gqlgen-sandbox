@@ -20,6 +20,7 @@ export const TerminalCommandComponent = (
   props: TerminalCommandComponentProps
 ): JSX.Element => {
   const fragment = useFragment(fragmentDefinition, props.fragment);
+
   return (
     <pre className={styles.command}>
       <TerminalPrompt />
