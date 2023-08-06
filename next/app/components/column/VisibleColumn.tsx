@@ -18,6 +18,8 @@ const fragmentDefinition = graphql(`
 interface VisibleColumnProps {
   fragment: FragmentType<typeof fragmentDefinition>;
   selectColumn?: string;
+  openFilePath?: string;
+  step?: string;
 }
 
 export const VisibleColumn = (props: VisibleColumnProps) => {
@@ -40,7 +42,12 @@ export const VisibleColumn = (props: VisibleColumnProps) => {
 
   return (
     <div className={styles.visiblecolumn}>
-      <ColumnHeader fragment={fragment} selectColumn={selectColumn} />
+      <ColumnHeader
+        fragment={fragment}
+        selectColumn={selectColumn}
+        openFilePath={props.openFilePath}
+        step={props.step}
+      />
       <div className={styles.wrapper}>
         {/* above <div> + .wrapper style is necessary to control the height of visible column = 100svh */}
         {visibleColumn && <ColumnWrapperComponent fragment={visibleColumn} />}

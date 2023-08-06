@@ -20,12 +20,17 @@ interface PageParams {
 }
 
 export default async function Home({ searchParams }: PageParams) {
+  const openFilePath = searchParams.openFilePath
+    ? searchParams.openFilePath
+    : "src/index.tsx";
+  const step = "bf3aadbd-c876-4fd3-817b-3b0fc24b04f9";
+
   const { data } = await getClient().query({
     query: queryDefinition,
     variables: {
       tutorial: "sign-in-with-google",
-      openFilePath: "src/index.tsx",
-      step: "bf3aadbd-c876-4fd3-817b-3b0fc24b04f9",
+      openFilePath: openFilePath,
+      step: step,
       column: searchParams.column,
     },
   });
@@ -37,6 +42,8 @@ export default async function Home({ searchParams }: PageParams) {
           <VisibleColumn
             fragment={data.page}
             selectColumn={searchParams.column}
+            openFilePath={openFilePath}
+            step={step}
           />
         )}
       </main>

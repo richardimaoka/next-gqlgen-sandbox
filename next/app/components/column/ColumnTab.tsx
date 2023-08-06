@@ -19,6 +19,8 @@ const fragmentDefinition = graphql(`
 export interface ColumnTabProps {
   fragment: FragmentType<typeof fragmentDefinition>;
   isSelected: boolean;
+  openFilePath?: string;
+  step?: string;
 }
 
 export const ColumnTab = (props: ColumnTabProps): JSX.Element => {
@@ -46,12 +48,16 @@ export const ColumnTab = (props: ColumnTabProps): JSX.Element => {
     }
   };
 
+  console.log(props);
+
   return (
     <div className={`${styles.tab} ${selectStyle}`}>
       <Link
         href={{
           query: {
             column: encodeURIComponent(fragment.name ? fragment.name : ""),
+            openFilePath: props.openFilePath,
+            step: props.step,
           },
         }}
       >

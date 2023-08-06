@@ -12,13 +12,20 @@ const fragmentDefinition = graphql(`
 interface ColumnHeaderProps {
   fragment: FragmentType<typeof fragmentDefinition>;
   selectColumn: string;
+  openFilePath?: string;
+  step?: string;
 }
 
 export const ColumnHeader = (props: ColumnHeaderProps) => {
   const fragment = useFragment(fragmentDefinition, props.fragment);
   return (
     <div className={styles.header}>
-      <ColumnTabs fragment={fragment} selectColumn={props.selectColumn} />
+      <ColumnTabs
+        fragment={fragment}
+        selectColumn={props.selectColumn}
+        openFilePath={props.openFilePath}
+        step={props.step}
+      />
       <ToInitialStepButton />
     </div>
   );
