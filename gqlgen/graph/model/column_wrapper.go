@@ -21,7 +21,8 @@ func (t *ColumnWrapper) UnmarshalJSON(b []byte) error {
 
 	name, ok := obj["name"]
 	if !ok {
-		return fmt.Errorf(`failed in ColumnWrapper UnmarshalJSON(), "name" field does not exist`)
+		name = ""
+		// return fmt.Errorf(`failed in ColumnWrapper UnmarshalJSON(), "name" field does not exist`)
 	}
 
 	nameStr, ok := name.(string)
