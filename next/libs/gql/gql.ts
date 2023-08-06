@@ -15,7 +15,7 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
 const documents = {
   "\n  fragment ColumnHeader_Fragment on Page {\n    ...ColumnTabs_Fragment\n  }\n":
     types.ColumnHeader_FragmentFragmentDoc,
-  "\n  fragment ColumnTab_Fragment on ColumnWrapper {\n    name\n  }\n":
+  "\n  fragment ColumnTab_Fragment on ColumnWrapper {\n    name\n    column {\n      __typename\n    }\n  }\n":
     types.ColumnTab_FragmentFragmentDoc,
   "\n  fragment ColumnTabs_Fragment on Page {\n    columns {\n      ...ColumnTab_Fragment\n      name\n    }\n  }\n":
     types.ColumnTabs_FragmentFragmentDoc,
@@ -65,8 +65,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  fragment ColumnTab_Fragment on ColumnWrapper {\n    name\n  }\n",
-): (typeof documents)["\n  fragment ColumnTab_Fragment on ColumnWrapper {\n    name\n  }\n"];
+  source: "\n  fragment ColumnTab_Fragment on ColumnWrapper {\n    name\n    column {\n      __typename\n    }\n  }\n",
+): (typeof documents)["\n  fragment ColumnTab_Fragment on ColumnWrapper {\n    name\n    column {\n      __typename\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

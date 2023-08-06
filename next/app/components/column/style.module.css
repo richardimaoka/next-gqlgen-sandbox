@@ -3,7 +3,6 @@
   justify-content: space-between;
   padding: 8px;
   padding-bottom: 0px;
-  height: 37px;
 
   border-bottom: 1px solid var(--color-primary-text);
 }
@@ -19,7 +18,7 @@
 }
 
 .tab {
-  font-size: 12px;
+  font-size: 13px;
   width: fit-content;
   border-radius: 4px 4px 0px 0px;
 }
@@ -39,4 +38,22 @@
   background-color: var(--color-surface);
   color: var(--color-disabled-text);
   padding: 4px 8px;
+}
+
+@media (max-width: 768px) {
+  .tab > .desktop {
+    display: none;
+  }
+  .tab > .smartphone {
+    display: visible;
+  }
+}
+@media (min-width: 769px) {
+  .tab > .desktop {
+    display: visible;
+    height: 16px;
+  }
+  .tab > .smartphone {
+    display: none;
+  }
 }

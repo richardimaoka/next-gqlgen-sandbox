@@ -234,6 +234,13 @@ export type ColumnHeader_FragmentFragment = ({ __typename: "Page" } & {
 export type ColumnTab_FragmentFragment = {
   __typename: "ColumnWrapper";
   name?: string | null;
+  column?:
+    | { __typename: "BackgroundImageColumn" }
+    | { __typename: "ImageDescriptionColumn" }
+    | { __typename: "MarkdownColumn" }
+    | { __typename: "SourceCodeColumn" }
+    | { __typename: "TerminalColumn" }
+    | null;
 } & { " $fragmentName"?: "ColumnTab_FragmentFragment" };
 
 export type ColumnTabs_FragmentFragment = {
@@ -347,7 +354,19 @@ export const ColumnTab_FragmentFragmentDoc = {
       },
       selectionSet: {
         kind: "SelectionSet",
-        selections: [{ kind: "Field", name: { kind: "Name", value: "name" } }],
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "name" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "column" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "__typename" } },
+              ],
+            },
+          },
+        ],
       },
     },
   ],
@@ -391,7 +410,19 @@ export const ColumnTabs_FragmentFragmentDoc = {
       },
       selectionSet: {
         kind: "SelectionSet",
-        selections: [{ kind: "Field", name: { kind: "Name", value: "name" } }],
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "name" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "column" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "__typename" } },
+              ],
+            },
+          },
+        ],
       },
     },
   ],
@@ -425,7 +456,19 @@ export const ColumnHeader_FragmentFragmentDoc = {
       },
       selectionSet: {
         kind: "SelectionSet",
-        selections: [{ kind: "Field", name: { kind: "Name", value: "name" } }],
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "name" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "column" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "__typename" } },
+              ],
+            },
+          },
+        ],
       },
     },
     {
@@ -950,7 +993,19 @@ export const PageQueryDocument = {
       },
       selectionSet: {
         kind: "SelectionSet",
-        selections: [{ kind: "Field", name: { kind: "Name", value: "name" } }],
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "name" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "column" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "__typename" } },
+              ],
+            },
+          },
+        ],
       },
     },
     {
