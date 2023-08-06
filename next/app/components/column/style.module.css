@@ -47,6 +47,7 @@
     display: visible;
   }
 }
+
 @media (min-width: 769px) {
   .tab > .desktop {
     display: visible;

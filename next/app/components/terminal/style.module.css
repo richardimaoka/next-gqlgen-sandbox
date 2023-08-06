@@ -54,13 +54,16 @@
   font-size: 12px;
 }
 
-/* https://stackoverflow.com/questions/4413015/browser-compatible-word-wrap-and-whitespace-pre */
-.fold {
-  white-space: pre-wrap; /* Since CSS 2.1 */
-  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-  white-space: -pre-wrap; /* Opera 4-6 */
-  white-space: -o-pre-wrap; /* Opera 7 */
-  word-wrap: break-word; /* Internet Explorer 5.5+ */
+@media (max-width: 768px) {
+  /* https://stackoverflow.com/questions/4413015/browser-compatible-word-wrap-and-whitespace-pre */
+  .command,
+  .output {
+    white-space: pre-wrap; /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+  }
 }
 
 .currentDir {

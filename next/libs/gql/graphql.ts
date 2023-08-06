@@ -385,6 +385,12 @@ export type FileNameTabBar_FragmentFragment = ({ __typename: "OpenFile" } & {
   };
 }) & { " $fragmentName"?: "FileNameTabBar_FragmentFragment" };
 
+export type TerminalCommand_FragmentFragment = {
+  __typename: "TerminalCommand";
+  command?: string | null;
+  beforeExecution?: boolean | null;
+} & { " $fragmentName"?: "TerminalCommand_FragmentFragment" };
+
 export type PageQueryQueryVariables = Exact<{
   tutorial: Scalars["String"]["input"];
   step?: InputMaybe<Scalars["String"]["input"]>;
@@ -1866,6 +1872,26 @@ export const VisibleColumn_FragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<VisibleColumn_FragmentFragment, unknown>;
+export const TerminalCommand_FragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "TerminalCommand_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "TerminalCommand" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "command" } },
+          { kind: "Field", name: { kind: "Name", value: "beforeExecution" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<TerminalCommand_FragmentFragment, unknown>;
 export const PageQueryDocument = {
   kind: "Document",
   definitions: [
