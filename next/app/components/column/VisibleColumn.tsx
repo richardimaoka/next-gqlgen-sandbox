@@ -32,7 +32,7 @@ export const VisibleColumn = (props: VisibleColumnProps) => {
   );
 
   return (
-    <div>
+    <div className={styles.visiblecolumn}>
       <ColumnHeader fragment={fragment} selectColumn={props.selectColumn} />
       {visibleColumn && <ColumnWrapperComponent fragment={visibleColumn} />}
     </div>
