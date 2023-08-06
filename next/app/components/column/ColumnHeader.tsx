@@ -11,13 +11,14 @@ const fragmentDefinition = graphql(`
 
 interface ColumnHeaderProps {
   fragment: FragmentType<typeof fragmentDefinition>;
+  selectColumn: string;
 }
 
 export const ColumnHeader = (props: ColumnHeaderProps) => {
   const fragment = useFragment(fragmentDefinition, props.fragment);
   return (
     <div className={styles.header}>
-      <ColumnTabs fragment={fragment} selectColumn={"Source Code"} />
+      <ColumnTabs fragment={fragment} selectColumn={props.selectColumn} />
       <ToInitialStepButton />
     </div>
   );

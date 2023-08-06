@@ -3,8 +3,10 @@ import { TerminalComponent } from "./TerminalComponent";
 import { FragmentType, graphql, useFragment } from "@/libs/gql";
 
 const fragmentDefinition = graphql(`
-  fragment TerminalColumn_Fragment on Terminal {
-    ...TerminalComponent_Fragment
+  fragment TerminalColumn_Fragment on TerminalColumn {
+    terminal {
+      ...TerminalComponent_Fragment
+    }
   }
 `);
 
@@ -17,7 +19,7 @@ export const TerminalColumn = (props: TerminalColumnProps) => {
 
   return (
     <div>
-      <TerminalComponent fragment={fragment} />
+      {fragment.terminal && <TerminalComponent fragment={fragment.terminal} />}
     </div>
   );
 };

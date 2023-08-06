@@ -19,7 +19,7 @@ const documents = {
     types.ColumnTab_FragmentFragmentDoc,
   "\n  fragment ColumnTabs_Fragment on Page {\n    columns {\n      ...ColumnTab_Fragment\n      name\n    }\n  }\n":
     types.ColumnTabs_FragmentFragmentDoc,
-  "\n  fragment ColumnWrapperComponent_Fragment on ColumnWrapper {\n    name\n    column {\n      __typename\n      ... on SourceCodeColumn {\n        ...SourceCodeColumn_Fragment\n      }\n    }\n  }\n":
+  "\n  fragment ColumnWrapperComponent_Fragment on ColumnWrapper {\n    name\n    column {\n      __typename\n      ... on SourceCodeColumn {\n        ...SourceCodeColumn_Fragment\n      }\n\n      ... on TerminalColumn {\n        ...TerminalColumn_Fragment\n      }\n    }\n  }\n":
     types.ColumnWrapperComponent_FragmentFragmentDoc,
   "\n  fragment VisibleColumn_Fragment on Page {\n    ...ColumnHeader_Fragment\n    columns {\n      ...ColumnWrapperComponent_Fragment\n      name\n    }\n  }\n":
     types.VisibleColumn_FragmentFragmentDoc,
@@ -45,7 +45,7 @@ const documents = {
     types.FileNameTabBar_FragmentFragmentDoc,
   "\n  fragment TerminalCurrentDirectory_Fragment on Terminal {\n    currentDirectory\n  }\n":
     types.TerminalCurrentDirectory_FragmentFragmentDoc,
-  "\n  fragment TerminalColumn_Fragment on Terminal {\n    ...TerminalComponent_Fragment\n  }\n":
+  "\n  fragment TerminalColumn_Fragment on TerminalColumn {\n    terminal {\n      ...TerminalComponent_Fragment\n    }\n  }\n":
     types.TerminalColumn_FragmentFragmentDoc,
   "\n  fragment TerminalCommand_Fragment on TerminalCommand {\n    command\n    beforeExecution\n  }\n":
     types.TerminalCommand_FragmentFragmentDoc,
@@ -97,8 +97,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  fragment ColumnWrapperComponent_Fragment on ColumnWrapper {\n    name\n    column {\n      __typename\n      ... on SourceCodeColumn {\n        ...SourceCodeColumn_Fragment\n      }\n    }\n  }\n",
-): (typeof documents)["\n  fragment ColumnWrapperComponent_Fragment on ColumnWrapper {\n    name\n    column {\n      __typename\n      ... on SourceCodeColumn {\n        ...SourceCodeColumn_Fragment\n      }\n    }\n  }\n"];
+  source: "\n  fragment ColumnWrapperComponent_Fragment on ColumnWrapper {\n    name\n    column {\n      __typename\n      ... on SourceCodeColumn {\n        ...SourceCodeColumn_Fragment\n      }\n\n      ... on TerminalColumn {\n        ...TerminalColumn_Fragment\n      }\n    }\n  }\n",
+): (typeof documents)["\n  fragment ColumnWrapperComponent_Fragment on ColumnWrapper {\n    name\n    column {\n      __typename\n      ... on SourceCodeColumn {\n        ...SourceCodeColumn_Fragment\n      }\n\n      ... on TerminalColumn {\n        ...TerminalColumn_Fragment\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -175,8 +175,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  fragment TerminalColumn_Fragment on Terminal {\n    ...TerminalComponent_Fragment\n  }\n",
-): (typeof documents)["\n  fragment TerminalColumn_Fragment on Terminal {\n    ...TerminalComponent_Fragment\n  }\n"];
+  source: "\n  fragment TerminalColumn_Fragment on TerminalColumn {\n    terminal {\n      ...TerminalComponent_Fragment\n    }\n  }\n",
+): (typeof documents)["\n  fragment TerminalColumn_Fragment on TerminalColumn {\n    terminal {\n      ...TerminalComponent_Fragment\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

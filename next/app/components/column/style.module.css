@@ -37,6 +37,7 @@
   background-color: var(--color-surface);
   color: var(--color-disabled-text);
   padding: 4px 8px;
+  margin-bottom: 4px;
 }
 
 @media (max-width: 768px) {

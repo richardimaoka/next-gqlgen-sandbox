@@ -12,6 +12,10 @@ const fragmentDefinition = graphql(`
       ... on SourceCodeColumn {
         ...SourceCodeColumn_Fragment
       }
+
+      ... on TerminalColumn {
+        ...TerminalColumn_Fragment
+      }
     }
   }
 `);

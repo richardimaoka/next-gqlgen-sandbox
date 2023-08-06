@@ -23,7 +23,11 @@ export default async function Home() {
 
   return (
     <RouterMounting>
-      <main>{data.page && <VisibleColumn fragment={data.page} />}</main>
+      <main>
+        {data.page && (
+          <VisibleColumn fragment={data.page} selectColumn="Terminal" />
+        )}
+      </main>
     </RouterMounting>
   );
 }

@@ -17,6 +17,7 @@ const fragmentDefinition = graphql(`
 
 interface VisibleColumnProps {
   fragment: FragmentType<typeof fragmentDefinition>;
+  selectColumn: string;
 }
 
 export const VisibleColumn = (props: VisibleColumnProps) => {
@@ -26,11 +27,13 @@ export const VisibleColumn = (props: VisibleColumnProps) => {
     return <div></div>;
   }
   const columns = nonNullArray(fragment.columns);
-  const visibleColumn = columns.find((column) => column.name === "Terminal");
+  const visibleColumn = columns.find(
+    (column) => column.name === props.selectColumn
+  );
 
   return (
     <div>
-      <ColumnHeader fragment={fragment} />
+      <ColumnHeader fragment={fragment} selectColumn={props.selectColumn} />
       {visibleColumn && <ColumnWrapperComponent fragment={visibleColumn} />}
     </div>
   );
