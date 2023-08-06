@@ -1,0 +1,23 @@
+import { FragmentType, graphql, useFragment } from "@/libs/gql";
+import styles from "./style.module.css";
+import { ColumnTabs } from "./ColumnTabs";
+
+const fragmentDefinition = graphql(`
+  fragment ColumnHeader_Fragment on Page {
+    ...ColumnTabs_Fragment
+  }
+`);
+
+interface ColumnHeaderProps {
+  fragment: FragmentType<typeof fragmentDefinition>;
+}
+
+export const ColumnHeader = (props: ColumnHeaderProps) => {
+  const fragment = useFragment(fragmentDefinition, props.fragment);
+  return (
+    <div className={styles.header}>
+      <ColumnTabs fragment={fragment} selectColumn={"Source Code"} />
+      {/* <ToInitialStepButton /> */}
+    </div>
+  );
+};

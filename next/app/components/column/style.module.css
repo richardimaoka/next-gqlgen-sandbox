@@ -1,3 +1,12 @@
+.header {
+  display: flex;
+  padding: 8px;
+  padding-bottom: 0px;
+  height: 37px;
+
+  border-bottom: 1px solid var(--color-primary-text);
+}
+
 .tabs {
   display: flex;
   align-items: flex-start;
