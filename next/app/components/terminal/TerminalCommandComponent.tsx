@@ -12,11 +12,13 @@ const fragmentDefinition = graphql(`
   }
 `);
 
-export interface TerminalCommandProps {
+export interface TerminalCommandComponentProps {
   fragment: FragmentType<typeof fragmentDefinition>;
 }
 
-export const TerminalCommand = (props: TerminalCommandProps): JSX.Element => {
+export const TerminalCommandComponent = (
+  props: TerminalCommandComponentProps
+): JSX.Element => {
   const fragment = useFragment(fragmentDefinition, props.fragment);
   return (
     <pre className={styles.command}>

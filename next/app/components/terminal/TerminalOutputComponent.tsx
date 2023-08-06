@@ -9,11 +9,13 @@ const fragmentDefinition = graphql(`
   }
 `);
 
-interface TerminalOutputProps {
+interface TerminalOutputComponentProps {
   fragment: FragmentType<typeof fragmentDefinition>;
 }
 
-export const TerminalOutput = (props: TerminalOutputProps) => {
+export const TerminalOutputComponent = (
+  props: TerminalOutputComponentProps
+) => {
   const fragment = useFragment(fragmentDefinition, props.fragment);
 
   return (
