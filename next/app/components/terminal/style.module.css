@@ -22,6 +22,7 @@
   padding: 1px 8px;
   overflow: auto;
   background-color: var(--color-surface);
+  flex-grow: 1;
 }
 
 .command {

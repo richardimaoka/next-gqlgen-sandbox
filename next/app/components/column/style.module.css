@@ -84,4 +84,5 @@
 .wrapper {
   /* make sure hights of flex children add up to parent(.visiblecolumn) hight */
   overflow-y: hidden;
+  flex-grow: 1;
 }
