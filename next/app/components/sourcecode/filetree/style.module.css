@@ -7,7 +7,7 @@
   background-color: var(--color-sourcecode-surface-filetree);
 
   /* overlay */
-  position: fixed;
+  position: absolute;
   z-index: 100;
 
   /* flex child = .header, .tree */

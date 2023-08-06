@@ -23,7 +23,7 @@ export const SourceCodeColumn = (props: SourceCodeColumnProps) => {
   const fragment = useFragment(fragmentDefinition, props.fragment);
 
   return (
-    <div>
+    <div className={styles.sourcecode}>
       {fragment.sourceCode && (
         <FileTreePane step="" fragment={fragment.sourceCode} />
       )}
