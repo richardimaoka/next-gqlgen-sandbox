@@ -1,6 +1,13 @@
 .openfile {
   margin-left: 24px;
   background-color: #1e1e1e;
+
+  /*regardless of contents height, fill the given space*/
+  height: 100%;
+
+  /*.contents to fill only the remaining space, and enable .contents scroll*/
+  display: flex;
+  flex-direction: column;
 }
 
 .tab {
@@ -15,7 +22,7 @@
   background-color: var(--color-menu);
 }
 
-.content {
+.contents {
   overflow: auto; /* scroll within file content (not to include file name tab in vertical scroll) */
 }
 

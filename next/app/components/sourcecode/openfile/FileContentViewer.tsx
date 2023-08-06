@@ -82,7 +82,7 @@ export const FileContentViewer = (
   }, [fragment, prismLanguage]);
 
   return (
-    <div className={styles.content}>
+    <div className={styles.contents}>
       <pre className="line-numbers" data-line={dataLine}>
         <code ref={ref}>{fragment.content}</code>
       </pre>

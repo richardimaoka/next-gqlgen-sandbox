@@ -11,8 +11,10 @@
 }
 
 .terminal {
-  height: 100%; /*regardless of contents height, fill the (column height - header) space*/
+  /*regardless of contents height, fill the (column height - header) space*/
+  height: 100%;
 
+  /*.contents to fill only the remaining space, and enable .contents scroll*/
   display: flex;
   flex-direction: column;
   background-color: var(--color-surface);
