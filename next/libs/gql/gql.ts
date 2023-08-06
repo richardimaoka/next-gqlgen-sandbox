@@ -45,6 +45,8 @@ const documents = {
     types.FileNameTabBar_FragmentFragmentDoc,
   "\n  fragment TerminalCommand_Fragment on TerminalCommand {\n    command\n    beforeExecution\n  }\n":
     types.TerminalCommand_FragmentFragmentDoc,
+  "\n  fragment TerminalOutput_Fragment on TerminalOutput {\n    output\n  }\n":
+    types.TerminalOutput_FragmentFragmentDoc,
   "\n  query PageQuery($tutorial: String!, $step: String, $openFilePath: String) {\n    page(tutorial: $tutorial, step: $step) {\n      ...VisibleColumn_Fragment\n    }\n  }\n":
     types.PageQueryDocument,
 };
@@ -159,6 +161,12 @@ export function graphql(
 export function graphql(
   source: "\n  fragment TerminalCommand_Fragment on TerminalCommand {\n    command\n    beforeExecution\n  }\n",
 ): (typeof documents)["\n  fragment TerminalCommand_Fragment on TerminalCommand {\n    command\n    beforeExecution\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  fragment TerminalOutput_Fragment on TerminalOutput {\n    output\n  }\n",
+): (typeof documents)["\n  fragment TerminalOutput_Fragment on TerminalOutput {\n    output\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

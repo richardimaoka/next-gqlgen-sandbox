@@ -391,6 +391,11 @@ export type TerminalCommand_FragmentFragment = {
   beforeExecution?: boolean | null;
 } & { " $fragmentName"?: "TerminalCommand_FragmentFragment" };
 
+export type TerminalOutput_FragmentFragment = {
+  __typename: "TerminalOutput";
+  output?: string | null;
+} & { " $fragmentName"?: "TerminalOutput_FragmentFragment" };
+
 export type PageQueryQueryVariables = Exact<{
   tutorial: Scalars["String"]["input"];
   step?: InputMaybe<Scalars["String"]["input"]>;
@@ -1892,6 +1897,25 @@ export const TerminalCommand_FragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<TerminalCommand_FragmentFragment, unknown>;
+export const TerminalOutput_FragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "TerminalOutput_Fragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "TerminalOutput" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "output" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<TerminalOutput_FragmentFragment, unknown>;
 export const PageQueryDocument = {
   kind: "Document",
   definitions: [
