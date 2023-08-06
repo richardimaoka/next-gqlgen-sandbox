@@ -23,11 +23,16 @@ export const FileTreeHeader = (props: FileTreeHeaderProps): JSX.Element => {
     ? `${styles.header} ${styles.folded}`
     : `${styles.header} ${styles.expanded}`;
 
+  const ProjectDir = () =>
+    fragment.projectDir ? (
+      <div className={styles.projectdir}>{fragment.projectDir}</div>
+    ) : (
+      <div />
+    );
+
   return (
     <div className={headerStyle}>
-      {!props.isFolded && fragment?.projectDir && (
-        <div className={styles.projectdir}>{fragment.projectDir}</div>
-      )}
+      {!props.isFolded && <ProjectDir />}
       <button onClick={props.onButtonClick}>
         {props.isFolded ? <AnglesRightIcon /> : <AnglesLeftIcon />}
       </button>

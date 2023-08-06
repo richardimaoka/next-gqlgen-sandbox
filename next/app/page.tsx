@@ -4,7 +4,7 @@ import RouterMounting from "./RouterMounting";
 import { VisibleColumn } from "./components/column/VisibleColumn";
 
 const queryDefinition = graphql(/* GraphQL */ `
-  query PageQuery($tutorial: String!, $step: String) {
+  query PageQuery($tutorial: String!, $step: String, $openFilePath: String) {
     page(tutorial: $tutorial, step: $step) {
       ...VisibleColumn_Fragment
     }

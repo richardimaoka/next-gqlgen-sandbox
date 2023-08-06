@@ -1,6 +1,7 @@
 import { FragmentType, graphql, useFragment } from "@/libs/gql";
 
 import styles from "./style.module.css";
+import { FileTreePane } from "./filetree/FileTreePane";
 
 const fragmentDefinition = graphql(`
   fragment SourceCodeColumn_Fragment on SourceCodeColumn {
@@ -20,5 +21,11 @@ interface SourceCodeColumnProps {
 export const SourceCodeColumn = (props: SourceCodeColumnProps) => {
   const fragment = useFragment(fragmentDefinition, props.fragment);
 
-  return <div></div>;
+  return (
+    <div>
+      {fragment.sourceCode && (
+        <FileTreePane step="" fragment={fragment.sourceCode} />
+      )}
+    </div>
+  );
 };
