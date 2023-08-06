@@ -1,12 +1,12 @@
 import { graphql } from "@/libs/gql";
 import { getClient } from "@/libs/gql/apolloClient";
 import RouterMounting from "./RouterMounting";
-import { ColumnHeader } from "./components/column/ColumnHeader";
+import { VisibleColumn } from "./components/column/VisibleColumn";
 
 const queryDefinition = graphql(/* GraphQL */ `
   query PageQuery($tutorial: String!, $step: String) {
     page(tutorial: $tutorial, step: $step) {
-      ...ColumnHeader_Fragment
+      ...VisibleColumn_Fragment
     }
   }
 `);
@@ -23,7 +23,7 @@ export default async function Home() {
 
   return (
     <RouterMounting>
-      <main>{data.page && <ColumnHeader fragment={data.page} />}</main>
+      <main>{data.page && <VisibleColumn fragment={data.page} />}</main>
     </RouterMounting>
   );
 }
