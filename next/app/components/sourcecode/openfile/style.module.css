@@ -26,22 +26,32 @@
   overflow: auto; /* scroll within file content (not to include file name tab in vertical scroll) */
 }
 
-.content::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-  background-color: #252526; /* or add it to the track */
+@media (max-width: 768px) {
+  .contents pre {
+    white-space: pre-wrap; /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+  }
 }
 
-.content::-webkit-scrollbar-thumb {
+/* .contents::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: #252526; /* or add it to the track */ /*
+}
+
+.contents::-webkit-scrollbar-thumb {
   background-color: #2b2b30;
   border-radius: 4px;
 }
 
-.content::-webkit-scrollbar-thumb:horizontal {
+.contents::-webkit-scrollbar-thumb:horizontal {
   background-color: #37373d;
   border-radius: 4px;
 }
 
-.content::-webkit-scrollbar-corner {
+.contents::-webkit-scrollbar-corner {
   background-color: #252526;
-}
+} */
