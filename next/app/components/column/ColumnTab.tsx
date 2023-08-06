@@ -1,9 +1,11 @@
-import { FragmentType, graphql, useFragment } from "@/libs/gql";
-import styles from "./style.module.css";
+import Link from "next/link";
 import { ChromeIcon } from "../icons/ChromeIcon";
 import { FileLinesIcon } from "../icons/FileLinesIcon";
 import { SourceCodeIcon } from "../icons/SourceCodeIcon";
 import { TerminalIcon } from "../icons/TerminalIcon";
+import styles from "./style.module.css";
+
+import { FragmentType, graphql, useFragment } from "@/libs/gql";
 
 const fragmentDefinition = graphql(`
   fragment ColumnTab_Fragment on ColumnWrapper {
@@ -46,10 +48,18 @@ export const ColumnTab = (props: ColumnTabProps): JSX.Element => {
 
   return (
     <div className={`${styles.tab} ${selectStyle}`}>
-      <span className={styles.smartphone}>
-        <Icon />
-      </span>
-      <span className={styles.desktop}>{fragment.name}</span>
+      <Link
+        href={{
+          query: {
+            column: encodeURIComponent(fragment.name ? fragment.name : ""),
+          },
+        }}
+      >
+        <span className={styles.smartphone}>
+          <Icon />
+        </span>
+        <span className={styles.desktop}>{fragment.name}</span>
+      </Link>
     </div>
   );
 };

@@ -63,20 +63,20 @@
 }
 
 @media (max-width: 768px) {
-  .tab > .desktop {
+  .tab .desktop {
     display: none;
   }
-  .tab > .smartphone {
+  .tab .smartphone {
     display: visible;
   }
 }
 
 @media (min-width: 769px) {
-  .tab > .desktop {
+  .tab .desktop {
     display: visible;
     height: 16px;
   }
-  .tab > .smartphone {
+  .tab .smartphone {
     display: none;
   }
 }
