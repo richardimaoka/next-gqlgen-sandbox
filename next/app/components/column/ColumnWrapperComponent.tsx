@@ -1,8 +1,8 @@
 import { FragmentType, graphql, useFragment } from "@/libs/gql";
-import { ColumnHeader } from "./ColumnHeader";
 
 import styles from "./style.module.css";
 import { SourceCodeColumn } from "../sourcecode/SourceCodeColumn";
+import { TerminalColumn } from "../terminal/TerminalColumn";
 
 const fragmentDefinition = graphql(`
   fragment ColumnWrapperComponent_Fragment on ColumnWrapper {
@@ -32,7 +32,7 @@ export const ColumnWrapperComponent = (props: ColumnWrapperComponentProps) => {
       case "SourceCodeColumn":
         return <SourceCodeColumn fragment={fragment.column} />;
       case "TerminalColumn":
-        return <div>tm</div>;
+        return <TerminalColumn fragment={fragment.column} />;
       default:
         return <div>default</div>;
     }

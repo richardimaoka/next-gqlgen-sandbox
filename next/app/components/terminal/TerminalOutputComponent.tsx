@@ -1,5 +1,5 @@
 import { source_code_pro } from "../fonts/fonts";
-import styles from "./terminal.module.css";
+import styles from "./style.module.css";
 
 import { FragmentType, graphql, useFragment } from "@/libs/gql";
 

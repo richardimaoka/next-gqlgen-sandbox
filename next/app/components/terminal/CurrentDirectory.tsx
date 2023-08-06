@@ -1,5 +1,5 @@
 import { source_code_pro } from "../fonts/fonts";
-import styles from "./terminal.module.css";
+import styles from "./style.module.css";
 import { DirectoryIcon } from "../icons/DirectoryIcon";
 
 import { FragmentType, graphql, useFragment } from "@/libs/gql";
@@ -19,14 +19,10 @@ export const CurrentDirectory = (props: CurrentDirectoryProps) => {
 
   return (
     <div className={styles.currentDir}>
-      {fragment.currentDirectory && (
-        <>
-          <DirectoryIcon />
-          <span className={source_code_pro.className}>
-            {fragment.currentDirectory}
-          </span>
-        </>
-      )}
+      {fragment.currentDirectory && <DirectoryIcon />}
+      <span className={source_code_pro.className}>
+        {fragment.currentDirectory ? fragment.currentDirectory : "　"}
+      </span>
     </div>
   );
 };

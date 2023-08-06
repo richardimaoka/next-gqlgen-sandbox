@@ -1,7 +1,7 @@
 import { source_code_pro } from "../fonts/fonts";
 import { FlickeringTrail } from "./FlickeringTrail";
 import { TerminalPrompt } from "./TerminalPrompt";
-import styles from "./terminal.module.css";
+import styles from "./style.module.css";
 
 import { FragmentType, graphql, useFragment } from "@/libs/gql";
 
